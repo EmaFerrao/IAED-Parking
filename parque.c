@@ -15,33 +15,28 @@ int caracterbranco(char caracter){
     return FALSE;
 }
 
-char* le_nome_parque(char* linha){
+char* le_nome_parque(char* linha) {
     char buffer[BUFSIZ];
     char* nome;
     int i=0;
     linha++; //ignora 'p'
-    while (*linha != '"' && caracterbranco(*linha)){
+    while (caracterbranco(*linha) && *linha != '\0') {
         linha++;
     }
-    // nome entre aspas
-    if (*linha == '"'){
+
+    if (*linha == '"') {
         linha++;
-        while (*linha != '"'){
+        while (*linha != '"' && *linha != '\0') {
+            buffer[i++] = *linha++;
+        }
+    } else { 
+        while(!caracterbranco(*linha) && *linha != '\0') {
             buffer[i++] = *linha++;
         }
     }
-    // não está entre aspas
-    else {
-        while(!caracterbranco(*linha) && *linha != '\0'){
-            buffer[i++] = *linha++;
-        }
-    }
-    i++;
     buffer[i] = '\0';
-    nome = (char*)(malloc(sizeof(char)*(strlen(buffer) + 1)));
-    printf("%lu\n",strlen(buffer));
+    nome = (char*) malloc(sizeof(char)*(strlen(buffer) + 1));
     strcpy(nome, buffer);
-    printf("%lu\n",strlen(nome));
     return nome;
 }
 
@@ -58,11 +53,10 @@ char* le_nome_parque(char* linha){
     return aux;
 } */
 
-void le_parque(char* linha){
-    if (strlen(linha)==2){
+void le_parque(char* linha) {
+    if (strlen(linha)==2) {
         //lista parques
-    }
-    else{
+    } else {
         char buffer[BUFSIZ];
         char* nome_parque;
         int capacidade;

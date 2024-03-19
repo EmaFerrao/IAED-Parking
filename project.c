@@ -22,11 +22,8 @@ void ler_input(){
 
 
 
-
-
-
-
 int main(){
     ler_input();
+    
     return 0;
 }
