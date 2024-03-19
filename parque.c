@@ -84,7 +84,8 @@ void le_parque(char* linha) {
         int argumentos_esperados = 4;
 
         nome_parque = le_nome_parque(linha, &posicao);
-        argumentos_recebidos = sscanf(linha+posicao, "%d %f %f %f", &capacidade, &valor_15, &valor_15_apos_1hora, &valor_max_diario);
+        argumentos_recebidos = sscanf(linha+posicao, "%d %f %f %f", 
+            &capacidade, &valor_15, &valor_15_apos_1hora, &valor_max_diario);
         if (argumentos_recebidos != argumentos_esperados) {
             printf("Erro a ler argumentos do parque\n");
             exit(EXIT_FAILURE);
