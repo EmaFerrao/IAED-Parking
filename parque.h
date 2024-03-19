@@ -20,6 +20,7 @@ typedef struct parque_no{
     struct parque_no* next;
 } Parque_No;
 
-char* le_nome_parque(char* linha);
+int caracterbranco(char caracter);
+char* le_nome_parque(char* linha, int* posicao);
 Parque* procura_parque(char* nome);
 void le_parque(char* linha);

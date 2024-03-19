@@ -7,31 +7,34 @@
 #define TRUE 1
 #define FALSE 0
 
-Parque_No *parque_head = NULL;
-
-int caracterbranco(char caracter){
+int caracterbranco(char caracter) {
     if (caracter == ' ') return TRUE;
     if (caracter == '\t') return TRUE;
     return FALSE;
 }
 
-char* le_nome_parque(char* linha) {
+char* le_nome_parque(char* linha, int* posicao) {
     char buffer[BUFSIZ];
     char* nome;
-    int i=0;
-    linha++; //ignora 'p'
-    while (caracterbranco(*linha) && *linha != '\0') {
-        linha++;
+    int i = 0;
+    (*posicao) += 1; //ignora 'p'
+    while (caracterbranco(linha[*posicao]) && linha[*posicao] != '\0') {
+        (*posicao) += 1;
     }
 
-    if (*linha == '"') {
-        linha++;
-        while (*linha != '"' && *linha != '\0') {
-            buffer[i++] = *linha++;
+    if (linha[*posicao] == '"') {
+        (*posicao) += 1;
+        while (linha[*posicao] != '"' && linha[*posicao] != '\0') {
+            buffer[i] = linha[*posicao];
+            (*posicao) += 1;
+            i += 1;
         }
+        (*posicao) += 1;
     } else { 
-        while(!caracterbranco(*linha) && *linha != '\0') {
-            buffer[i++] = *linha++;
+        while(!caracterbranco(linha[*posicao]) && linha[*posicao] != '\0') {
+            buffer[i] = linha[*posicao];
+            (*posicao) += 1;
+            i += 1;
         }
     }
     buffer[i] = '\0';
@@ -57,14 +60,17 @@ void le_parque(char* linha) {
     if (strlen(linha)==2) {
         //lista parques
     } else {
-        char buffer[BUFSIZ];
+        int posicao = 0;
         char* nome_parque;
         int capacidade;
         float valor_15;
         float valor_15_apos_1hora;
         float valor_max_diario;
-        nome_parque = le_nome_parque(linha);
-        printf("%s\n", nome_parque);
+        nome_parque = le_nome_parque(linha, &posicao);
+        printf("%d\n", posicao);
+        printf("%s\n", linha + posicao);
+        sscanf(linha+posicao, "%d %f %f %f", &capacidade, &valor_15, &valor_15_apos_1hora, &valor_max_diario);
+        printf("%d %f %f %f", capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
         //cria_parque(); //DEFINIR
     }
 }
