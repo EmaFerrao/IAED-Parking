@@ -1,3 +1,3 @@
 proj:	*.c *.h
-	gcc -g -o proj *.c
+	gcc -Wall -Wextra -Werror -Wno-unused-result -g -o proj *.c
 	

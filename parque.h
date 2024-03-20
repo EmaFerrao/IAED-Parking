@@ -9,6 +9,7 @@
 typedef struct {
     char *nome;
     int capacidade;
+    int lugares_disponiveis;
     float valor_15;
     float valor_15_apos_1hora;
     float valor_max_diario;
@@ -20,7 +21,12 @@ typedef struct parque_no{
     struct parque_no* next;
 } Parque_No;
 
+int nao_tem_argumentos(char* linha);
 int caracterbranco(char caracter);
+void copia_char_incrementa_posicao(char* buffer, char* linha, int* posicao, int* i);
 char* le_nome_parque(char* linha, int* posicao);
-Parque* procura_parque(char* nome);
-void le_parque(char* linha);
+Parque* procura_parque(char* nome, Parque_No* primeiro_parque);
+void lista_parques(Parque_No* primeiro_parque);
+void cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos_1hora, 
+    float valor_max_diario, Parque_No* ultimo_parque, int* numero_parques); 
+void le_parque(char* linha, Parque_No* primeiro_parque, Parque_No* ultimo_parque, int* numero_parques);
