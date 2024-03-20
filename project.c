@@ -25,8 +25,8 @@ void ler_input(Parque_No* primeiro_parque, Parque_No* ultimo_parque, int* numero
 int main(){
     Parque_No* primeiro_parque = NULL;
     Parque_No* ultimo_parque = NULL;
-    int* numero_parques = 0;
-    ler_input(primeiro_parque, ultimo_parque, numero_parques);
+    int numero_parques = 0;
+    ler_input(primeiro_parque, ultimo_parque, &numero_parques);
     
     return 0;
 }

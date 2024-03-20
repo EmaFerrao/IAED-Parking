@@ -133,7 +133,7 @@ void cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos
 }
 
 void le_parque(char* linha, Parque_No* primeiro_parque, Parque_No* ultimo_parque, int* numero_parques) {
-    if (*numero_parques == MAX_PARQUES) {
+    if ((*numero_parques) == MAX_PARQUES) {
         printf("too many parks.");
         exit(EXIT_FAILURE);
     }
