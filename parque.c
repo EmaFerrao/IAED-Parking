@@ -120,7 +120,9 @@ void cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos
 
         novo_parque_no = (Parque_No*) malloc(sizeof(Parque_No));
         novo_parque_no -> parque = novo_parque;
-        ultimo_parque -> next = novo_parque_no;
+        if (ultimo_parque != NULL) {
+            ultimo_parque -> next = novo_parque_no;
+        }
         ultimo_parque = novo_parque_no;
 
         (numero_parques) += 1;
