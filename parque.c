@@ -105,7 +105,7 @@ void lista_parques(Parque_No* primeiro_parque) {
 }
 
 void cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos_1hora, 
-    float valor_max_diario, Parque_No* ultimo_parque, int *numero_parques) 
+    float valor_max_diario, Parque_No* primeiro_parque, Parque_No* ultimo_parque, int *numero_parques) 
     {
         Parque* novo_parque;
         Parque_No* novo_parque_no;
@@ -124,6 +124,9 @@ void cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos
             ultimo_parque -> next = novo_parque_no;
         }
         ultimo_parque = novo_parque_no;
+        if (primeiro_parque == NULL) {
+            primeiro_parque = novo_parque_no;
+        }
 
         (*numero_parques) += 1;
 }
@@ -163,7 +166,7 @@ void le_parque(char* linha, Parque_No* primeiro_parque, Parque_No* ultimo_parque
             printf("%s: parking already exists.", nome);
             exit(EXIT_FAILURE);
         } else {
-            cria_parque(nome, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario, ultimo_parque, numero_parques);
+            cria_parque(nome, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario, primeiro_parque, ultimo_parque, numero_parques);
         }
     }
 }
