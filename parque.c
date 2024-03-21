@@ -84,8 +84,12 @@ void verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_a
     }
 }
 
-Parque* procura_parque(char* nome, Parque_No* primeiro_parque){
-    Parque_No* aux = primeiro_parque;
+Parque* procura_parque(char* nome, Parque_No** pp_primeiro_parque){
+    if (pp_primeiro_parque == NULL) {
+        return NULL;
+    }
+
+    Parque_No* aux = (*pp_primeiro_parque);
     while(aux != NULL){
         if (strcmp(aux->parque->nome, nome) == 0){
             return aux->parque;
@@ -95,8 +99,12 @@ Parque* procura_parque(char* nome, Parque_No* primeiro_parque){
     return NULL;
 }
 
-void lista_parques(Parque_No* primeiro_parque) {
-    Parque_No* aux = primeiro_parque;
+void lista_parques(Parque_No** pp_primeiro_parque) {
+    if (pp_primeiro_parque == NULL) {
+        printf("no parks to list.");
+        exit(EXIT_FAILURE);
+    }
+    Parque_No* aux = (*pp_primeiro_parque);
     while (aux != NULL) {
         Parque* parque = aux -> parque;
         printf("%s %d %d", parque->nome, parque->capacidade, parque->lugares_disponiveis);
@@ -138,7 +146,8 @@ void le_parque(char* linha, Parque_No** pp_primeiro_parque, Parque_No** pp_ultim
     }
 
     if (nao_tem_argumentos(linha)) {
-        lista_parques(*(pp_primeiro_parque));
+        lista_parques(pp_primeiro_parque);
+        
     } else {
         int posicao = 0;
         char* nome;
@@ -148,7 +157,6 @@ void le_parque(char* linha, Parque_No** pp_primeiro_parque, Parque_No** pp_ultim
         float valor_max_diario;
         int argumentos_recebidos;
         int argumentos_esperados = 4;
-        Parque* parque;
 
         nome = le_nome_parque(linha, &posicao);
         argumentos_recebidos = sscanf(linha+posicao, "%d %f %f %f", 
@@ -161,8 +169,7 @@ void le_parque(char* linha, Parque_No** pp_primeiro_parque, Parque_No** pp_ultim
 
         verifica_argumentos_parque(capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
 
-        parque = procura_parque(nome, (*pp_primeiro_parque));
-        if (parque != NULL) {
+        if (procura_parque(nome, pp_primeiro_parque) != NULL) {
             printf("%s: parking already exists.", nome);
             exit(EXIT_FAILURE);
         } else {
