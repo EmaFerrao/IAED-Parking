@@ -101,7 +101,7 @@ Parque* procura_parque(char* nome, Parque_No** pp_primeiro_parque){
 
 void lista_parques(Parque_No** pp_primeiro_parque) {
     if (pp_primeiro_parque == NULL) {
-        printf("no parks to list.");
+        printf("no parks to list.\n");
         exit(EXIT_FAILURE);
     }
     Parque_No* aux = (*pp_primeiro_parque);
@@ -131,9 +131,10 @@ void cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos
         if (pp_ultimo_parque != NULL) {
             (*pp_ultimo_parque) -> next = novo_parque_no;
         }
-        (*pp_ultimo_parque) = novo_parque_no;
+        pp_primeiro_parque = &novo_parque_no;
+
         if (pp_primeiro_parque == NULL) {
-            (*pp_primeiro_parque) = novo_parque_no;
+            pp_primeiro_parque = &novo_parque_no;
         }
 
         (*numero_parques) += 1;
@@ -141,7 +142,7 @@ void cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos
 
 void le_parque(char* linha, Parque_No** pp_primeiro_parque, Parque_No** pp_ultimo_parque, int* numero_parques) {
     if ((*numero_parques) == MAX_PARQUES) {
-        printf("too many parks.");
+        printf("too many parks.\n");
         exit(EXIT_FAILURE);
     }
 
@@ -170,7 +171,7 @@ void le_parque(char* linha, Parque_No** pp_primeiro_parque, Parque_No** pp_ultim
         verifica_argumentos_parque(capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
 
         if (procura_parque(nome, pp_primeiro_parque) != NULL) {
-            printf("%s: parking already exists.", nome);
+            printf("%s: parking already exists.\n", nome);
             exit(EXIT_FAILURE);
         } else {
             cria_parque(nome, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario, pp_primeiro_parque, pp_ultimo_parque, numero_parques);
