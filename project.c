@@ -9,13 +9,13 @@
 #define TRUE 1
  
 
-void ler_input(Parque_No* primeiro_parque, Parque_No* ultimo_parque, int* numero_parques){
+void ler_input(Parque_No** pp_primeiro_parque, Parque_No** pp_ultimo_parque, int* numero_parques){
     char linha[BUFSIZ];
     do {
         fgets(linha, sizeof(linha), stdin);
         switch (linha[0]){
             case 'p':
-                le_parque(linha, primeiro_parque, ultimo_parque, numero_parques);
+                le_parque(linha, pp_primeiro_parque, pp_ultimo_parque, numero_parques);
         }
     } while (linha[0] != 'q');
 }
@@ -23,10 +23,10 @@ void ler_input(Parque_No* primeiro_parque, Parque_No* ultimo_parque, int* numero
 
 
 int main(){
-    Parque_No* primeiro_parque = NULL;
-    Parque_No* ultimo_parque = NULL;
+    Parque_No** pp_primeiro_parque = NULL;
+    Parque_No** pp_ultimo_parque = NULL;
     int numero_parques = 0;
-    ler_input(primeiro_parque, ultimo_parque, &numero_parques);
+    ler_input(pp_primeiro_parque, pp_ultimo_parque, &numero_parques);
     
     return 0;
 }
