@@ -180,3 +180,22 @@ void le_parque(char* linha, Parque_No** head_parques, Parque_No** tail_parques, 
         }
     }
 }
+
+void libertar_parque(Parque* parque) {
+    free(parque->nome);
+    free(parque);
+}
+
+void libertar_lista_parques(Parque_No** head_parques) {
+    if (head_parques == NULL) {
+        return;
+    }
+
+    Parque_No* aux = (*head_parques);
+    while (aux != NULL) {
+        Parque_No* aux_destruir = aux;
+        libertar_parque(aux->parque);
+        free(aux_destruir);
+        aux = aux -> next;
+    }
+}

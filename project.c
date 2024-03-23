@@ -5,6 +5,7 @@
 #include <string.h>
 #include "parque.h"
 
+
 #define FALSE 0
 #define TRUE 1
 #define BUFSIZE 8192
@@ -32,6 +33,7 @@ int main(){
     Parque_No* tail_parques = NULL;
     int numero_parques = 0;
     ler_input(&head_parques, &tail_parques, &numero_parques);
+    libertar_lista_parques(&head_parques);
     
     return 0;
 }
