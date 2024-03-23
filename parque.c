@@ -48,8 +48,7 @@ char* le_nome_parque(char* linha, int* posicao) {
     } else { 
         while(!caracterbranco(linha[*posicao]) && linha[*posicao] != '\0') {
             copia_char_incrementa_posicao(buffer, linha, posicao, &i);
-            printf("buffer: %s\n", buffer);
-            printf("posicao: %d", *posicao);
+            printf("posicao: %d\n", *posicao);
             printf("linha[*posicao]: %c\n", linha[*posicao]);
         }
     }
