@@ -65,7 +65,7 @@ void verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_a
     int valores_certos = TRUE;
 
     if (capacidade <= 0) {
-        printf("%d: invalid capacity.", capacidade);
+        printf("%d: invalid capacity.\n", capacidade);
     }
 
     if (valor_15 <= 0 || valor_15_apos_1hora <= 0 || valor_max_diario <= 0) {
@@ -77,7 +77,7 @@ void verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_a
     }
 
     if (! valores_certos) {
-        printf("invalid cost.");
+        printf("invalid cost.\n");
     }
 }
 
