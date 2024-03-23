@@ -36,6 +36,7 @@ char* le_nome_parque(char* linha, int* posicao) {
     int i = 0;
     (*posicao) += 1; //ignora 'p'
     //ignora espacos entre p e nome
+    printf("%lu\n", strlen(linha));
     while (caracterbranco(linha[*posicao]) && linha[*posicao] != '\0') {
         (*posicao) += 1;
     }
