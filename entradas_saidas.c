@@ -9,13 +9,13 @@
 #define TRUE 1
 #define TAMANHO_MATRICULA 9
 
-int cria_data(int dia, int mes, int ano, int hora, int minutos) {
-    int data = 0;
+long int cria_data(int dia, int mes, int ano, int hora, int minutos) {
+    long int data = 0;
     data += minutos;
     data += hora*100;
     data += dia*10000;
     data += mes*1000000;
-    data += ano*100000000;
+    data += (long int)ano*100000000;
     return data;
 }
 
@@ -23,13 +23,13 @@ int cria_data(int dia, int mes, int ano, int hora, int minutos) {
 void registar_entrada(char* linha) {
     char matricula[TAMANHO_MATRICULA];
     char nome_parque[BUFSIZ];
-    int data;
+    long int data;
     ler_entrada(linha, matricula, nome_parque, &data);
-    printf("%s %s %d\n", nome_parque, matricula, data);
+    printf("%s %s %lu\n", nome_parque, matricula, data);
 
 }
 
-void ler_entrada(char* linha, char* matricula, char* nome_parque, int* data) {
+void ler_entrada(char* linha, char* matricula, char* nome_parque, long int* data) {
     int ano, mes, dia, hora, minutos;
     int argumentos_esperados = 8;
     int argumentos_recebidos;
