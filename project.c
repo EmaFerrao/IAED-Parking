@@ -7,6 +7,7 @@
 
 #define FALSE 0
 #define TRUE 1
+#define BUFSIZ 8192
  
 
 void ler_input(Parque_No** pp_primeiro_parque, Parque_No** pp_ultimo_parque, int* numero_parques){

@@ -12,6 +12,7 @@
 #define TRUE 1
 #define FALSE 0
 #define MAX_PARQUES 20
+#define BUFSIZ 8192
 
 int nao_tem_argumentos(char* linha) {
     return strlen(linha)==2;
