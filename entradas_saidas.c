@@ -10,7 +10,13 @@
 #define TAMANHO_MATRICULA 9
 
 int cria_data(int dia, int mes, int ano, int hora, int minutos) {
-    return minutos + hora*100 + dia*10000 + mes*1000000 + ano*100000000;
+    int data = 0;
+    data += minutos;
+    data += hora*100;
+    data += dia*10000;
+    data += mes*1000000;
+    data += ano*100000000;
+    return data;
 }
 
 //void registar_entrada(char* linha, Parque_No** head_parques, int* numero_parques)
