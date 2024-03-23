@@ -7,11 +7,11 @@
 
 #define FALSE 0
 #define TRUE 1
-#define BUFSIZ 8192
+#define BUFSIZE 8192
  
 
 void ler_input(Parque_No** pp_primeiro_parque, Parque_No** pp_ultimo_parque, int* numero_parques){
-    char buffer[BUFSIZ];
+    char buffer[BUFSIZE];
     char* linha;
     do {
         fgets(buffer, sizeof(buffer), stdin);

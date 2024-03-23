@@ -12,7 +12,7 @@
 #define TRUE 1
 #define FALSE 0
 #define MAX_PARQUES 20
-#define BUFSIZ 8192
+#define BUFSIZE 8192
 
 int nao_tem_argumentos(char* linha) {
     return strlen(linha)==2;
@@ -31,7 +31,7 @@ void copia_char_incrementa_posicao(char* buffer, char* linha, int* posicao, int*
 }
 
 char* le_nome_parque(char* linha, int* posicao) {
-    char buffer[BUFSIZ];
+    char buffer[BUFSIZE];
     char* nome;
     int i = 0;
     (*posicao) += 1; //ignora 'p'
