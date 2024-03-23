@@ -10,7 +10,7 @@
 #define BUFSIZE 8192
  
 
-void ler_input(Parque_No** pp_primeiro_parque, Parque_No** pp_ultimo_parque, int* numero_parques){
+void ler_input(Parque_No** head_parques, Parque_No** tail_parques, int* numero_parques){
     char buffer[BUFSIZE];
     char* linha;
     do {
@@ -19,7 +19,7 @@ void ler_input(Parque_No** pp_primeiro_parque, Parque_No** pp_ultimo_parque, int
         strcpy(linha,buffer);
         switch (*linha){
             case 'p':
-                le_parque(linha, pp_primeiro_parque, pp_ultimo_parque, numero_parques);
+                le_parque(linha, head_parques, tail_parques, numero_parques);
         }
     } while (*linha != 'q');
     free(linha);
@@ -28,10 +28,10 @@ void ler_input(Parque_No** pp_primeiro_parque, Parque_No** pp_ultimo_parque, int
 
 
 int main(){
-    Parque_No* pp_primeiro_parque = NULL;
-    Parque_No* pp_ultimo_parque = NULL;
+    Parque_No* head_parques = NULL;
+    Parque_No* tail_parques = NULL;
     int numero_parques = 0;
-    ler_input(&pp_primeiro_parque, &pp_ultimo_parque, &numero_parques);
+    ler_input(&head_parques, &tail_parques, &numero_parques);
     
     return 0;
 }
