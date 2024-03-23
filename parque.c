@@ -102,7 +102,7 @@ Parque* procura_parque(char* nome, Parque_No** pp_primeiro_parque){
 }
 
 void lista_parques(Parque_No** pp_primeiro_parque) {
-    if (pp_primeiro_parque == NULL) {
+    if (pp_primeiro_parque == NULL || *pp_primeiro_parque == NULL) {
         printf("no parks to list.\n");
     }
     Parque_No* aux = (*pp_primeiro_parque);
@@ -149,7 +149,7 @@ void le_parque(char* linha, Parque_No** pp_primeiro_parque, Parque_No** pp_ultim
             printf("too many parks.\n");
             return;
         }
-        
+
         int posicao = 0;
         char* nome;
         int capacidade;
