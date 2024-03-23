@@ -22,5 +22,6 @@ typedef struct {
     Carro_No* lista;
 } HashCarros;
 
+int cria_data(int dia, int mes, int ano, int hora, int minutos);
 void registar_entrada(char* linha);
 void ler_entrada(char* linha, char* matricula, char* nome_parque, int* data);

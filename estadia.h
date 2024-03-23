@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <ctype.h> 
 #include <string.h>
-#include "data_hora.h"
 
 #define FALSE 0
 #define TRUE 1
