@@ -195,7 +195,7 @@ void libertar_lista_parques(Parque_No** head_parques) {
     while (aux != NULL) {
         Parque_No* aux_destruir = aux;
         libertar_parque(aux->parque);
-        free(aux_destruir);
         aux = aux -> next;
+        free(aux_destruir);
     }
 }
