@@ -18,6 +18,7 @@ void ler_input(Parque_No** head_parques, Parque_No** tail_parques, int* numero_p
         switch (linha[0]){
             case 'p':
                 le_parque(linha, head_parques, tail_parques, numero_parques);
+                break;
             case 'e':
                 registar_entrada(linha);
         }
