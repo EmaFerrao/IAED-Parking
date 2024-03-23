@@ -102,7 +102,7 @@ Parque* procura_parque(char* nome, Parque_No** head_parques){
 }
 
 void lista_parques(Parque_No** head_parques) {
-    if (head_parques == NULL || *head_parques == NULL) {
+    if (head_parques == NULL) {
         printf("no parks to list.\n");
         return;
     }
