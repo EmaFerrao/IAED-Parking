@@ -10,14 +10,17 @@
  
 
 void ler_input(Parque_No** pp_primeiro_parque, Parque_No** pp_ultimo_parque, int* numero_parques){
-    char linha[BUFSIZ];
+    char buffer[BUFSIZ];
+    char* linha;
     do {
-        fgets(linha, sizeof(linha), stdin);
-        switch (linha[0]){
+        fgets(buffer, sizeof(buffer), stdin);
+        linha = (char*) malloc(sizeof(char)*(strlen(buffer)+1));
+        switch (*linha){
             case 'p':
                 le_parque(linha, pp_primeiro_parque, pp_ultimo_parque, numero_parques);
         }
-    } while (linha[0] != 'q');
+    } while (*linha != 'q');
+    free(linha);
 }
 
 
