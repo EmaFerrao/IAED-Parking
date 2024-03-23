@@ -36,7 +36,6 @@ char* le_nome_parque(char* linha, int* posicao) {
     int i = 0;
     (*posicao) += 1; //ignora 'p'
     //ignora espacos entre p e nome
-    printf("%lu\n", strlen(linha));
     while (caracterbranco(linha[*posicao]) && linha[*posicao] != '\0') {
         (*posicao) += 1;
     }
@@ -50,8 +49,6 @@ char* le_nome_parque(char* linha, int* posicao) {
     } else { 
         while(!caracterbranco(linha[*posicao]) && linha[*posicao] != '\0') {
             copia_char_incrementa_posicao(buffer, linha, posicao, &i);
-            printf("posicao: %d\n", *posicao);
-            printf("linha[*posicao]: %c\n", linha[*posicao]);
         }
     }
     buffer[i] = '\0';
@@ -65,11 +62,14 @@ char* le_nome_parque(char* linha, int* posicao) {
     return nome;
 }
 
-void verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario) {
+int verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario) {
     int valores_certos = TRUE;
+    int valido = TRUE;
 
     if (capacidade <= 0) {
         printf("%d: invalid capacity.\n", capacidade);
+        valido = FALSE;
+        return valido;
     }
 
     if (valor_15 <= 0 || valor_15_apos_1hora <= 0 || valor_max_diario <= 0) {
@@ -83,6 +83,7 @@ void verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_a
     if (! valores_certos) {
         printf("invalid cost.\n");
     }
+    return valores_certos;
 }
 
 Parque* procura_parque(char* nome, Parque_No** pp_primeiro_parque){
@@ -141,14 +142,14 @@ void cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos
 }
 
 void le_parque(char* linha, Parque_No** pp_primeiro_parque, Parque_No** pp_ultimo_parque, int* numero_parques) {
-    if ((*numero_parques) == MAX_PARQUES) {
-        printf("too many parks.\n");
-    }
-
     if (nao_tem_argumentos(linha)) {
-        lista_parques(pp_primeiro_parque);
-        
+        lista_parques(pp_primeiro_parque);   
     } else {
+        if ((*numero_parques) == MAX_PARQUES) {
+            printf("too many parks.\n");
+            return;
+        }
+        
         int posicao = 0;
         char* nome;
         int capacidade;
@@ -157,21 +158,23 @@ void le_parque(char* linha, Parque_No** pp_primeiro_parque, Parque_No** pp_ultim
         float valor_max_diario;
         int argumentos_recebidos;
         int argumentos_esperados = 4;
+        int argumentos_validos = TRUE;
 
         nome = le_nome_parque(linha, &posicao);
-        argumentos_recebidos = sscanf(linha+posicao, "%d %f %f %f", 
-            &capacidade, &valor_15, &valor_15_apos_1hora, &valor_max_diario);
-
-        if (argumentos_recebidos != argumentos_esperados) {
-            printf("Erro a ler argumentos do parque\n");
-        }
-
-        verifica_argumentos_parque(capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
 
         if (procura_parque(nome, pp_primeiro_parque) != NULL) {
             printf("%s: parking already exists.\n", nome);
         } else {
-            cria_parque(nome, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario, pp_primeiro_parque, pp_ultimo_parque, numero_parques);
+            argumentos_recebidos = sscanf(linha+posicao, "%d %f %f %f", 
+            &capacidade, &valor_15, &valor_15_apos_1hora, &valor_max_diario);
+            if (argumentos_recebidos != argumentos_esperados) {
+                printf("Erro a ler argumentos do parque\n");
+            }
+
+            argumentos_validos = verifica_argumentos_parque(capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
+            if (argumentos_validos) {
+                cria_parque(nome, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario, pp_primeiro_parque, pp_ultimo_parque, numero_parques);
+            }
         }
     }
 }

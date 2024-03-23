@@ -15,7 +15,6 @@ void ler_input(Parque_No** pp_primeiro_parque, Parque_No** pp_ultimo_parque, int
     char* linha;
     do {
         fgets(buffer, sizeof(buffer), stdin);
-        printf("%lu\n", strlen(buffer));
         linha = (char*) malloc(sizeof(char)*(strlen(buffer)+1));
         strcpy(linha,buffer);
         switch (*linha){
