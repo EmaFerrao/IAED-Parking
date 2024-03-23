@@ -3,7 +3,6 @@
 #include <ctype.h> 
 #include <string.h>
 #include "data_hora.h"
-#include "carro.h"
 
 #define FALSE 0
 #define TRUE 1

@@ -20,5 +20,7 @@ typedef struct carro_no{
 typedef struct {
     int chave;
     Carro_No* lista;
-} HashTable;
+} HashCarros;
 
+void registar_entrada(char* linha);
+void ler_entrada(char* linha, char* matricula, char* nome_parque, int* data);

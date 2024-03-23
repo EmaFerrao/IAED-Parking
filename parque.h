@@ -31,4 +31,5 @@ void lista_parques(Parque_No** head_parques);
 void cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos_1hora, 
     float valor_max_diario, Parque_No** head_parques, Parque_No** tail_parques, int* numero_parques); 
 void le_parque(char* linha, Parque_No** head_parques, Parque_No** tail_parques, int* numero_parques);
+void libertar_parque(Parque* parque);
 void libertar_lista_parques(Parque_No** head_parques);
