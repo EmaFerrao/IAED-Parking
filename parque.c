@@ -104,6 +104,7 @@ Parque* procura_parque(char* nome, Parque_No** pp_primeiro_parque){
 void lista_parques(Parque_No** pp_primeiro_parque) {
     if (pp_primeiro_parque == NULL || *pp_primeiro_parque == NULL) {
         printf("no parks to list.\n");
+        return;
     }
     Parque_No* aux = (*pp_primeiro_parque);
     while (aux != NULL) {
