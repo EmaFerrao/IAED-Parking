@@ -110,6 +110,9 @@ void lista_parques(Parque_No** pp_primeiro_parque) {
     while (aux != NULL) {
         Parque* parque = aux -> parque;
         printf("%s %d %d\n", parque->nome, parque->capacidade, parque->lugares_disponiveis);
+        if (aux->next == NULL) {
+            break;
+        }
         aux = aux -> next;
     }
 }
