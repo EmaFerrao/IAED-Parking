@@ -18,9 +18,10 @@ void registar_entrada(char* linha) {
 }
 
 void ler_entrada(char* linha, char* matricula, char* nome_parque, int* data) {
-    int ano, mes, dia, hora, minutos;
+    int ano, mes, dia, hora, minutos, arg;
     char comando_ignorar;
-    sscanf(linha, "%c %s %s %d-%d-%d %d:%d", &comando_ignorar, nome_parque, matricula, &dia, &mes, &ano, &hora, &minutos);
+    arg = sscanf(linha, "%c %s %s %d-%d-%d %d:%d", &comando_ignorar, nome_parque, matricula, &dia, &mes, &ano, &hora, &minutos);
     *data = ano;
+    printf("%d", arg);
     printf("%s %s %d-%d-%d %d:%d", nome_parque, matricula, dia, mes, ano, hora, minutos);
 }
