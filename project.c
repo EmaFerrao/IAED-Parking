@@ -24,15 +24,13 @@ void ler_input(Lista_Parques* lista_parques){
         }
     } while (linha[0] != 'q');
 }
-//ola
-
 
 
 int main(){
     Lista_Parques* lista_parques;
     lista_parques = cria_Lista_Parques();
     ler_input(lista_parques);
-    libertar_lista_parques(lista_parques);
+    libertar_lista_parques(lista_parques, TRUE);
     
     return 0;
 }

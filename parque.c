@@ -151,8 +151,8 @@ void le_parque(char* linha, Lista_Parques* lista_parques) {
             if (argumentos_validos) {
                 cria_parque(nome, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario, lista_parques);
             }
-            free(nome);
         }
+        free(nome);
     }
 }
 
@@ -171,8 +171,7 @@ Lista_Parques* cria_Lista_Parques() {
 void itera_Lista_Parques(Lista_Parques* lista_parques, Operacao_Parque operacao) {
     Parque_Node* aux = lista_parques->head;
     while (aux != NULL) {
-        Parque* parque = aux -> parque;
-        operacao(parque);
+        operacao(aux->parque);
         aux = aux -> next;
     }
 }
@@ -197,13 +196,16 @@ void libertar_parque(Parque* parque) {
     free(parque);
 }
 
-void libertar_lista_parques(Lista_Parques* lista_parques) {
+void libertar_lista_parques(Lista_Parques* lista_parques, int libertar_parques) {
     Parque_Node* aux = lista_parques->head;
+    Parque_Node* next;
     while (aux != NULL) {
-        Parque_Node* aux_destruir = aux;
-        libertar_parque(aux->parque);
-        aux = aux -> next;
-        free(aux_destruir);
+        if (libertar_parques) {
+            libertar_parque(aux->parque);
+        }
+        next = aux->next;
+        free(aux);
+        aux = next;
     }
     free(lista_parques);
 }

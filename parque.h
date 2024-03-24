@@ -44,4 +44,4 @@ Lista_Parques* cria_Lista_Parques();
 void itera_Lista_Parques(Lista_Parques* lista_parques, Operacao_Parque operacao);
 void append_Lista_Parques(Lista_Parques* lista_parques, Parque* parque);
 void libertar_parque(Parque* parque);
-void libertar_lista_parques(Lista_Parques* lista_parques);
+void libertar_lista_parques(Lista_Parques* lista_parques, int libertar_parques);
