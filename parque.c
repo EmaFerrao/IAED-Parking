@@ -172,7 +172,8 @@ Lista_Parques* cria_Lista_Parques() {
     lista_parques = (Lista_Parques*) malloc(sizeof(Lista_Parques));
     Parque_Node* head = NULL;
     Parque_Node* tail = NULL;
-    int numero_parques = 0;
+    int *numero_parques;
+    *numero_parques = 0;
     lista_parques->head = head;
     lista_parques->tail = tail;
     lista_parques->numero_parques = &numero_parques;
