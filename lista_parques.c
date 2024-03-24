@@ -20,7 +20,7 @@ void itera_Lista_Parques(Lista_Parques lista_parques, Operacao_Parque operacao) 
     }
 }
 
-Parque* procura_parque(char* nome, Lista_Parques lista_parques){
+Parque* procura_parque(Lista_Parques lista_parques, char* nome) {
     Parque_Node* aux = lista_parques->head;
     while (aux != NULL) {
         if (strcmp(aux->parque->nome, nome) == 0){

@@ -17,7 +17,7 @@ typedef struct parques_lista* Lista_Parques;
 
 Lista_Parques cria_Lista_Parques();
 void itera_Lista_Parques(Lista_Parques lista_parques, Operacao_Parque operacao);
-Parque* procura_parque(char* nome, Lista_Parques lista_parques);
+Parque* procura_parque(Lista_Parques lista_parques, char* nome) ;
 void imprime_lista_parques(Lista_Parques lista_parques);
 void append_Lista_Parques(Lista_Parques lista_parques, Parque* parque);
 void libertar_lista_parques(Lista_Parques lista_parques, int libertar_parques);

@@ -34,7 +34,7 @@ void comando_p(char* linha, Lista_Parques lista_parques) {
             return;
         }
     }
-    if (procura_parque(nome, lista_parques) != NULL) {
+    if (procura_parque(lista_parques, nome) != NULL) {
         printf("%s: parking already exists.\n", nome);
         return;
     } 
