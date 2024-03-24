@@ -1,11 +1,14 @@
+#ifndef PARQUE_H
+#define PARQUE_H
+
 #include <stdio.h> 
 #include <stdlib.h>
 #include <ctype.h> 
 #include <string.h>
 #include "input.h"
+#include "bool.h"
 
-#define FALSE 0
-#define TRUE 1
+#define MAX_NOME_PARQUE 50
 
 typedef struct {
     char *nome;
@@ -44,3 +47,5 @@ Parque* procura_parque(char* nome, Lista_Parques lista_parques);
 void imprime_lista_parques(Lista_Parques lista_parques);
 void append_Lista_Parques(Lista_Parques lista_parques, Parque* parque);
 void libertar_lista_parques(Lista_Parques lista_parques, int libertar_parques);
+
+#endif

@@ -1,10 +1,10 @@
+#ifndef REGISTO_H
+#define REGISTO_H
+
 #include <stdio.h> 
 #include <stdlib.h>
 #include <ctype.h> 
 #include <string.h>
-
-#define FALSE 0
-#define TRUE 1
 
 typedef struct {
     char* nome_parque;
@@ -35,3 +35,5 @@ void itera_lista_registos(Lista_Registos lista_registos, Operacao_Registo operac
 Registo* procura_registo(Lista_Registos lista_registos, char* matricula);
 void append_lista_registos(Lista_Registos lista_registos, Registo* registo);
 void libertar_lista_registos(Lista_Registos lista_registos, int libertar_registos);
+
+#endif

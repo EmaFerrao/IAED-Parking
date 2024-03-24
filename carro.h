@@ -1,12 +1,12 @@
+#ifndef CARRO_H
+#define CARRO_H
+
 #include <stdio.h> 
 #include <stdlib.h>
 #include <ctype.h> 
 #include <string.h>
 #include "registo.h"
 #include "parque.h"
-
-#define FALSE 0
-#define TRUE 1
 
 typedef struct {
     char* matricula;
@@ -33,9 +33,8 @@ struct tablehashcarro {
 typedef struct tablehashcarro* HashTable_Carros; 
 
 
-long int cria_data(int dia, int mes, int ano, int hora, int minutos);
 void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros);
-void le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, long int* data);
+void le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, char* data, char* hora);
 
 Carro* cria_carro(char* matricula);
 void libertar_carro(Carro* carro);
@@ -51,3 +50,5 @@ void libertar_lista_carros(Lista_Carros lista_carros, int libertar_carros);
 int hash(char *texto, int tamanho);
 HashTable_Carros criar_hashtable_carros(int tamanho_esperado);
 void inserir_hashtable_carros(HashTable_Carros hashtable, Carro* carro);
+
+#endif
