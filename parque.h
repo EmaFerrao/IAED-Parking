@@ -24,7 +24,7 @@ typedef struct parque_node{
 typedef struct {
     Parque_Node* head;
     Parque_Node* tail;
-    int* numero_parques;
+    int numero_parques;
 } Lista_Parques;
 
 typedef void (*Operacao_Parque)(Parque*);
@@ -42,6 +42,6 @@ void le_parque(char* linha, Lista_Parques* lista_parques);
 void imprime_parque(Parque* parque);
 Lista_Parques* cria_Lista_Parques();
 void itera_Lista_Parques(Lista_Parques* lista_parques, Operacao_Parque operacao);
-void insert_Lista_Parques(Lista_Parques* lista_parques, Parque* parque);
+void append_Lista_Parques(Lista_Parques* lista_parques, Parque* parque);
 void libertar_parque(Parque* parque);
 void libertar_lista_parques(Lista_Parques* lista_parques);
