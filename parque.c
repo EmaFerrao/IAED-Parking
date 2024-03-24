@@ -222,6 +222,7 @@ void libertar_parque(Parque* parque) {
 void libertar_lista_parques(Lista_Parques* lista_parques) {
     Parque_Node* head = lista_parques->head;
     if (head == NULL) {
+        free(lista_parques);
         return;
     }
 
