@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h> 
 #include <string.h>
-#include "carro.h"
-
+#include "hashtable_carros.h"
 
 int hash(char *texto, int tamanho) {
     int hash = 7;

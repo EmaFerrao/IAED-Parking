@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h> 
 #include <string.h>
-#include "registo.h"
+#include "lista_registos.h"
 
 Lista_Registos cria_lista_registos() {
     Lista_Registos lista_registos = (Lista_Registos) malloc(sizeof(Lista_Registos));

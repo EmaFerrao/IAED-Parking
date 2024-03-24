@@ -1,6 +1,9 @@
 #ifndef REGISTO_H
 #define REGISTO_H
 
+typedef struct Parque Parque;
+typedef struct Carro Carro;
+
 typedef struct {
     Parque* parque;
     Carro* carro;

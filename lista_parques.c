@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h> 
 #include <string.h>
-#include "parque.h"
+#include "lista_parques.h"
 
 Lista_Parques cria_Lista_Parques() {
     Lista_Parques lista_parques = (Lista_Parques) malloc(sizeof(Lista_Parques));
