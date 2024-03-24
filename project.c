@@ -24,6 +24,7 @@ void ler_input(Lista_Parques* lista_parques){
         }
     } while (linha[0] != 'q');
 }
+//ola
 
 
 
