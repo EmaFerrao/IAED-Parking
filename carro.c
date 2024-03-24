@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <ctype.h> 
 #include <string.h>
-#include "parque.h"
 #include "carro.h"
 
 #define FALSE 0
@@ -19,34 +18,39 @@ long int cria_data(int dia, int mes, int ano, int hora, int minutos) {
     return data;
 }
 
-//void registar_entrada(char* linha, Parque_Node** head_parques, int* numero_parques)
-void registar_entrada(char* linha) {
-    char matricula[TAMANHO_MATRICULA];
+void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros) {
     char nome_parque[BUFSIZ];
+    char matricula[TAMANHO_MATRICULA];
     long int data;
-    ler_entrada(linha, matricula, nome_parque, &data);
+    le_entrada_ou_saida(linha, nome_parque, matricula, &data);
     printf("%s %s %lu\n", nome_parque, matricula, data);
 
 }
 
-void ler_entrada(char* linha, char* matricula, char* nome_parque, long int* data) {
+void le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, long int* data) {
+    int posicao = 0;
     int ano, mes, dia, hora, minutos;
-    int argumentos_esperados = 8;
+    int argumentos_esperados = 6;
     int argumentos_recebidos;
-    char comando_ignorar;
 
-    argumentos_recebidos = sscanf(linha, "%c %s %s %d-%d-%d %d:%d", 
-    &comando_ignorar, nome_parque, matricula, &dia, &mes, &ano, &hora, &minutos);
+    nome_parque = le_nome_parque(linha, &posicao);
+
+    argumentos_recebidos = sscanf(linha+posicao, "%s %d-%d-%d %d:%d", matricula, &dia, &mes, &ano, &hora, &minutos);
     if (argumentos_recebidos != argumentos_esperados) {
         printf("erro a ler entrada.\n");
     }
     *data = cria_data(dia, mes, ano, hora, minutos);
 }
 
-/* HashTable criar_hash_table() {
-    HashTable hashtable = (HashTable) malloc(sizeof(HashTable));
-    for (int i = 0; i < SIZE; i++) {
-        hashtable->hash_chaves[i] = NULL;
-    }
-    return hashtable;
-} */
+Carro* cria_carro(char* matricula) {
+    Carro* carro = (Carro*) malloc(sizeof(Carro));
+    carro->matricula = matricula;
+    carro->lista_registos = cria_lista_registos();
+    return carro;
+}
+
+void libertar_carro(Carro* carro) {
+    int libertar_registos = TRUE;
+    libertar_lista_registos(carro->lista_registos, libertar_registos);
+    free(carro);
+}

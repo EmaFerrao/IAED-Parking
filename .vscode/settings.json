@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "estadia.h": "c",
-        "carro.h": "c"
+        "carro.h": "c",
+        "registo.h": "c"
     }
 }

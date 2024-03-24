@@ -3,14 +3,14 @@
 #include <ctype.h> 
 #include <string.h>
 #include "registo.h"
+#include "parque.h"
 
 #define FALSE 0
 #define TRUE 1
-#define TAMANHO_HASHTABLE 1000
 
 typedef struct {
     char* matricula;
-    Registo_Node* historico;
+    Lista_Registos lista_registos;
 } Carro;
 
 typedef struct carro_node{
@@ -26,18 +26,28 @@ typedef struct carros_lista* Lista_Carros;
 
 typedef void (*Operacao_Carro)(Carro*);
 
-/* typedef struct {
-    char* chave;
-    Carro_Node* carro_node;
-} HashNode_Carro;
-
-struct tablehash {
+struct tablehashcarro {
+    Lista_Carros* array_de_listas;
     int tamanho;
-    HashNode_Carro* hash_chaves[tamanho];
 }; 
-typedef struct tablehash* HashTable; */
+typedef struct tablehashcarro* HashTable_Carros; 
 
 
 long int cria_data(int dia, int mes, int ano, int hora, int minutos);
-void registar_entrada(char* linha);
-void ler_entrada(char* linha, char* matricula, char* nome_parque, long int* data);
+void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros);
+void le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, long int* data);
+
+Carro* cria_carro(char* matricula);
+void libertar_carro(Carro* carro);
+
+//Lista
+Lista_Carros cria_lista_carros();
+void itera_lista_carros(Lista_Carros lista_carros, Operacao_Carro operacao);
+Carro* procura_carro(Lista_Carros lista_carros, char* matricula);
+void append_lista_carros(Lista_Carros lista_carros, Carro* carro);
+void libertar_lista_carros(Lista_Carros lista_carros, int libertar_carros);
+
+//Hashtable
+int hash(char *texto, int tamanho);
+HashTable_Carros criar_hashtable_carros(int tamanho_esperado);
+void inserir_hashtable_carros(HashTable_Carros hashtable, Carro* carro);

@@ -19,7 +19,7 @@ void itera_lista_carros(Lista_Carros lista_carros, Operacao_Carro operacao) {
     }
 }
 
-Carro* procura_carro(char* matricula, Lista_Carros lista_carros){
+Carro* procura_carro(Lista_Carros lista_carros, char* matricula) {
     Carro_Node* aux = lista_carros->head;
     while (aux != NULL) {
         if (strcmp(aux->carro->matricula, matricula) == 0){
@@ -28,10 +28,6 @@ Carro* procura_carro(char* matricula, Lista_Carros lista_carros){
         aux = aux -> next;
     }
     return NULL;
-}
-
-void imprime_lista_carros(Lista_Carros lista_carros) {
-    //itera_lista_carros(lista_carros, imprime_carro);
 }
 
 void append_lista_carros(Lista_Carros lista_carros, Carro* carro) {
@@ -52,7 +48,7 @@ void libertar_lista_carros(Lista_Carros lista_carros, int libertar_carros) {
     Carro_Node* next;
     while (aux != NULL) {
         if (libertar_carros) {
-            //libertar_carro(aux->carro);
+            libertar_carro(aux->carro);
         }
         next = aux->next;
         free(aux);
