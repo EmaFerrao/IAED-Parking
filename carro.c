@@ -42,3 +42,11 @@ void ler_entrada(char* linha, char* matricula, char* nome_parque, long int* data
     }
     *data = cria_data(dia, mes, ano, hora, minutos);
 }
+
+/* HashTable criar_hash_table() {
+    HashTable hashtable = (HashTable) malloc(sizeof(HashTable));
+    for (int i = 0; i < SIZE; i++) {
+        hashtable->hash_chaves[i] = NULL;
+    }
+    return hashtable;
+} */

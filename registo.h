@@ -18,4 +18,3 @@ typedef struct registo_node {
     Registo* registo;
     struct registo_node* next;
 } Registo_Node;
-

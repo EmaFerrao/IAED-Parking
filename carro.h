@@ -6,6 +6,7 @@
 
 #define FALSE 0
 #define TRUE 1
+#define TAMANHO_HASHTABLE 1000
 
 typedef struct {
     char* matricula;
@@ -17,10 +18,25 @@ typedef struct carro_node{
     struct carro_node* next;
 } Carro_Node;
 
-typedef struct {
-    int chave;
-    Carro_Node* lista;
-} HashCarros;
+struct carros_lista{
+    Carro_Node* head;
+    Carro_Node* tail;
+};
+typedef struct carros_lista* Lista_Carros;
+
+typedef void (*Operacao_Carro)(Carro*);
+
+/* typedef struct {
+    char* chave;
+    Carro_Node* carro_node;
+} HashNode_Carro;
+
+struct tablehash {
+    int tamanho;
+    HashNode_Carro* hash_chaves[tamanho];
+}; 
+typedef struct tablehash* HashTable; */
+
 
 long int cria_data(int dia, int mes, int ano, int hora, int minutos);
 void registar_entrada(char* linha);
