@@ -155,6 +155,8 @@ void le_parque(char* linha, Lista_Parques* lista_parques) {
             argumentos_validos = verifica_argumentos_parque(capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
             if (argumentos_validos) {
                 cria_parque(nome, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario, lista_parques);
+            } else {
+                free(nome);
             }
         }
     }
