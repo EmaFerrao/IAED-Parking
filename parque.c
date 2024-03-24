@@ -168,9 +168,10 @@ Lista_Parques cria_Lista_Parques() {
     Lista_Parques lista_parques;
     Parque_Node* head = NULL;
     Parque_Node* tail = NULL;
+    int numero_parques = 0;
     lista_parques.head = head;
     lista_parques.tail = tail;
-    lista_parques.numero_parques = 0;
+    lista_parques.numero_parques = &numero_parques;
     return lista_parques;
 }
 
