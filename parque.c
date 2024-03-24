@@ -86,8 +86,8 @@ int verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_ap
     return valores_certos;
 }
 
-Parque* procura_parque(char* nome, Lista_Parques lista_parques){
-    Parque_Node* head = lista_parques.head;
+Parque* procura_parque(char* nome, Lista_Parques* lista_parques){
+    Parque_Node* head = lista_parques->head;
     if (head == NULL) {
         return NULL;
     }
@@ -101,12 +101,12 @@ Parque* procura_parque(char* nome, Lista_Parques lista_parques){
     return NULL;
 }
 
-void imprime_lista_parques(Lista_Parques lista_parques) {
+void imprime_lista_parques(Lista_Parques* lista_parques) {
     itera_Lista_Parques(lista_parques, imprime_parque);
 }
 
 void cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos_1hora, 
-    float valor_max_diario, Lista_Parques lista_parques) 
+    float valor_max_diario, Lista_Parques* lista_parques) 
     {
         Parque* parque;
 
@@ -121,11 +121,11 @@ void cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos
         insert_Lista_Parques(lista_parques, parque);
 }
 
-void le_parque(char* linha, Lista_Parques lista_parques) {
+void le_parque(char* linha, Lista_Parques* lista_parques) {
     if (nao_tem_argumentos(linha)) {
         imprime_lista_parques(lista_parques);   
     } else {
-        if (*(lista_parques.numero_parques) == MAX_PARQUES) {
+        if (*(lista_parques->numero_parques) == MAX_PARQUES) {
             printf("too many parks.\n");
             return;
         }
@@ -163,19 +163,19 @@ void imprime_parque(Parque* parque) {
     printf("%s %d %d\n", parque->nome, parque->capacidade, parque->lugares_disponiveis);
 }
 
-Lista_Parques cria_Lista_Parques() {
-    Lista_Parques lista_parques;
+Lista_Parques* cria_Lista_Parques() {
+    Lista_Parques* lista_parques = NULL;
     Parque_Node* head = NULL;
     Parque_Node* tail = NULL;
     int numero_parques = 0;
-    lista_parques.head = head;
-    lista_parques.tail = tail;
-    lista_parques.numero_parques = &numero_parques;
+    lista_parques->head = head;
+    lista_parques->tail = tail;
+    lista_parques->numero_parques = &numero_parques;
     return lista_parques;
 }
 
-void itera_Lista_Parques(Lista_Parques lista_parques, Operacao_Parque operacao) {
-    Parque_Node* head = lista_parques.head;
+void itera_Lista_Parques(Lista_Parques* lista_parques, Operacao_Parque operacao) {
+    Parque_Node* head = lista_parques->head;
     if (head == NULL) {
         printf("empty list.\n");
         return;
@@ -188,10 +188,10 @@ void itera_Lista_Parques(Lista_Parques lista_parques, Operacao_Parque operacao) 
     }
 }
 
-void insert_Lista_Parques(Lista_Parques lista_parques, Parque* parque) {
-    Parque_Node** head = &lista_parques.head;
-    Parque_Node** tail = &lista_parques.tail;
-    int* numero_parques = lista_parques.numero_parques;
+void insert_Lista_Parques(Lista_Parques* lista_parques, Parque* parque) {
+    Parque_Node* head = lista_parques->head;
+    Parque_Node* tail = lista_parques->tail;
+    int* numero_parques = lista_parques->numero_parques;
     Parque_Node* parque_node;
 
     parque_node = (Parque_Node*) malloc(sizeof(Parque_Node));
@@ -199,12 +199,12 @@ void insert_Lista_Parques(Lista_Parques lista_parques, Parque* parque) {
     parque_node -> next = NULL;
 
     if (head == NULL) {
-        *head = parque_node;
-        *tail = parque_node;
+        head = parque_node;
+        tail = parque_node;
     }
     else {
-        (*tail) -> next = parque_node;
-        *tail = parque_node;
+        tail->next = parque_node;
+        tail = parque_node;
     }
 
     (*numero_parques) += 1;
@@ -215,8 +215,8 @@ void libertar_parque(Parque* parque) {
     free(parque);
 }
 
-void libertar_lista_parques(Lista_Parques lista_parques) {
-    Parque_Node* head = lista_parques.head;
+void libertar_lista_parques(Lista_Parques* lista_parques) {
+    Parque_Node* head = lista_parques->head;
     if (head == NULL) {
         return;
     }

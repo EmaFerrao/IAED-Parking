@@ -11,7 +11,7 @@
 #define BUFSIZE 8192
  
 
-void ler_input(Lista_Parques lista_parques){
+void ler_input(Lista_Parques* lista_parques){
     char linha[BUFSIZE];
     do {
         fgets(linha, sizeof(linha), stdin);
@@ -28,7 +28,7 @@ void ler_input(Lista_Parques lista_parques){
 
 
 int main(){
-    Lista_Parques lista_parques;
+    Lista_Parques* lista_parques;
     lista_parques = cria_Lista_Parques();
     ler_input(lista_parques);
     libertar_lista_parques(lista_parques);
