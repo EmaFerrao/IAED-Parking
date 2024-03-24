@@ -145,6 +145,7 @@ void le_parque(char* linha, Lista_Parques* lista_parques) {
 
         if (procura_parque(nome, lista_parques) != NULL) {
             printf("%s: parking already exists.\n", nome);
+            free(nome);
         } else {
             argumentos_recebidos = sscanf(linha+posicao, "%d %f %f %f", 
             &capacidade, &valor_15, &valor_15_apos_1hora, &valor_max_diario);
