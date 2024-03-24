@@ -7,18 +7,27 @@
 #define FALSE 0
 #define TRUE 1
 #define TAMANHO_MATRICULA 9
+#define TAMANHO_DATA 9
+#define TAMANHO_HORA 6
 
 void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros) {
-    char* nome_parque;
-    char* matricula;
-    char* data;
-    char* hora;
+    char nome_parque[MAX_NOME_PARQUE];
+    char matricula[TAMANHO_MATRICULA];
+    char data[TAMANHO_DATA];
+    char hora[TAMANHO_HORA];
     Carro* carro;
-    le_entrada_ou_saida(linha, nome_parque, matricula, data, hora);
-    printf("%s %s %s %s\n", nome_parque, matricula, data, hora);
+    if (!le_entrada_ou_saida(linha, nome_parque, matricula, data, hora)) {
+        return;
+    }
+    carro = procurar_hashtable_carros(hashtable_carros, matricula);
+    if (carro == NULL) {
+        carro = cria_carro(matricula);
+        inserir_hashtable_carros(hashtable_carros, carro);
+    }
+    
 }
 
-void le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, char* data, char* hora) {
+int le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, char* data, char* hora) {
     char comando;
     int argumentos_recebidos;
     int argumentos_esperados = 5;
@@ -31,9 +40,10 @@ void le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, char* 
         nome_parque, matricula, data, hora);
         if (argumentos_recebidos != argumentos_esperados) {
             printf("Erro a ler entrada.\n");
-            return;
+            return FALSE;
         }
     }
+    return TRUE;
 } 
 
 Carro* cria_carro(char* matricula) {

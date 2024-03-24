@@ -34,7 +34,7 @@ typedef struct tablehashcarro* HashTable_Carros;
 
 
 void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros);
-void le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, char* data, char* hora);
+int le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, char* data, char* hora);
 
 Carro* cria_carro(char* matricula);
 void libertar_carro(Carro* carro);
