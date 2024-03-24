@@ -11,13 +11,13 @@
 #define BUFSIZE 8192
  
 
-void ler_input(Parque_No** head_parques, Parque_No** tail_parques, int* numero_parques){
+void ler_input(Lista_Parques lista_parques){
     char linha[BUFSIZE];
     do {
         fgets(linha, sizeof(linha), stdin);
         switch (linha[0]){
             case 'p':
-                le_parque(linha, head_parques, tail_parques, numero_parques);
+                le_parque(linha, lista_parques);
                 break;
             case 'e':
                 registar_entrada(linha);
@@ -28,11 +28,10 @@ void ler_input(Parque_No** head_parques, Parque_No** tail_parques, int* numero_p
 
 
 int main(){
-    Parque_No* head_parques = NULL;
-    Parque_No* tail_parques = NULL;
-    int numero_parques = 0;
-    ler_input(&head_parques, &tail_parques, &numero_parques);
-    libertar_lista_parques(&head_parques);
+    Lista_Parques lista_parques;
+    lista_parques = cria_Lista_Parques();
+    ler_input(lista_parques);
+    libertar_lista_parques(lista_parques);
     
     return 0;
 }

@@ -12,10 +12,10 @@ typedef struct {
     int entrada;
     int saida;
     int custo;
-} Estadia;
+} Registo;
 
-typedef struct estadia_no {
-    Estadia* estadia;
-    struct estadia_no* next;
-} Estadia_No;
+typedef struct registo_node {
+    Registo* registo;
+    struct registo_node* next;
+} Registo_Node;
 

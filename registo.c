@@ -19,7 +19,7 @@ long int cria_data(int dia, int mes, int ano, int hora, int minutos) {
     return data;
 }
 
-//void registar_entrada(char* linha, Parque_No** head_parques, int* numero_parques)
+//void registar_entrada(char* linha, Parque_Node** head_parques, int* numero_parques)
 void registar_entrada(char* linha) {
     char matricula[TAMANHO_MATRICULA];
     char nome_parque[BUFSIZ];

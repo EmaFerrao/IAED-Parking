@@ -2,24 +2,24 @@
 #include <stdlib.h>
 #include <ctype.h> 
 #include <string.h>
-#include "estadia.h"
+#include "registo.h"
 
 #define FALSE 0
 #define TRUE 1
 
 typedef struct {
     char* matricula;
-    Estadia_No* historico;
+    Registo_Node* historico;
 } Carro;
 
-typedef struct carro_no{
+typedef struct carro_node{
     Carro* carro;
-    struct carro_no* next;
-} Carro_No;
+    struct carro_node* next;
+} Carro_Node;
 
 typedef struct {
     int chave;
-    Carro_No* lista;
+    Carro_Node* lista;
 } HashCarros;
 
 long int cria_data(int dia, int mes, int ano, int hora, int minutos);
