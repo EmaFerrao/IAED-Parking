@@ -126,7 +126,7 @@ void le_parque(char* linha, Lista_Parques lista_parques) {
     if (nao_tem_argumentos(linha)) {
         imprime_lista_parques(lista_parques);   
     } else {
-        if ((*lista_parques.numero_parques) == MAX_PARQUES) {
+        if (*(lista_parques.numero_parques) == MAX_PARQUES) {
             printf("too many parks.\n");
             return;
         }
