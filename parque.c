@@ -89,7 +89,6 @@ int verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_ap
 Parque* procura_parque(char* nome, Lista_Parques lista_parques){
     Parque_Node* head = lista_parques.head;
     if (head == NULL) {
-        printf("empty list.\n");
         return NULL;
     }
     Parque_Node* aux = head;
@@ -190,8 +189,8 @@ void itera_Lista_Parques(Lista_Parques lista_parques, Operacao_Parque operacao) 
 }
 
 void insert_Lista_Parques(Lista_Parques lista_parques, Parque* parque) {
-    Parque_Node* head = lista_parques.head;
-    Parque_Node* tail = lista_parques.tail;
+    Parque_Node** head = &lista_parques.head;
+    Parque_Node** tail = &lista_parques.tail;
     int* numero_parques = lista_parques.numero_parques;
     Parque_Node* parque_node;
 
@@ -200,12 +199,12 @@ void insert_Lista_Parques(Lista_Parques lista_parques, Parque* parque) {
     parque_node -> next = NULL;
 
     if (head == NULL) {
-        head = parque_node;
-        tail = parque_node;
+        *head = parque_node;
+        *tail = parque_node;
     }
     else {
-        tail -> next = parque_node;
-        tail = parque_node;
+        (*tail) -> next = parque_node;
+        *tail = parque_node;
     }
 
     (*numero_parques) += 1;
