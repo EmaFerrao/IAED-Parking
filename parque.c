@@ -235,5 +235,6 @@ void libertar_lista_parques(Lista_Parques* lista_parques) {
         aux = aux -> next;
         free(aux_destruir);
     }
+    free(lista_parques->numero_parques);
     free(lista_parques);
 }
