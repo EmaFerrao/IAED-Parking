@@ -164,7 +164,8 @@ void imprime_parque(Parque* parque) {
 }
 
 Lista_Parques* cria_Lista_Parques() {
-    Lista_Parques* lista_parques = NULL;
+    Lista_Parques* lista_parques;
+    lista_parques = (Lista_Parques*) malloc(sizeof(Lista_Parques));
     Parque_Node* head = NULL;
     Parque_Node* tail = NULL;
     int numero_parques = 0;
