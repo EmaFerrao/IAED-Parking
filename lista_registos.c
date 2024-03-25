@@ -44,6 +44,9 @@ void append_lista_registos(Lista_Registos lista_registos, Registo* registo) {
 }
 
 void libertar_lista_registos(Lista_Registos lista_registos, int libertar_registos) {
+    if (lista_registos == NULL) {
+        return;
+    }
     Registo_Node* aux = lista_registos->head;
     Registo_Node* next;
     while (aux != NULL) {
