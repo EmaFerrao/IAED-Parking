@@ -85,5 +85,4 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
         carro = cria_carro(matricula);
         inserir_hashtable_carros(hashtable_carros, carro);
     }
-    
 }
