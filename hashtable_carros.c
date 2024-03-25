@@ -38,7 +38,6 @@ Carro* procurar_hashtable_carros(HashTable_Carros hashtable, char* matricula) {
 void libertar_hashtable_carros(HashTable_Carros hashtable, int libertar_carros) {
     for (int i=0; i < hashtable->tamanho; i++) {
         libertar_lista_carros(hashtable->array_de_listas[i], libertar_carros);
-        printf("%d", i);
     }
     free(hashtable->array_de_listas);
     free(hashtable);
