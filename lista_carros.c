@@ -5,7 +5,7 @@
 #include "lista_carros.h"
 
 Lista_Carros cria_lista_carros() {
-    Lista_Carros lista_carros = (Lista_Carros) malloc(sizeof(Lista_Carros));
+    Lista_Carros lista_carros = (Lista_Carros) malloc(sizeof(struct carros_lista));
     lista_carros->head = NULL;
     lista_carros->tail = NULL;
     return lista_carros;

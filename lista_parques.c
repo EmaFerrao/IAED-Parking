@@ -5,7 +5,7 @@
 #include "lista_parques.h"
 
 Lista_Parques cria_Lista_Parques() {
-    Lista_Parques lista_parques = (Lista_Parques) malloc(sizeof(Lista_Parques));
+    Lista_Parques lista_parques = (Lista_Parques) malloc(sizeof(struct parques_lista));
     lista_parques->head = NULL;
     lista_parques->tail = NULL;
     lista_parques->numero_parques = 0;

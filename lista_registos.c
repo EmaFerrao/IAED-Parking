@@ -5,7 +5,7 @@
 #include "lista_registos.h"
 
 Lista_Registos cria_lista_registos() {
-    Lista_Registos lista_registos = (Lista_Registos) malloc(sizeof(Lista_Registos));
+    Lista_Registos lista_registos = (Lista_Registos) malloc(sizeof(struct registos_lista));
     lista_registos->head = NULL;
     lista_registos->tail = NULL;
     return lista_registos;
