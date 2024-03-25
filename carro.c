@@ -14,7 +14,6 @@ Carro* cria_carro(char* matricula) {
 }
 
 void libertar_carro(Carro* carro) {
-
     libertar_lista_registos(carro->lista_registos, /*libertar_registos*/TRUE);
     free(carro);
 }
