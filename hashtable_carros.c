@@ -16,9 +16,9 @@ HashTable_Carros criar_hashtable_carros(int tamanho_esperado) {
     int numero_entradas_por_lista = 10;
     if( tamanho_esperado <= 100) tamanho_esperado = 1000; //evitar hashtables demasiado pequenas
 
-    HashTable_Carros hashtable = (HashTable_Carros) malloc(sizeof(HashTable_Carros));
+    HashTable_Carros hashtable = (HashTable_Carros) malloc(sizeof(struct tablehashcarro));
     hashtable->tamanho = tamanho_esperado / numero_entradas_por_lista;
-    hashtable->array_de_listas = (Lista_Carros*) malloc(sizeof(Lista_Carros)*hashtable->tamanho);
+    hashtable->array_de_listas = (Lista_Carros*) malloc(sizeof(Lista_Carros)*(hashtable->tamanho));
     for (int i = 0; i < hashtable->tamanho; i++) {
         hashtable->array_de_listas[i] = cria_lista_carros();
     }
