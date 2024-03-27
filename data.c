@@ -26,9 +26,13 @@ int data_valida(Data* data) {
 
 int data_mais_recente(Data* data1, Data* data2) {
     if (data2->ano < data1->ano) return FALSE;
+    if (data2->ano > data1->ano) return TRUE;
     if (data2->mes < data1->mes) return FALSE;
+    if (data2->mes > data1->mes) return TRUE;
     if (data2->dia < data1->dia) return FALSE;
+    if (data2->dia > data1->dia) return TRUE;
     if (data2->hora < data1->hora) return FALSE;
+    if (data2->hora > data1->hora) return TRUE;
     if (data2->minutos < data1->minutos) return FALSE;
     return TRUE;
 }
