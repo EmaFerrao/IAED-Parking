@@ -43,11 +43,11 @@ int matricula_valida(char* matricula) {
 
 float calcula_custo(Registo* registo, Parque* parque) {
     int minutos, dias, minutos_por_dia = 24*60;
-    float custo = 0;
+    float custo_dias = 0, custo = 0;
 
     minutos = diferenca_em_minutos(registo->entrada, registo->saida);
     dias = minutos / minutos_por_dia;
-    custo += dias * parque->valor_max_diario;
+    custo_dias += dias * parque->valor_max_diario;
     minutos = minutos % minutos_por_dia;
     if (minutos <= 60) {
         custo += (minutos / 15) * parque->valor_15;
@@ -58,8 +58,9 @@ float calcula_custo(Registo* registo, Parque* parque) {
         custo += (minutos / 15) * parque->valor_15_apos_1hora;
         if (minutos % 15 != 0) custo += parque->valor_15_apos_1hora;
     }
+    if (custo > parque->valor_max_diario) custo = parque->valor_max_diario;
     
-    return custo;
+    return custo_dias + custo;
 }
 
 void comando_p(char* linha, Lista_Parques lista_parques) {
