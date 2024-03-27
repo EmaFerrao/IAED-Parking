@@ -48,7 +48,7 @@ void imprime_parque(Parque* parque) {
 
 void libertar_parque(Parque* parque) {
     free(parque->nome);
-    free(parque->lista_saidas);
+    libertar_lista_registos(parque->lista_saidas, FALSE);
     free(parque);
 }
 
