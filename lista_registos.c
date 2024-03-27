@@ -3,7 +3,7 @@
 #include <ctype.h> 
 #include <string.h>
 #include "lista_registos.h"
-#include "carro.h"
+#include "parque.h"
 
 Lista_Registos cria_lista_registos() {
     Lista_Registos lista_registos = (Lista_Registos) malloc(sizeof(struct registos_lista));
@@ -48,7 +48,7 @@ void append_lista_registos(Lista_Registos lista_registos, Registo* registo) {
 
 void insere_lista_registos_alfabeto(Lista_Registos lista_registos, Registo* registo) {
     Registo_Node* aux = lista_registos->head;
-    Registo_Node* anterior = aux;
+    Registo_Node* anterior = NULL;
     Registo_Node* registo_node = (Registo_Node*) malloc(sizeof(Registo_Node));
     registo_node -> registo = registo;
     registo_node -> next = NULL;
@@ -59,13 +59,22 @@ void insere_lista_registos_alfabeto(Lista_Registos lista_registos, Registo* regi
         return;
     }
     while (aux != NULL) {
-        if (strcmp(aux->registo->carro->matricula, registo->carro->matricula) > 0) {
-            anterior->next = registo_node;
+        if (strcmp(aux->registo->parque->nome, registo->parque->nome) > 0) {
+            if (anterior == NULL) {
+                lista_registos->head = registo_node;
+            } else {
+                anterior->next = registo_node;
+            }
             registo_node->next = aux;
             return;
         } else {
+            if (anterior == NULL) {
+                anterior = aux;
+            } else {
+                anterior = anterior -> next;
+            }
             aux = aux -> next;
-            anterior = anterior -> next;
+            
         }
     }
     anterior->next = registo_node;

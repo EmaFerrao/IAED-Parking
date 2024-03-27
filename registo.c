@@ -33,7 +33,7 @@ void imprime_saida(Registo* registo) {
 }
 
 void imprime_entrada_saida(Registo* registo) {
-    if (registo->carro->dentro_de_parque) {
+    if (registo->custo == 0) {
         printf("%s %02d-%02d-%02d %02d:%02d\n",
     registo->parque->nome, registo->entrada->dia, registo->entrada->mes,
     registo->entrada->ano, registo->entrada->hora, registo->entrada->minutos);
