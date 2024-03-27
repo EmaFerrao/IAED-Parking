@@ -31,7 +31,7 @@ void inserir_hashtable_carros(HashTable_Carros hashtable, Carro* carro) {
 }
 
 Carro* procurar_hashtable_carros(HashTable_Carros hashtable, char* matricula) {
-    int index = hash(matricula, hashtable->tamanho);
+    unsigned int index = hash(matricula, hashtable->tamanho);
     return procura_carro(hashtable->array_de_listas[index], matricula);
 }
 
