@@ -203,7 +203,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
 
 void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema) {
     char nome_parque[BUFSIZE];
-    char matricula[TAMANHO_ARGUMENTO];
+    char matricula[TAMANHO_MATRICULA];
     int dia, mes, ano, hora, minutos;
     float custo;
     Parque* parque;
