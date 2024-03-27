@@ -33,8 +33,3 @@ int data_mais_recente(Data* data1, Data* data2) {
     return TRUE;
 }
 
-int verifica_data(Data* data_sistema, Data* data) {
-    if (!data_valida(data)) return FALSE;
-    if (!data_mais_recente(data_sistema, data)) return FALSE;
-    return TRUE;
-}

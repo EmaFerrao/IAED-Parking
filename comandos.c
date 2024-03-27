@@ -129,7 +129,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
         return;
     }
     data_entrada = cria_data(ano, mes, dia, hora, minutos);
-    if (!verifica_data(data_sistema, data_entrada)) {
+    if (!data_valida(data_entrada)) {
         printf("invalid date.\n");
         return;
     }
@@ -139,6 +139,10 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
         inserir_hashtable_carros(hashtable_carros, carro);
     } else if (carro->dentro_de_parque) {
         printf("%s: invalid vehicle entry.\n", matricula);
+        return;
+    }
+    if (!data_mais_recente(data_sistema, data_entrada)) {
+        printf("invalid date.\n");
         return;
     }
     
