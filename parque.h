@@ -1,8 +1,6 @@
 #ifndef PARQUE_H
 #define PARQUE_H
 
-#define MAX_NOME_PARQUE 50
-
 struct Parque {
     char *nome;
     int capacidade;

@@ -9,6 +9,7 @@
 Carro* cria_carro(char* matricula) {
     Carro* carro = (Carro*) malloc(sizeof(Carro));
     carro->matricula = matricula;
+    carro->dentro_de_parque = TRUE;
     carro->lista_registos = cria_lista_registos();
     return carro;
 }

@@ -10,6 +10,7 @@
 
 struct Carro {
     char* matricula;
+    int dentro_de_parque;
     Lista_Registos lista_registos;
 };
 typedef struct Carro Carro;

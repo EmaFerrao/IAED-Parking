@@ -1,15 +1,39 @@
+#include "ctype.h"
 #include "comandos.h"
 #include "bool.h"
 #include "hashtable_carros.h"
 
 #define MAX_PARQUES 20
+#define TAMANHO_ARGUMENTO 50
 #define TAMANHO_MATRICULA 9
-#define TAMANHO_DATA 9
-#define TAMANHO_HORA 6
+
+int matricula_valida(char* matricula) {
+    int pares_letras=0, pares_num=0;
+    if (strlen(matricula) != TAMANHO_MATRICULA) return FALSE;
+
+    for (int i=0; i<TAMANHO_MATRICULA;i++) {
+        if ((i==2 || i==5) && matricula[i]!= '-') return FALSE;
+
+        if (isalpha(matricula[i])) {
+            if (islower(matricula[i])) return FALSE;
+            if (i==0) continue;
+            if(isdigit(matricula[i-1])) return FALSE;
+            if (isalpha(matricula[i-1])) pares_letras += 1;
+        }
+        if (isdigit(matricula[i])) {
+            if (i==0) continue;
+            if(isalpha(matricula[i-1])) return FALSE;
+            if (isdigit(matricula[i-1])) pares_num += 1;
+        }
+    }
+    if (pares_letras > 2 || pares_num > 2) return FALSE;
+    return TRUE;
+    
+}
 
 void comando_p(char* linha, Lista_Parques lista_parques) {
     char comando;
-    char nome[MAX_NOME_PARQUE];
+    char nome[TAMANHO_ARGUMENTO];
     int capacidade;
     float valor_15;
     float valor_15_apos_1hora;
@@ -72,12 +96,26 @@ int le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, char* d
 }
 
 void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros) {
-    char nome_parque[MAX_NOME_PARQUE];
-    char matricula[TAMANHO_MATRICULA];
-    char data[TAMANHO_DATA];
-    char hora[TAMANHO_HORA];
+    char nome_parque[TAMANHO_ARGUMENTO];
+    char matricula[TAMANHO_ARGUMENTO];
+    char data[TAMANHO_ARGUMENTO];
+    char hora[TAMANHO_ARGUMENTO];
+    Parque* parque;
     Carro* carro;
     if (!le_entrada_ou_saida(linha, nome_parque, matricula, data, hora)) {
+        return;
+    }
+    parque = procura_parque(lista_parques, nome_parque);
+    if (parque == NULL) {
+        printf("%s: no such parking.", nome_parque);
+        return;
+    } 
+    if (parque->lugares_disponiveis == 0) {
+        printf("%s: parking is full.", nome_parque);
+        return;
+    }
+    if (!matricula_valida(matricula)) {
+        printf("%s: invalid licence plate.", matricula);
         return;
     }
     carro = procurar_hashtable_carros(hashtable_carros, matricula);
