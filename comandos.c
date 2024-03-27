@@ -128,6 +128,11 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
         printf("%s: invalid licence plate.\n", matricula);
         return;
     }
+    data_entrada = cria_data(ano, mes, dia, hora, minutos);
+    if (!verifica_data(data_sistema, data_entrada)) {
+        printf("invalid date.\n");
+        return;
+    }
     carro = procurar_hashtable_carros(hashtable_carros, matricula);
     if (carro == NULL) {
         carro = cria_carro(matricula);
@@ -137,11 +142,6 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
         return;
     }
     
-    data_entrada = cria_data(ano, mes, dia, hora, minutos);
-    if (!verifica_data(data_sistema, data_entrada)) {
-        printf("invalid date.\n");
-        return;
-    }
     *data_sistema = *data_entrada;
     registo = criar_registo(parque, carro, data_entrada);
     append_lista_registos(carro->lista_registos, registo);
