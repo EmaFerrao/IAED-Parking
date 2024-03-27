@@ -13,6 +13,7 @@ int main(){
     char linha[BUFSIZE];
     Lista_Parques lista_parques = cria_Lista_Parques();
     HashTable_Carros hashtable_carros = criar_hashtable_carros(CARROS_ESPERADOS);
+    Data* data_sistema = cria_data(2000,1,1,0,0);
     
     do {
         fgets(linha, sizeof(linha), stdin);
@@ -21,7 +22,7 @@ int main(){
                 comando_p(linha, lista_parques);
                 break;
             case 'e':
-                comando_e(linha, lista_parques, hashtable_carros);
+                comando_e(linha, lista_parques, hashtable_carros, data_sistema);
         }
     } while (linha[0] != 'q');
 

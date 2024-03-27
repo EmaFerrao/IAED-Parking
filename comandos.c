@@ -76,17 +76,17 @@ void comando_p(char* linha, Lista_Parques lista_parques) {
     append_Lista_Parques(lista_parques, parque);
 }
 
-int le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, char* data, char* hora) {
+int le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, int* dia, int* mes, int* ano, int* hora, int* minutos) {
     char comando;
     int argumentos_recebidos;
     int argumentos_esperados = 5;
 
-    argumentos_recebidos = sscanf(linha, "%c \"%[^\"]\" %s %s %s", &comando, 
-        nome_parque, matricula, data, hora);
+    argumentos_recebidos = sscanf(linha, "%c \"%[^\"]\" %s %d-%d-%d %d-%d", &comando, 
+        nome_parque, matricula, dia, mes, ano, hora, minutos);
     if (argumentos_recebidos != argumentos_esperados) {
 
-        argumentos_recebidos = sscanf(linha, "%c %s %s %s %s", &comando, 
-        nome_parque, matricula, data, hora);
+        argumentos_recebidos = sscanf(linha, "%c %s %s %d-%d-%d %d-%d", &comando, 
+        nome_parque, matricula, dia, mes, ano, hora, minutos);
         if (argumentos_recebidos != argumentos_esperados) {
             printf("Erro a ler entrada.\n");
             return FALSE;
@@ -95,14 +95,16 @@ int le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, char* d
     return TRUE;
 }
 
-void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros) {
+void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema) {
     char nome_parque[TAMANHO_ARGUMENTO];
     char matricula[TAMANHO_ARGUMENTO];
-    char data[TAMANHO_ARGUMENTO];
-    char hora[TAMANHO_ARGUMENTO];
+    int dia, mes, ano, hora, minutos;
     Parque* parque;
     Carro* carro;
-    if (!le_entrada_ou_saida(linha, nome_parque, matricula, data, hora)) {
+    Data* data_entrada;
+    Registo* registo;
+
+    if (!le_entrada_ou_saida(linha, nome_parque, matricula, &dia, &mes, &ano, &hora, &minutos)) {
         return;
     }
     parque = procura_parque(lista_parques, nome_parque);
@@ -122,5 +124,17 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     if (carro == NULL) {
         carro = cria_carro(matricula);
         inserir_hashtable_carros(hashtable_carros, carro);
+    } else if (carro->dentro_de_parque) {
+        printf("%s: invalid vehicle entry.", matricula);
+        return;
     }
+    
+    data_entrada = cria_data(ano, mes, dia, hora, minutos);
+    if (!verifica_data(data_sistema, data_entrada)) {
+        printf("invalid date.");
+        return;
+    }
+    data_sistema = data_entrada;
+    registo = criar_registo(parque, carro, data_entrada);
+    append_lista_registos(carro->lista_registos, registo);
 }
