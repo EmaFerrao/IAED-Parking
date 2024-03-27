@@ -177,6 +177,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     registo = criar_registo(parque, carro, data_entrada);
     append_lista_registos(carro->lista_registos, registo);
     parque->lugares_disponiveis -= 1;
+    carro->dentro_de_parque = TRUE;
     printf("%s %d\n", parque->nome, parque->lugares_disponiveis);
 }
 
@@ -238,6 +239,7 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     guarda_custo_no_registo(registo, custo);
     append_lista_registos(parque->lista_saidas, registo);
     parque->lugares_disponiveis += 1;
+    carro->dentro_de_parque = FALSE;
     imprime_registo(registo);
 }
 
