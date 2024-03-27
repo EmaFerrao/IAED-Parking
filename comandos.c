@@ -142,7 +142,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
         printf("invalid date.\n");
         return;
     }
-    data_sistema = data_entrada;
+    *data_sistema = *data_entrada;
     registo = criar_registo(parque, carro, data_entrada);
     append_lista_registos(carro->lista_registos, registo);
     parque->lugares_disponiveis -= 1;
