@@ -8,7 +8,7 @@
 
 #define MAX_PARQUES 20
 #define TAMANHO_ARGUMENTO 50
-#define TAMANHO_MATRICULA 8
+#define TAMANHO_MATRICULA 9
 #define BUFSIZE 8192
 
 int par_valido(char c1, char c2) {
@@ -26,7 +26,7 @@ int par_valido(char c1, char c2) {
 
 int matricula_valida(char* matricula) {
     int pares_letras=0, pares_num=0;
-    if (strlen(matricula) != TAMANHO_MATRICULA) return FALSE;
+    if (strlen(matricula) != TAMANHO_MATRICULA-1) return FALSE;
     if (matricula[2] != '-' || matricula[5] != '-') return FALSE;
 
     for (int i=0; i<TAMANHO_MATRICULA; i+=3) {
@@ -150,7 +150,7 @@ int le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, int* di
 
 void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema) {
     char nome_parque[BUFSIZE];
-    char matricula[TAMANHO_ARGUMENTO];
+    char matricula[TAMANHO_MATRICULA];
     int dia, mes, ano, hora, minutos;
     Parque* parque;
     Carro* carro;
