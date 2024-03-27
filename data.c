@@ -33,24 +33,25 @@ int data_mais_recente(Data* data1, Data* data2) {
     return TRUE;
 }
 
-int mesmo_dia(Data* data1, Data* data2) {
-    if (data1->ano != data2->ano) return FALSE;
-    if (data1->mes != data2->mes) return FALSE;
-    if (data1->dia != data2->dia) return FALSE;
-    return TRUE;
+int total_dias_ano(int ano) {
+    return 365 * ano - ano / 100 + ano / 400;
 }
 
-int conta_dias(Data* entrada, Data* saida) {
-    int dias = 0;
-    dias += (saida->ano - entrada->ano) * 365;
-    if (entrada->mes == saida->mes) {
-        dias += saida->dia -1 - entrada->dia;
-    } else {
-        dias += diasMes[entrada->dia] - entrada->dia;
-        for (int i=entrada->mes+1; i<saida->mes; i++) {
-            dias += diasMes[i];
-        }
-        dias += saida->dia -1;
+int data_para_minutos(Data* data) {
+    int minutos = 0;
+
+    minutos += totalDiasAno(data->ano - 1) * 24 * 60;
+    
+    for (int mes = 1; mes < data->mes; mes++) {
+        minutos += diasMes[mes] * 24 * 60;
     }
-    return dias;
+    minutos += (data->dia - 1) * 24 * 60;
+    minutos += data->hora * 60;
+    minutos += data->minutos;
+
+    return minutos;
+}
+
+int diferenca_em_minutos(Data* data1, Data* data2) {
+    return data_para_minutos(data2) - data_para_minutos(data1);
 }

@@ -39,47 +39,26 @@ int matricula_valida(char* matricula) {
     }
     if (pares_letras < 1 || pares_num < 1) return FALSE;
     return TRUE;
-    
-}
-
-float calcula_custo_horas(int minutos_passados, Parque* parque) {
-    int fracoes_15min = 0;
-    float custo = 0;
-    fracoes_15min = minutos_passados / 15;
-    if (minutos_passados%15 != 0) fracoes_15min += 1;
-
-    if (fracoes_15min <= 4) {
-        custo += fracoes_15min * (parque->valor_15);
-    } else {
-        custo += 4 * (parque->valor_15);
-        fracoes_15min -= 4;
-        custo += fracoes_15min * (parque->valor_15_apos_1hora);
-    }
-    if (custo >= parque->valor_max_diario) {
-        custo = parque->valor_max_diario;
-    }
-    return custo;
 }
 
 float calcula_custo(Registo* registo, Parque* parque) {
     Data* entrada = registo->entrada;
     Data* saida = registo->saida;
-    int minutos_passados = 0;
-    float custo = 0;
-    if (mesmo_dia(entrada, saida)) {
-        minutos_passados += (saida->hora - entrada->hora)*60;
-        minutos_passados += saida->minutos - entrada->minutos;
-        return calcula_custo_horas(minutos_passados, parque);
-    } 
+    int minutos, dias, minutos_por_dia = 24*60, custo = 0;
 
-    minutos_passados += (24 - entrada->hora)*60;
-    minutos_passados += 60 - entrada->minutos; 
-    custo += calcula_custo_horas(minutos_passados, parque);
-    minutos_passados = 0;
-    minutos_passados += (saida->hora)*60;
-    minutos_passados += saida->minutos; 
-    custo += calcula_custo_horas(minutos_passados, parque);
-    custo += conta_dias(entrada, saida) * parque->valor_max_diario;
+    minutos = diferenca_em_minutos(registo->entrada, registo->saida);
+    dias = minutos / minutos_por_dia;
+    custo += dias * parque->valor_max_diario;
+    minutos = minutos % minutos_por_dia;
+    if (minutos > 60) {
+        custo += (minutos / 15) * parque->valor_15;
+        if (minutos % 15 != 0) custo += parque->valor_15;
+    } else {
+        custo += 4 * parque->valor_15;
+        minutos -= 60;
+        custo += (minutos / 15) * parque->valor_15_apos_1hora;
+        if (minutos % 15 != 0) custo += parque->valor_15_apos_1hora;
+    }
     
     return custo;
 }
