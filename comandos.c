@@ -140,6 +140,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
         inserir_hashtable_carros(hashtable_carros, carro);
     } else if (carro->dentro_de_parque) {
         printf("%s: invalid vehicle entry.\n", matricula);
+        free(data_entrada);
         return;
     }
     if (!data_mais_recente(data_sistema, data_entrada)) {
