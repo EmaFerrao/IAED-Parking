@@ -19,16 +19,18 @@ void itera_lista_registos(Lista_Registos lista_registos, Operacao_Registo operac
     }
 }
 
-/* Registo* procura_registo(Lista_Registos lista_registos, char* matricula) {
+Registo* procura_registo_por_parque(Lista_Registos lista_registos, Parque* parque) {
     Registo_Node* aux = lista_registos->head;
     while (aux != NULL) {
-        if (strcmp(aux->registo->matricula, matricula) == 0){
-            return aux->registo;
+        if (aux->registo->parque == parque) {
+            if (aux->registo->custo == 0) {
+                return aux->registo;
+            }
         }
         aux = aux -> next;
     }
     return NULL;
-} */
+} 
 
 void append_lista_registos(Lista_Registos lista_registos, Registo* registo) {
     Registo_Node* registo_node = (Registo_Node*) malloc(sizeof(Registo_Node));

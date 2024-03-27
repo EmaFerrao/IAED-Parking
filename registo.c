@@ -3,6 +3,7 @@
 #include <ctype.h> 
 #include <string.h>
 #include "registo.h"
+#include "carro.h"
 
 Registo* criar_registo(Parque* parque, Carro* carro, Data* entrada) {
     Registo* registo = (Registo*) malloc(sizeof(Registo));
@@ -12,6 +13,22 @@ Registo* criar_registo(Parque* parque, Carro* carro, Data* entrada) {
     registo->saida = NULL;
     registo->custo = 0;
     return registo;
+}
+
+void guarda_saida_no_registo(Registo* registo, Data* data_saida) {
+    registo->saida = data_saida;
+}
+
+void guarda_custo_no_registo(Registo* registo, int custo) {
+    registo->custo = custo;
+}
+
+void imprime_registo(Registo* registo) {
+    printf("%s %02d-%02d-%02d %02d:%02d %02d-%02d-%02d %02d:%02d %f\n",
+    registo->carro->matricula, registo->entrada->dia, registo->entrada->mes,
+    registo->entrada->ano, registo->entrada->hora, registo->entrada->minutos, 
+    registo->saida->dia, registo->saida->mes, registo->saida->ano,
+    registo->saida->hora, registo->saida->minutos, registo->custo);
 }
 
 void libertar_registo(Registo* registo) {

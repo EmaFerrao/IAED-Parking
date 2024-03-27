@@ -1,6 +1,8 @@
 #ifndef PARQUE_H
 #define PARQUE_H
 
+#include "lista_registos.h"
+
 struct Parque {
     char *nome;
     int capacidade;
@@ -8,7 +10,7 @@ struct Parque {
     float valor_15;
     float valor_15_apos_1hora;
     float valor_max_diario;
-//    fatura* faturacao;
+    Lista_Registos lista_saidas;
 };
 typedef struct Parque Parque;
 

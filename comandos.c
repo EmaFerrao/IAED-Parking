@@ -1,4 +1,7 @@
-#include "ctype.h"
+#include <stdio.h> 
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 #include "comandos.h"
 #include "bool.h"
 #include "hashtable_carros.h"
@@ -37,6 +40,48 @@ int matricula_valida(char* matricula) {
     if (pares_letras < 1 || pares_num < 1) return FALSE;
     return TRUE;
     
+}
+
+float calcula_custo_horas(int minutos_passados, Parque* parque) {
+    int fracoes_15min = 0;
+    float custo = 0;
+    fracoes_15min = minutos_passados / 15;
+    if (minutos_passados%15 != 0) fracoes_15min += 1;
+
+    if (fracoes_15min <= 4) {
+        custo += fracoes_15min * (parque->valor_15);
+    } else {
+        custo += 4 * (parque->valor_15);
+        fracoes_15min -= 4;
+        custo += fracoes_15min * (parque->valor_15_apos_1hora);
+    }
+    if (custo >= parque->valor_max_diario) {
+        custo = parque->valor_max_diario;
+    }
+    return custo;
+}
+
+float calcula_custo(Registo* registo, Parque* parque) {
+    Data* entrada = registo->entrada;
+    Data* saida = registo->saida;
+    int minutos_passados = 0;
+    float custo = 0;
+    if (mesmo_dia(entrada, saida)) {
+        minutos_passados += (saida->hora - entrada->hora)*60;
+        minutos_passados += saida->minutos - entrada->minutos;
+        return calcula_custo_horas(minutos_passados, parque);
+    } 
+
+    minutos_passados += (24 - entrada->hora)*60;
+    minutos_passados += 60 - entrada->minutos; 
+    custo += calcula_custo_horas(minutos_passados, parque);
+    minutos_passados = 0;
+    minutos_passados += (saida->hora)*60;
+    minutos_passados += saida->minutos; 
+    custo += calcula_custo_horas(minutos_passados, parque);
+    custo += conta_dias(entrada, saida) * parque->valor_max_diario;
+    
+    return custo;
 }
 
 void comando_p(char* linha, Lista_Parques lista_parques) {
@@ -155,3 +200,67 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     parque->lugares_disponiveis -= 1;
     printf("%s %d\n", parque->nome, parque->lugares_disponiveis);
 }
+
+void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema) {
+    char nome_parque[BUFSIZE];
+    char matricula[TAMANHO_ARGUMENTO];
+    int dia, mes, ano, hora, minutos;
+    float custo;
+    Parque* parque;
+    Carro* carro;
+    Data* data_saida;
+    Registo* registo;
+
+    if (!le_entrada_ou_saida(linha, nome_parque, matricula, &dia, &mes, &ano, &hora, &minutos)) {
+        return;
+    }
+    parque = procura_parque(lista_parques, nome_parque);
+    if (parque == NULL) {
+        printf("%s: no such parking.\n", nome_parque);
+        return;
+    } 
+    if (!matricula_valida(matricula)) {
+        printf("%s: invalid licence plate.\n", matricula);
+        return;
+    }
+    data_saida = cria_data(ano, mes, dia, hora, minutos);
+    if (!data_valida(data_saida)) {
+        printf("invalid date.\n");
+        free(data_saida);
+        return;
+    }
+    carro = procurar_hashtable_carros(hashtable_carros, matricula);
+    if (carro == NULL) {
+        printf("%s: invalid vehicle exit.\n", matricula);
+        free(data_saida);
+        return;
+    } else {
+        if (!carro->dentro_de_parque) {
+            printf("%s: invalid vehicle exit.\n", matricula);
+            free(data_saida);
+            return;
+        }
+        registo = procura_registo_por_parque(carro->lista_registos,parque);
+        if (registo == NULL) {
+            printf("%s: invalid vehicle exit.\n", matricula);
+            free(data_saida);
+            return;
+        }
+    }
+    if (!data_mais_recente(data_sistema, data_saida)) {
+        printf("invalid date.\n");
+        free(data_saida);
+        return;
+    }
+    
+    *data_sistema = *data_saida;
+    guarda_saida_no_registo(registo, data_saida);
+    custo = calcula_custo(registo, parque);
+    guarda_custo_no_registo(registo, custo);
+    append_lista_registos(parque->lista_saidas, registo);
+    parque->lugares_disponiveis += 1;
+    imprime_registo(registo);
+}
+
+
+

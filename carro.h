@@ -1,12 +1,7 @@
 #ifndef CARRO_H
 #define CARRO_H
 
-#include <stdio.h> 
-#include <stdlib.h>
-#include <ctype.h> 
-#include <string.h>
 #include "lista_registos.h"
-#include "parque.h"
 
 struct Carro {
     char* matricula;

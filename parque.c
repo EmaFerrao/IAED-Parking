@@ -37,6 +37,7 @@ Parque* cria_parque(char* nome, int capacidade, float valor_15, float valor_15_a
         parque -> valor_15 = valor_15;
         parque -> valor_15_apos_1hora = valor_15_apos_1hora;
         parque -> valor_max_diario = valor_max_diario;
+        parque -> lista_saidas = cria_lista_registos();
 
         return parque;
 }
@@ -47,6 +48,7 @@ void imprime_parque(Parque* parque) {
 
 void libertar_parque(Parque* parque) {
     free(parque->nome);
+    free(parque->lista_saidas);
     free(parque);
 }
 

@@ -33,3 +33,24 @@ int data_mais_recente(Data* data1, Data* data2) {
     return TRUE;
 }
 
+int mesmo_dia(Data* data1, Data* data2) {
+    if (data1->ano != data2->ano) return FALSE;
+    if (data1->mes != data2->mes) return FALSE;
+    if (data1->dia != data2->dia) return FALSE;
+    return TRUE;
+}
+
+int conta_dias(Data* entrada, Data* saida) {
+    int dias = 0;
+    dias += (saida->ano - entrada->ano) * 365;
+    if (entrada->mes == saida->mes) {
+        dias += saida->dia -1 - entrada->dia;
+    } else {
+        dias += diasMes[entrada->dia] - entrada->dia;
+        for (int i=entrada->mes+1; i<saida->mes; i++) {
+            dias += diasMes[i];
+        }
+        dias += saida->dia -1;
+    }
+    return dias;
+}

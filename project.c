@@ -23,6 +23,9 @@ int main(){
                 break;
             case 'e':
                 comando_e(linha, lista_parques, hashtable_carros, data_sistema);
+                break;
+            case 's':
+                comando_s(linha, lista_parques, hashtable_carros, data_sistema);
         }
     } while (linha[0] != 'q');
 

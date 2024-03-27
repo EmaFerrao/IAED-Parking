@@ -11,6 +11,8 @@ typedef struct {
 
 Data* cria_data(int ano, int mes, int dia, int hora, int minutos);
 int data_valida(Data* datahora);
-int data_mais_recente(Data* datahora_1, Data* datahora_2);
+int data_mais_recente(Data* data1, Data* data2);
+int mesmo_dia(Data* data1, Data* data2);
+int conta_dias(Data* entrada, Data* saida);
 
 #endif
