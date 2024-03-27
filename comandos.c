@@ -175,7 +175,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     
     *data_sistema = *data_entrada;
     registo = criar_registo(parque, carro, data_entrada);
-    append_lista_registos(carro->lista_registos, registo);
+    insere_lista_registos_alfabeto(carro->lista_registos, registo);
     parque->lugares_disponiveis -= 1;
     carro->dentro_de_parque = TRUE;
     printf("%s %d\n", parque->nome, parque->lugares_disponiveis);
@@ -240,7 +240,23 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     append_lista_registos(parque->lista_saidas, registo);
     parque->lugares_disponiveis += 1;
     carro->dentro_de_parque = FALSE;
-    imprime_registo(registo);
+    imprime_saida(registo);
+}
+
+void comando_v(char* linha, HashTable_Carros hashtable_carros) {
+    char matricula[TAMANHO_MATRICULA];
+    char comando;
+    Carro* carro;
+
+    sscanf(linha, "%c %s", &comando, matricula);
+    if (!matricula_valida(matricula)) {
+        printf("%s: invalid licence plate.\n", matricula);
+    }
+    carro = procurar_hashtable_carros(hashtable_carros, matricula);
+    if (carro->lista_registos->head == NULL) {
+        printf("%s: no entries found in any parking.\n", matricula);
+    }
+    itera_lista_registos(carro->lista_registos, imprime_entrada_saida);
 }
 
 
