@@ -42,8 +42,6 @@ int matricula_valida(char* matricula) {
 }
 
 float calcula_custo(Registo* registo, Parque* parque) {
-    Data* entrada = registo->entrada;
-    Data* saida = registo->saida;
     int minutos, dias, minutos_por_dia = 24*60, custo = 0;
 
     minutos = diferenca_em_minutos(registo->entrada, registo->saida);

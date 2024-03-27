@@ -40,7 +40,7 @@ int total_dias_ano(int ano) {
 int data_para_minutos(Data* data) {
     int minutos = 0;
 
-    minutos += totalDiasAno(data->ano - 1) * 24 * 60;
+    minutos += total_dias_ano(data->ano - 1) * 24 * 60;
     
     for (int mes = 1; mes < data->mes; mes++) {
         minutos += diasMes[mes] * 24 * 60;
