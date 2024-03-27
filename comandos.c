@@ -48,7 +48,7 @@ float calcula_custo(Registo* registo, Parque* parque) {
     dias = minutos / minutos_por_dia;
     custo += dias * parque->valor_max_diario;
     minutos = minutos % minutos_por_dia;
-    if (minutos > 60) {
+    if (minutos <= 60) {
         custo += (minutos / 15) * parque->valor_15;
         if (minutos % 15 != 0) custo += parque->valor_15;
     } else {

@@ -24,7 +24,7 @@ void guarda_custo_no_registo(Registo* registo, int custo) {
 }
 
 void imprime_registo(Registo* registo) {
-    printf("%s %02d-%02d-%02d %02d:%02d %02d-%02d-%02d %02d:%02d %f\n",
+    printf("%s %02d-%02d-%02d %02d:%02d %02d-%02d-%02d %02d:%02d %.2f\n",
     registo->carro->matricula, registo->entrada->dia, registo->entrada->mes,
     registo->entrada->ano, registo->entrada->hora, registo->entrada->minutos, 
     registo->saida->dia, registo->saida->mes, registo->saida->ano,
