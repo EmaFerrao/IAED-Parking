@@ -4,8 +4,8 @@
 #include <string.h>
 #include "hashtable_carros.h"
 
-int hash(char *texto, int tamanho) {
-    int hash = 7;
+unsigned int hash(char *texto, int tamanho) {
+    unsigned int hash = 7;
     for (int i = 0; texto[i] != '\0'; i++) {
         hash = hash*31 + texto[i];
     }
@@ -26,7 +26,7 @@ HashTable_Carros criar_hashtable_carros(int tamanho_esperado) {
 } 
 
 void inserir_hashtable_carros(HashTable_Carros hashtable, Carro* carro) {
-    int index = hash(carro->matricula, hashtable->tamanho);
+    unsigned int index = hash(carro->matricula, hashtable->tamanho);
     append_lista_carros(hashtable->array_de_listas[index], carro);
 }
 
