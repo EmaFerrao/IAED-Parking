@@ -33,10 +33,10 @@ void imprime_saida(Registo* registo) {
 }
 
 void imprime_entrada_saida(Registo* registo) {
-    if (registo->custo == 0) {
+    if (registo->saida == NULL) {
         printf("%s %02d-%02d-%02d %02d:%02d\n",
-    registo->parque->nome, registo->entrada->dia, registo->entrada->mes,
-    registo->entrada->ano, registo->entrada->hora, registo->entrada->minutos);
+        registo->parque->nome, registo->entrada->dia, registo->entrada->mes,
+        registo->entrada->ano, registo->entrada->hora, registo->entrada->minutos);
     } else {
         printf("%s %02d-%02d-%02d %02d:%02d %02d-%02d-%02d %02d:%02d\n",
         registo->parque->nome, registo->entrada->dia, registo->entrada->mes,
