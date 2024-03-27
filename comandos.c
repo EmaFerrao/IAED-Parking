@@ -131,6 +131,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     data_entrada = cria_data(ano, mes, dia, hora, minutos);
     if (!data_valida(data_entrada)) {
         printf("invalid date.\n");
+        free(data_entrada);
         return;
     }
     carro = procurar_hashtable_carros(hashtable_carros, matricula);
@@ -143,6 +144,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     }
     if (!data_mais_recente(data_sistema, data_entrada)) {
         printf("invalid date.\n");
+        free(data_entrada);
         return;
     }
     
