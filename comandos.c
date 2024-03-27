@@ -251,10 +251,12 @@ void comando_v(char* linha, HashTable_Carros hashtable_carros) {
     sscanf(linha, "%c %s", &comando, matricula);
     if (!matricula_valida(matricula)) {
         printf("%s: invalid licence plate.\n", matricula);
+        return;
     }
     carro = procurar_hashtable_carros(hashtable_carros, matricula);
-    if (carro->lista_registos->head == NULL) {
+    if (carro == NULL || carro->lista_registos->head == NULL) {
         printf("%s: no entries found in any parking.\n", matricula);
+        return;
     }
     itera_lista_registos(carro->lista_registos, imprime_entrada_saida);
 }
