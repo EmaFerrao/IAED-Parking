@@ -25,7 +25,7 @@ Registo* procura_registo_por_parque(Lista_Registos lista_registos, Parque* parqu
     Registo_Node* aux = lista_registos->head;
     while (aux != NULL) {
         if (aux->registo->parque == parque) {
-            if (aux->registo->custo == 0) {
+            if (aux->registo->custo_centimos == 0) {
                 return aux->registo;
             }
         }
@@ -94,30 +94,35 @@ void insere_lista_registos_alfabeto(Lista_Registos lista_registos, Registo* regi
 
 void imprime_faturacao(Lista_Registos lista_registos) {
     Registo_Node* aux = lista_registos->head;
-    float faturacao_do_dia = 0;
+    int custo_centimos = 0;
+    float custo_euros;
     Data* data;
     if (aux != NULL) {
         data = aux->registo->saida;
     }
     while (aux != NULL) {
         if (!mesmo_dia(aux->registo->saida, data)) {
-            printf("%02d-%02d-%02d %.2f\n", data->dia, data->mes, data->ano, faturacao_do_dia);
+            custo_euros = custo_centimos / 100;
+            printf("%02d-%02d-%02d %.2f\n", data->dia, data->mes, data->ano, custo_euros);
             data = aux->registo->saida;
-            faturacao_do_dia = 0;
+            custo_centimos = 0;
         }
-        faturacao_do_dia += aux->registo->custo;
+        custo_centimos += aux->registo->custo_centimos;
         if (aux->next == NULL) {
-            printf("%02d-%02d-%02d %.2f\n", data->dia, data->mes, data->ano, faturacao_do_dia);
+            custo_euros = custo_centimos / 100;
+            printf("%02d-%02d-%02d %.2f\n", data->dia, data->mes, data->ano, custo_euros);
         }
         aux = aux -> next;
     }
 }
 
 void imprime_faturacao_num_dia(Registo_Node* registo_node, Data* data) {
+    float custo_euros;
     while (registo_node != NULL && mesmo_dia(registo_node->registo->saida, data)) {
+        custo_euros = registo_node->registo->custo_centimos / 100;
         printf("%s %02d:%02d %.2f\n", registo_node->registo->carro->matricula, 
         registo_node->registo->saida->hora, registo_node->registo->saida->minutos,
-        registo_node->registo->custo);
+        custo_euros);
 
         registo_node = registo_node->next;
     }
