@@ -287,11 +287,12 @@ void comando_f(char* linha, Lista_Parques lista_parques) {
     data = cria_data(ano, mes, dia, 0, 0);
     if (!data_valida(data)) {
         printf("invalid date.\n");
-        free(data);
-        return;
+    } else {
+        registo_node_data = procura_registo_por_dia(parque->lista_saidas, data);
+        imprime_faturacao_num_dia(registo_node_data, data);
     }
-    registo_node_data = procura_registo_por_dia(parque->lista_saidas, data);
-    imprime_faturacao_num_dia(registo_node_data, data);
+    
+    free(data);
 }   
 
 
