@@ -18,8 +18,11 @@ typedef struct registos_lista* Lista_Registos;
 Lista_Registos cria_lista_registos();
 void itera_lista_registos(Lista_Registos lista_registos, Operacao_Registo operacao);
 Registo* procura_registo_por_parque(Lista_Registos lista_registos, Parque* parque);
+Registo_Node* procura_registo_por_dia(Lista_Registos lista_registos, Data* data);
 void append_lista_registos(Lista_Registos lista_registos, Registo* registo);
 void insere_lista_registos_alfabeto(Lista_Registos lista_registos, Registo* registo);
+void imprime_faturacao(Lista_Registos lista_registos);
+void imprime_faturacao_num_dia(Registo_Node* registo, Data* data);
 void libertar_lista_registos(Lista_Registos lista_registos, int libertar_registos);
 
 #endif

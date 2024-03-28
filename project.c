@@ -29,6 +29,10 @@ int main(){
                 break;
             case 'v':
                 comando_v(linha, hashtable_carros);
+                break;
+            case 'f':
+                comando_f(linha, lista_parques, data_sistema);
+                break;
         }
     } while (linha[0] != 'q');
 

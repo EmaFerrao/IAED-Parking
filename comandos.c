@@ -261,5 +261,39 @@ void comando_v(char* linha, HashTable_Carros hashtable_carros) {
     itera_lista_registos(carro->lista_registos, imprime_entrada_saida);
 }
 
+void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
+    char nome_parque[BUFSIZE];
+    char comando;
+    int ano=0, mes=0, dia=0;
+    int argumentos_recebidos;
+    Parque* parque;
+    Data* data;
+    Registo_Node* registo_node_data;
+
+    argumentos_recebidos = sscanf(linha, "%c %s %d-%d-%d", &comando, nome_parque, &dia, &mes, &ano);
+    if (argumentos_recebidos != 5 && argumentos_recebidos != 2) {
+        return;
+    }
+
+    parque = procura_parque(lista_parques, nome_parque);
+    if (parque == NULL) {
+        printf("%s: no such parking.\n", nome_parque);
+    }
+    if (argumentos_recebidos == 2) {
+        imprime_faturacao(parque->lista_saidas);
+        return;
+    }
+    data = cria_data(ano, mes, dia, 0, 0);
+    if (!data_valida(data) || !data_mais_recente(data_sistema, data)) {
+        printf("invalid date.\n");
+        return;
+    }
+    registo_node_data = procura_registo_por_dia(parque->lista_saidas, data);
+    if (registo_node_data == NULL) {
+        printf("invalid date. procura null\n");
+        return;
+    }
+    imprime_faturacao_num_dia(registo_node_data, data);
+}   
 
 

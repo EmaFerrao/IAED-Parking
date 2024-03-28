@@ -3,6 +3,7 @@
 #include <ctype.h> 
 #include <string.h>
 #include "lista_registos.h"
+#include "carro.h"
 #include "parque.h"
 
 Lista_Registos cria_lista_registos() {
@@ -27,6 +28,17 @@ Registo* procura_registo_por_parque(Lista_Registos lista_registos, Parque* parqu
             if (aux->registo->custo == 0) {
                 return aux->registo;
             }
+        }
+        aux = aux -> next;
+    }
+    return NULL;
+} 
+
+Registo_Node* procura_registo_por_dia(Lista_Registos lista_registos, Data* data) {
+    Registo_Node* aux = lista_registos->head;
+    while (aux != NULL) {
+        if (mesmo_dia(aux->registo->saida, data)) {
+            return aux;
         }
         aux = aux -> next;
     }
@@ -78,7 +90,34 @@ void insere_lista_registos_alfabeto(Lista_Registos lista_registos, Registo* regi
         }
     }
     anterior->next = registo_node;
-    return;
+}
+
+void imprime_faturacao(Lista_Registos lista_registos) {
+    Registo_Node* aux = lista_registos->head;
+    float faturacao_do_dia = 0;
+    Data* data;
+    if (aux != NULL) {
+        data = aux->registo->saida;
+    }
+    while (aux != NULL) {
+        if (!mesmo_dia(aux->registo->saida, data)) {
+            printf("%d-%d-%d %.2f\n", data->dia, data->mes, data->ano, faturacao_do_dia);
+            data = aux->registo->saida;
+            faturacao_do_dia = 0;
+        }
+        faturacao_do_dia += aux->registo->custo;
+        aux = aux -> next;
+    }
+}
+
+void imprime_faturacao_num_dia(Registo_Node* registo_node, Data* data) {
+    while (registo_node != NULL && registo_node->registo->saida == data) {
+        printf("%s %d:%d %.2f\n", registo_node->registo->carro->matricula, 
+        registo_node->registo->saida->hora, registo_node->registo->saida->minutos,
+        registo_node->registo->custo);
+
+        registo_node = registo_node->next;
+    }
 }
 
 void libertar_lista_registos(Lista_Registos lista_registos, int libertar_registos) {

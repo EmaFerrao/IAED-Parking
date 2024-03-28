@@ -59,3 +59,10 @@ int data_para_minutos(Data* data) {
 int diferenca_em_minutos(Data* data1, Data* data2) {
     return data_para_minutos(data2) - data_para_minutos(data1);
 }
+
+int mesmo_dia(Data* data1, Data* data2) {
+    if (data1->ano != data2->ano) return FALSE;
+    if (data1->mes != data2->mes) return FALSE;
+    if (data1->dia != data2->dia) return FALSE;
+    return TRUE;
+}
