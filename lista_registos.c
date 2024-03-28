@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <ctype.h> 
 #include <string.h>
+#include "bool.h"
 #include "lista_registos.h"
-#include "carro.h"
 #include "parque.h"
+#include "hashtable_carros.h"
 
 Lista_Registos cria_lista_registos() {
     Lista_Registos lista_registos = (Lista_Registos) malloc(sizeof(struct registos_lista));
@@ -120,6 +121,45 @@ void imprime_faturacao_num_dia(Registo_Node* registo_node, Data* data) {
         registo_node->registo->custo);
 
         registo_node = registo_node->next;
+    }
+}
+
+void apaga_registos_parque_em_carros(Lista_Registos lista_registos, Parque* parque) {
+    Registo_Node* aux = lista_registos->head;
+    HashTable_Carros carros_visitados = criar_hashtable_carros(500);
+    while (aux != NULL) {
+        if (procurar_hashtable_carros(carros_visitados, aux->registo->carro->matricula) == NULL) {
+            filtra_registos_parque(aux->registo->carro->lista_registos, parque);
+            inserir_hashtable_carros(carros_visitados, aux->registo->carro);
+        }
+        aux = aux -> next;
+    }
+    libertar_hashtable_carros(carros_visitados, FALSE /*não quero libertar os carros*/);
+}
+
+void filtra_registos_parque(Lista_Registos lista_registos, Parque* parque) {
+    Registo_Node* aux = lista_registos->head;
+    Registo_Node* anterior = NULL;
+    Registo_Node* next;
+    while (aux != NULL) {
+        if (strcmp(aux->registo->parque->nome, parque->nome) == 0) {
+            if (anterior == NULL) {
+                lista_registos->head = aux->next;
+            } else {
+                anterior->next = aux->next;
+            }
+            next = aux->next;
+            libertar_registo(aux->registo);
+            free(aux);
+            aux = next;
+        } else {
+            if (anterior == NULL) {
+                anterior = aux;
+            } else {
+                anterior = anterior -> next;
+            }
+            aux = aux -> next;
+        }
     }
 }
 

@@ -7,12 +7,12 @@
 #include "comandos.h"
 
 #define BUFSIZE 8192
-#define CARROS_ESPERADOS 10000
+#define TAMANHO_HASHTABLE 1000
 
 int main(){
     char linha[BUFSIZE];
     Lista_Parques lista_parques = cria_Lista_Parques();
-    HashTable_Carros hashtable_carros = criar_hashtable_carros(CARROS_ESPERADOS);
+    HashTable_Carros hashtable_carros = criar_hashtable_carros(TAMANHO_HASHTABLE);
     Data* data_sistema = cria_data(2000,1,1,0,0);
     
     do {
@@ -32,6 +32,9 @@ int main(){
                 break;
             case 'f':
                 comando_f(linha, lista_parques, data_sistema);
+                break;
+            case 'r':
+                comando_r(linha, lista_parques);
                 break;
         }
     } while (linha[0] != 'q');

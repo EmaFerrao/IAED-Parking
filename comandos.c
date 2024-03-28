@@ -261,16 +261,29 @@ void comando_v(char* linha, HashTable_Carros hashtable_carros) {
     itera_lista_registos(carro->lista_registos, imprime_entrada_saida);
 }
 
+int le_f(char* linha, char* nome_parque, int* dia, int* mes, int* ano) {
+    char comando;
+    int argumentos_recebidos;
+
+    argumentos_recebidos = sscanf(linha, "%c \"%[^\"]\" %d-%d-%d", &comando, nome_parque, dia, mes, ano);
+    if (argumentos_recebidos == 1) {
+        argumentos_recebidos = sscanf(linha, "%c %s %d-%d-%d", &comando, nome_parque, dia, mes, ano);
+        if (argumentos_recebidos != 5 && argumentos_recebidos != 2) {
+            printf("Erro a ler entrada.\n");
+        }
+    }
+    return argumentos_recebidos;
+}
+
 void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
     char nome_parque[BUFSIZE];
-    char comando;
     int ano=0, mes=0, dia=0;
     int argumentos_recebidos;
     Parque* parque;
     Data* data;
     Registo_Node* registo_node_data;
 
-    argumentos_recebidos = sscanf(linha, "%c %s %d-%d-%d", &comando, nome_parque, &dia, &mes, &ano);
+    argumentos_recebidos = le_f(linha, nome_parque, &dia, &mes, &ano);
     if (argumentos_recebidos != 5 && argumentos_recebidos != 2) {
         return;
     }
@@ -294,5 +307,38 @@ void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
     
     free(data);
 }   
+
+int le_r(char* linha, char* nome_parque) {
+    char comando;
+    int argumentos_recebidos;
+    int argumentos_esperados = 2;
+
+    argumentos_recebidos = sscanf(linha, "%c \"%[^\"]\"", &comando, 
+        nome_parque);
+    if (argumentos_recebidos != argumentos_esperados) {
+
+        argumentos_recebidos = sscanf(linha, "%c %s", &comando, 
+        nome_parque);
+        if (argumentos_recebidos != argumentos_esperados) {
+            printf("Erro a ler entrada.\n");
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
+
+void comando_r(char* linha, Lista_Parques lista_parques) {
+    char nome_parque[BUFSIZE];
+    Parque* parque;
+
+    le_r(linha, nome_parque);
+    parque = procura_parque(lista_parques, nome_parque);
+    if (parque == NULL) {
+        printf("%s: no such parking.\n", nome_parque);
+    } else {
+        remove_parque(parque);
+    }
+}
+
 
 

@@ -10,7 +10,7 @@ struct tablehashcarro {
 typedef struct tablehashcarro* HashTable_Carros; 
 
 unsigned int hash(char *texto, int tamanho);
-HashTable_Carros criar_hashtable_carros(int tamanho_esperado);
+HashTable_Carros criar_hashtable_carros(int tamanho);
 void inserir_hashtable_carros(HashTable_Carros hashtable, Carro* carro);
 Carro* procurar_hashtable_carros(HashTable_Carros hashtable, char* matricula);
 void libertar_hashtable_carros(HashTable_Carros hashtable, int libertar_carros);
