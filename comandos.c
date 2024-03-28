@@ -290,10 +290,6 @@ void comando_f(char* linha, Lista_Parques lista_parques) {
         return;
     }
     registo_node_data = procura_registo_por_dia(parque->lista_saidas, data);
-    if (registo_node_data == NULL) {
-        printf("invalid date.  null\n");
-        return;
-    }
     imprime_faturacao_num_dia(registo_node_data, data);
 }   
 

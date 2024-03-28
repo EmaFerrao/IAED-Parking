@@ -100,8 +100,8 @@ void imprime_faturacao(Lista_Registos lista_registos) {
         data = aux->registo->saida;
     }
     while (aux != NULL) {
-        if (!mesmo_dia(aux->registo->saida, data)) {
-            printf("%d-%d-%d %.2f\n", data->dia, data->mes, data->ano, faturacao_do_dia);
+        if (!mesmo_dia(aux->registo->saida, data) || aux->next == NULL) {
+            printf("%02d-%02d-%02d %.2f\n", data->dia, data->mes, data->ano, faturacao_do_dia);
             data = aux->registo->saida;
             faturacao_do_dia = 0;
         }
@@ -111,8 +111,8 @@ void imprime_faturacao(Lista_Registos lista_registos) {
 }
 
 void imprime_faturacao_num_dia(Registo_Node* registo_node, Data* data) {
-    while (registo_node != NULL && registo_node->registo->saida == data) {
-        printf("%s %d:%d %.2f\n", registo_node->registo->carro->matricula, 
+    while (registo_node != NULL && mesmo_dia(registo_node->registo->saida, data)) {
+        printf("%s %02d:%02d %.2f\n", registo_node->registo->carro->matricula, 
         registo_node->registo->saida->hora, registo_node->registo->saida->minutos,
         registo_node->registo->custo);
 
