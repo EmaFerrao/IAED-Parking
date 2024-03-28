@@ -152,11 +152,7 @@ void filtra_registos_parque(Lista_Registos lista_registos, Parque* parque) {
             free(aux);
             aux = next;
         } else {
-            if (anterior == NULL) {
-                anterior = aux;
-            } else {
-                anterior = anterior -> next;
-            }
+            anterior = aux;
             aux = aux -> next;
         }
     }
