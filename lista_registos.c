@@ -126,9 +126,11 @@ void imprime_faturacao_num_dia(Registo_Node* registo_node, Data* data) {
 
 void apaga_registos_parque_em_carros(Lista_Registos lista_registos, Parque* parque) {
     Registo_Node* aux = lista_registos->head;
+    Carro* carro;
     while (aux != NULL) {
         if (aux->registo != NULL) {
-            filtra_registos_parque(aux->registo->carro->lista_registos, parque);
+            carro = aux->registo->carro;
+            filtra_registos_parque(carro->lista_registos, parque);
         }
         aux = aux -> next;
     }
