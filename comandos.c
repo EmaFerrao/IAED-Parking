@@ -59,9 +59,9 @@ int calcula_custo_centimos(Registo* registo, Parque* parque) {
         custo += 4 * valor_15_cent;
         minutos -= 60;
         custo += (minutos / 15) * valor_apos_1hora_cent;
-        if (minutos % 15 != 0) custo += parque->valor_15_apos_1hora;
+        if (minutos % 15 != 0) custo += valor_apos_1hora_cent;
     }
-    if (custo > parque->valor_max_diario) custo = valor_apos_1hora_cent;
+    if (custo > valor_max_cent) custo = valor_max_cent;
     
     return custo_dias + custo;
 }
