@@ -287,6 +287,7 @@ void comando_f(char* linha, Lista_Parques lista_parques) {
     data = cria_data(ano, mes, dia, 0, 0);
     if (!data_valida(data)) {
         printf("invalid date.\n");
+        free(data);
         return;
     }
     registo_node_data = procura_registo_por_dia(parque->lista_saidas, data);
