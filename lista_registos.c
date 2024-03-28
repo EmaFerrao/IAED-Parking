@@ -102,14 +102,14 @@ void imprime_faturacao(Lista_Registos lista_registos) {
     }
     while (aux != NULL) {
         if (!mesmo_dia(aux->registo->saida, data)) {
-            custo_euros = custo_centimos / 100;
+            custo_euros = custo_centimos / (float)100;
             printf("%02d-%02d-%02d %.2f\n", data->dia, data->mes, data->ano, custo_euros);
             data = aux->registo->saida;
             custo_centimos = 0;
         }
         custo_centimos += aux->registo->custo_centimos;
         if (aux->next == NULL) {
-            custo_euros = custo_centimos / 100;
+            custo_euros = custo_centimos / (float)100;
             printf("%02d-%02d-%02d %.2f\n", data->dia, data->mes, data->ano, custo_euros);
         }
         aux = aux -> next;
