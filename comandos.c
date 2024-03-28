@@ -41,27 +41,24 @@ int matricula_valida(char* matricula) {
     return TRUE;
 }
 
-int calcula_custo_centimos(Registo* registo, Parque* parque) {
+float calcula_custo(Registo* registo, Parque* parque) {
     int minutos, dias, minutos_por_dia = 24*60;
-    int valor_15_cent = parque->valor_15 * 100;
-    int valor_apos_1hora_cent = parque->valor_15_apos_1hora * 100;
-    int valor_max_cent = parque->valor_max_diario * 100;
-    int custo_dias = 0, custo = 0;
+    float custo_dias = 0, custo = 0;
 
     minutos = diferenca_em_minutos(registo->entrada, registo->saida);
     dias = minutos / minutos_por_dia;
-    custo_dias += dias * valor_max_cent;
+    custo_dias += dias * parque->valor_max_diario;
     minutos = minutos % minutos_por_dia;
     if (minutos <= 60) {
-        custo += (minutos / 15) * valor_15_cent;
-        if (minutos % 15 != 0) custo += valor_15_cent;
+        custo += (minutos / 15) * parque->valor_15;
+        if (minutos % 15 != 0) custo += parque->valor_15;
     } else {
-        custo += 4 * valor_15_cent;
+        custo += 4 * parque->valor_15;
         minutos -= 60;
-        custo += (minutos / 15) * valor_apos_1hora_cent;
-        if (minutos % 15 != 0) custo += valor_apos_1hora_cent;
+        custo += (minutos / 15) * parque->valor_15_apos_1hora;
+        if (minutos % 15 != 0) custo += parque->valor_15_apos_1hora;
     }
-    if (custo > valor_max_cent) custo = valor_max_cent;
+    if (custo > parque->valor_max_diario) custo = parque->valor_max_diario;
     
     return custo_dias + custo;
 }
@@ -188,7 +185,7 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     char nome_parque[BUFSIZE];
     char matricula[TAMANHO_MATRICULA];
     int dia, mes, ano, hora, minutos;
-    int custo_centimos;
+    float custo;
     Parque* parque;
     Carro* carro;
     Data* data_saida;
@@ -238,8 +235,8 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     
     *data_sistema = *data_saida;
     guarda_saida_no_registo(registo, data_saida);
-    custo_centimos = calcula_custo_centimos(registo, parque);
-    guarda_custo_no_registo(registo, custo_centimos);
+    custo = calcula_custo(registo, parque);
+    guarda_custo_no_registo(registo, custo);
     append_lista_registos(parque->lista_saidas, registo);
     parque->lugares_disponiveis += 1;
     carro->dentro_de_parque = FALSE;

@@ -12,7 +12,7 @@ Registo* criar_registo(Parque* parque, Carro* carro, Data* entrada) {
     registo->carro = carro;
     registo->entrada = entrada;
     registo->saida = NULL;
-    registo->custo_centimos = 0;
+    registo->custo = 0;
     return registo;
 }
 
@@ -20,17 +20,16 @@ void guarda_saida_no_registo(Registo* registo, Data* data_saida) {
     registo->saida = data_saida;
 }
 
-void guarda_custo_no_registo(Registo* registo, int custo_centimos) {
-    registo->custo_centimos = custo_centimos;
+void guarda_custo_no_registo(Registo* registo, float custo) {
+    registo->custo = custo;
 }
 
 void imprime_saida(Registo* registo) {
-    float custo_euros = registo->custo_centimos / (float)100;
     printf("%s %02d-%02d-%02d %02d:%02d %02d-%02d-%02d %02d:%02d %.2f\n",
     registo->carro->matricula, registo->entrada->dia, registo->entrada->mes,
     registo->entrada->ano, registo->entrada->hora, registo->entrada->minutos, 
     registo->saida->dia, registo->saida->mes, registo->saida->ano,
-    registo->saida->hora, registo->saida->minutos, custo_euros);
+    registo->saida->hora, registo->saida->minutos, registo->custo);
 }
 
 void imprime_entrada_saida(Registo* registo) {
