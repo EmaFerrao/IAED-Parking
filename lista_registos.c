@@ -126,17 +126,12 @@ void imprime_faturacao_num_dia(Registo_Node* registo_node, Data* data) {
 
 void apaga_registos_parque_em_carros(Lista_Registos lista_registos, Parque* parque) {
     Registo_Node* aux = lista_registos->head;
-    HashTable_Carros carros_visitados = criar_hashtable_carros(500);
-    Carro* carro;
     while (aux != NULL) {
-        carro = aux->registo->carro;
-        if (procurar_hashtable_carros(carros_visitados, carro->matricula) == NULL) {
-            filtra_registos_parque(carro->lista_registos, parque);
-            inserir_hashtable_carros(carros_visitados, carro);
+        if (aux->registo != NULL) {
+            filtra_registos_parque(aux->registo->carro->lista_registos, parque);
         }
         aux = aux -> next;
     }
-    libertar_hashtable_carros(carros_visitados, FALSE /*não quero libertar os carros*/);
 }
 
 void filtra_registos_parque(Lista_Registos lista_registos, Parque* parque) {
