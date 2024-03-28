@@ -261,7 +261,7 @@ void comando_v(char* linha, HashTable_Carros hashtable_carros) {
     itera_lista_registos(carro->lista_registos, imprime_entrada_saida);
 }
 
-void comando_f(char* linha, Lista_Parques lista_parques) {
+void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
     char nome_parque[BUFSIZE];
     char comando;
     int ano=0, mes=0, dia=0;
@@ -285,7 +285,7 @@ void comando_f(char* linha, Lista_Parques lista_parques) {
         return;
     }
     data = cria_data(ano, mes, dia, 0, 0);
-    if (!data_valida(data)) {
+    if (!data_valida(data) || data_mais_recente(data_sistema, data)) {
         printf("invalid date.\n");
     } else {
         registo_node_data = procura_registo_por_dia(parque->lista_saidas, data);
