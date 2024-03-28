@@ -20,7 +20,7 @@ void itera_lista_registos(Lista_Registos lista_registos, Operacao_Registo operac
 Registo* procura_registo_por_parque(Lista_Registos lista_registos, Parque* parque);
 Registo_Node* procura_registo_por_dia(Lista_Registos lista_registos, Data* data);
 void append_lista_registos(Lista_Registos lista_registos, Registo* registo);
-void insere_lista_registos_alfabeto(Lista_Registos lista_registos, Registo* registo);
+void insere_lista_registos_por_nome(Lista_Registos lista_registos, Registo* registo);
 void imprime_faturacao(Lista_Registos lista_registos);
 void imprime_faturacao_num_dia(Registo_Node* registo, Data* data);
 void apaga_registos_parque_em_carros(Lista_Registos lista_registos, Parque* parque);

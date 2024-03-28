@@ -59,7 +59,7 @@ void append_lista_registos(Lista_Registos lista_registos, Registo* registo) {
     lista_registos->tail = registo_node;
 }
 
-void insere_lista_registos_alfabeto(Lista_Registos lista_registos, Registo* registo) {
+void insere_lista_registos_por_nome(Lista_Registos lista_registos, Registo* registo) {
     Registo_Node* aux = lista_registos->head;
     Registo_Node* anterior = NULL;
     Registo_Node* registo_node = (Registo_Node*) malloc(sizeof(Registo_Node));

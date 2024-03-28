@@ -46,11 +46,6 @@ void imprime_parque(Parque* parque) {
     printf("%s %d %d\n", parque->nome, parque->capacidade, parque->lugares_disponiveis);
 }
 
-void remove_parque(Parque* parque) {
-    apaga_registos_parque_em_carros(parque->lista_saidas, parque);
-    libertar_parque(parque);
-}
-
 void libertar_parque(Parque* parque) {
     free(parque->nome);
     libertar_lista_registos(parque->lista_saidas, FALSE);

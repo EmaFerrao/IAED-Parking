@@ -11,7 +11,7 @@
 
 int main(){
     char linha[BUFSIZE];
-    Lista_Parques lista_parques = cria_Lista_Parques();
+    Lista_Parques lista_parques = cria_lista_parques();
     HashTable_Carros hashtable_carros = criar_hashtable_carros(TAMANHO_HASHTABLE);
     Data* data_sistema = cria_data(2000,1,1,0,0);
     
