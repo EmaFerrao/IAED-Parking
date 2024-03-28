@@ -100,12 +100,15 @@ void imprime_faturacao(Lista_Registos lista_registos) {
         data = aux->registo->saida;
     }
     while (aux != NULL) {
-        if (!mesmo_dia(aux->registo->saida, data) || aux->next == NULL) {
+        if (!mesmo_dia(aux->registo->saida, data)) {
             printf("%02d-%02d-%02d %.2f\n", data->dia, data->mes, data->ano, faturacao_do_dia);
             data = aux->registo->saida;
             faturacao_do_dia = 0;
         }
         faturacao_do_dia += aux->registo->custo;
+        if (aux->next == NULL) {
+            printf("%02d-%02d-%02d %.2f\n", data->dia, data->mes, data->ano, faturacao_do_dia);
+        }
         aux = aux -> next;
     }
 }
