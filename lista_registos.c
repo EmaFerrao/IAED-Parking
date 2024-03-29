@@ -177,4 +177,5 @@ void libertar_lista_registos(Lista_Registos lista_registos, int libertar_registo
         aux = next;
     }
     free(lista_registos);
+    lista_registos = NULL;
 }
