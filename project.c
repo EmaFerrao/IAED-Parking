@@ -38,8 +38,10 @@ int main(){
                 break;
         }
     } while (linha[0] != 'q');
-
-    libertar_lista_parques(lista_parques, TRUE);
+    
+    if (lista_parques != NULL) {
+        libertar_lista_parques(lista_parques, TRUE);
+    }
     libertar_hashtable_carros(hashtable_carros, TRUE);
     free(data_sistema);
     return 0;

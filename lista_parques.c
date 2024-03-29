@@ -93,20 +93,23 @@ void remove_parque(Lista_Parques lista_parques, Parque* parque) {
     Parque_Node* parque_node = NULL;
     while (parque_anterior != NULL) {
         if (parque_anterior->next == NULL) {
-            parque_node = parque_anterior->next;
+            parque_node = parque_anterior;
             break;
         } else if (strcmp(parque_anterior->next->parque->nome, parque->nome) == 0) {
             parque_node = parque_anterior->next;
+            parque_anterior->next = parque_node->next;
             break;
         }
         parque_anterior = parque_anterior -> next;
     }
     apaga_registos_parque_em_carros(parque->lista_saidas, parque);
-    parque_anterior->next = parque_node->next;
     free(parque->nome);
     free(parque);
-    free(parque_node);
     lista_parques->numero_parques -= 1;
+    if (lista_parques->numero_parques == 0) {
+        lista_parques->head = NULL;
+    }
+    free(parque_node);
 }
 
 void libertar_lista_parques(Lista_Parques lista_parques, int libertar_parques) {
