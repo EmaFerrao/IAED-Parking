@@ -92,7 +92,10 @@ void remove_parque(Lista_Parques lista_parques, Parque* parque) {
     Parque_Node* parque_anterior = lista_parques->head;
     Parque_Node* parque_node = NULL;
     while (parque_anterior != NULL) {
-        if (strcmp(parque_anterior->next->parque->nome, parque->nome) == 0){
+        if (parque_anterior->next == NULL) {
+            parque_node = parque_anterior->next;
+            break;
+        } else if (strcmp(parque_anterior->next->parque->nome, parque->nome) == 0) {
             parque_node = parque_anterior->next;
             break;
         }
