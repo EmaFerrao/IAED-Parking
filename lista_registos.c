@@ -138,6 +138,7 @@ void apaga_registos_parque_em_carros(Lista_Registos lista_registos, Parque* parq
         }
         aux = aux -> next;
     }
+    libertar_hashtable_carros(carros_visitados, FALSE /*não quero libertar os carros*/);
     libertar_lista_registos(lista_registos, TRUE);
 }
 
