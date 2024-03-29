@@ -100,7 +100,10 @@ void remove_parque(Lista_Parques lista_parques, Parque* parque) {
     }
     apaga_registos_parque_em_carros(parque->lista_saidas, parque);
     parque_anterior->next = parque_node->next;
-    libertar_parque(parque);
+
+    free(parque->nome);
+    free(parque);
+    lista_parques->numero_parques -= 1;
 }
 
 void libertar_lista_parques(Lista_Parques lista_parques, int libertar_parques) {
