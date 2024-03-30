@@ -143,25 +143,25 @@ void apaga_registos_parque_em_carros(Lista_Registos lista_registos, Parque* parq
 }
 
 void filtra_registos_parque(Lista_Registos lista_registos, Parque* parque) {
-    Registo_Node* aux = lista_registos->head;
-    Registo_Node* anterior = NULL;
-    Registo_Node* next;
-    while (aux != NULL) {
-        if (strcmp(aux->registo->parque->nome, parque->nome) == 0) {
-            if (anterior == NULL) {
-                lista_registos->head = aux->next;
+    Registo_Node* current = lista_registos->head;
+    Registo_Node* prev = NULL;
+
+    while (current != NULL) {
+        if (strcmp(current->registo->parque->nome, parque->nome) == 0) {
+            Registo_Node* toDelete = current;
+            if (prev) {
+                prev->next = current->next;
             } else {
-                anterior->next = aux->next;
+                lista_registos->head = current->next;
             }
-            if (aux == lista_registos->tail) {
-                lista_registos->tail = anterior;
+            if (current == lista_registos->tail) {
+                lista_registos->tail = prev;
             }
-            next = aux->next;
-            free(aux);
-            aux = next;
+            current = current->next;
+            free(toDelete);
         } else {
-            anterior = aux;
-            aux = aux -> next;
+            prev = current;
+            current = current->next;
         }
     }
 }
