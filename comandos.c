@@ -5,6 +5,7 @@
 #include "comandos.h"
 #include "bool.h"
 #include "hashtable_carros.h"
+#include "ler_input.h"
 
 #define MAX_PARQUES 20
 #define TAMANHO_ARGUMENTO 50
@@ -108,25 +109,6 @@ void comando_p(char* linha, Lista_Parques lista_parques) {
     append_Lista_Parques(lista_parques, parque);
 }
 
-int le_entrada_ou_saida(char* linha, char* nome_parque, char* matricula, int* dia, int* mes, int* ano, int* hora, int* minutos) {
-    char comando;
-    int argumentos_recebidos;
-    int argumentos_esperados = 8;
-
-    argumentos_recebidos = sscanf(linha, "%c \"%[^\"]\" %s %d-%d-%d %d:%d", &comando, 
-        nome_parque, matricula, dia, mes, ano, hora, minutos);
-    if (argumentos_recebidos != argumentos_esperados) {
-
-        argumentos_recebidos = sscanf(linha, "%c %s %s %d-%d-%d %d:%d", &comando, 
-        nome_parque, matricula, dia, mes, ano, hora, minutos);
-        if (argumentos_recebidos != argumentos_esperados) {
-            printf("Erro a ler entrada.\n");
-            return FALSE;
-        }
-    }
-    return TRUE;
-}
-
 void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema) {
     char nome_parque[BUFSIZE];
     char matricula[TAMANHO_MATRICULA];
@@ -162,7 +144,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     if (carro == NULL) {
         carro = cria_carro(matricula);
         inserir_hashtable_carros(hashtable_carros, carro);
-    } else if (carro->dentro_de_parque) {
+    } else if (carro_dentro_de_parque(carro)) {
         printf("%s: invalid vehicle entry.\n", matricula);
         free(data_entrada);
         return;
@@ -177,7 +159,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     registo = criar_registo(parque, carro, data_entrada);
     insere_lista_registos_por_nome(carro->lista_registos, registo);
     parque->lugares_disponiveis -= 1;
-    carro->dentro_de_parque = TRUE;
+    altera_carro_dentro_de_parque(carro, TRUE);
     printf("%s %d\n", parque->nome, parque->lugares_disponiveis);
 }
 
@@ -215,7 +197,7 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
         free(data_saida);
         return;
     } else {
-        if (!carro->dentro_de_parque) {
+        if (!carro_dentro_de_parque(carro)) {
             printf("%s: invalid vehicle exit.\n", matricula);
             free(data_saida);
             return;
@@ -239,7 +221,7 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     guarda_custo_no_registo(registo, custo);
     append_lista_registos(parque->lista_saidas, registo);
     parque->lugares_disponiveis += 1;
-    carro->dentro_de_parque = FALSE;
+    altera_carro_dentro_de_parque(carro, FALSE);
     imprime_saida(registo);
 }
 
@@ -259,20 +241,6 @@ void comando_v(char* linha, HashTable_Carros hashtable_carros) {
         return;
     }
     itera_lista_registos(carro->lista_registos, imprime_entrada_saida);
-}
-
-int le_f(char* linha, char* nome_parque, int* dia, int* mes, int* ano) {
-    char comando;
-    int argumentos_recebidos;
-
-    argumentos_recebidos = sscanf(linha, "%c \"%[^\"]\" %d-%d-%d", &comando, nome_parque, dia, mes, ano);
-    if (argumentos_recebidos == 1) {
-        argumentos_recebidos = sscanf(linha, "%c %s %d-%d-%d", &comando, nome_parque, dia, mes, ano);
-        if (argumentos_recebidos != 5 && argumentos_recebidos != 2) {
-            printf("Erro a ler entrada.\n");
-        }
-    }
-    return argumentos_recebidos;
 }
 
 void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
@@ -308,26 +276,8 @@ void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
     free(data);
 }   
 
-int le_r(char* linha, char* nome_parque) {
-    char comando;
-    int argumentos_recebidos;
-    int argumentos_esperados = 2;
-
-    argumentos_recebidos = sscanf(linha, "%c \"%[^\"]\"", &comando, 
-        nome_parque);
-    if (argumentos_recebidos != argumentos_esperados) {
-
-        argumentos_recebidos = sscanf(linha, "%c %s", &comando, 
-        nome_parque);
-        if (argumentos_recebidos != argumentos_esperados) {
-            printf("Erro a ler entrada.\n");
-            return FALSE;
-        }
-    }
-    return TRUE;
-}
-
 void comando_r(char* linha, Lista_Parques lista_parques) {
+    printf("ÚLTIMA LINHA: %s\n", linha);
     char nome_parque[BUFSIZE];
     Parque* parque;
 

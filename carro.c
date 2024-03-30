@@ -14,6 +14,14 @@ Carro* cria_carro(char* matricula) {
     return carro;
 }
 
+int carro_dentro_de_parque(Carro* carro) {
+    return carro->dentro_de_parque;
+}
+
+void altera_carro_dentro_de_parque(Carro* carro, int dentro_de_parque) {
+    carro->dentro_de_parque = dentro_de_parque;
+}
+
 void libertar_carro(Carro* carro) {
     libertar_lista_registos(carro->lista_registos, /*libertar_registos*/TRUE);
     free(carro->matricula);

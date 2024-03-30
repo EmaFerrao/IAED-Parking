@@ -2,6 +2,7 @@
     "files.associations": {
         "estadia.h": "c",
         "carro.h": "c",
-        "registo.h": "c"
+        "registo.h": "c",
+        "ler_input.h": "c"
     }
 }
