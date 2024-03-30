@@ -105,17 +105,15 @@ void remove_parque(Lista_Parques lista_parques, Parque* parque) {
             if (current == lista_parques->tail) {
                 lista_parques->tail = prev;
             }
-            apaga_registos_parque(parque);
-            break;
+            libertar_parque(parque);
+            free(toDelete);
+            lista_parques->numero_parques -= 1;
+            return;
         } else {
             prev = current;
             current = current->next;
         }
     }
-    free(parque->nome);
-    free(parque);
-    free(toDelete);
-    lista_parques->numero_parques -= 1;
 }
 
 void libertar_lista_parques(Lista_Parques lista_parques, int libertar_parques) {

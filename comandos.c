@@ -150,6 +150,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     *data_sistema = *data_entrada;
     registo = criar_registo(parque, carro, data_entrada);
     insere_lista_registos_por_nome(carro->lista_registos, registo);
+    append_lista_registos(parque->lista_entradas, registo);
     parque->lugares_disponiveis -= 1;
     altera_carro_dentro_de_parque(carro, TRUE);
     printf("%s %d\n", parque->nome, parque->lugares_disponiveis);

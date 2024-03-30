@@ -62,6 +62,8 @@ void imprime_registo(Registo* registo) {
 
 void libertar_registo(Registo* registo) {
     // o parque e o carro não pertencem ao registo, logo não são libertados com o registo
+/*     printf("Apagando: ");
+    imprime_registo(registo); */
     free(registo->entrada);
     if (registo->saida!=NULL) free(registo->saida);
     free(registo);

@@ -35,7 +35,7 @@ void imprime_carro_tudo(Carro* carro) {
 }
 
 void libertar_carro(Carro* carro) {
-    libertar_lista_registos(carro->lista_registos, /*libertar_registos*/TRUE);
+    libertar_lista_registos(carro->lista_registos, /*libertar_registos*/FALSE);
     free(carro->matricula);
     free(carro);
 }

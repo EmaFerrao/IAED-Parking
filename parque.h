@@ -11,6 +11,7 @@ struct Parque {
     float valor_15_apos_1hora;
     float valor_max_diario;
     Lista_Registos lista_saidas;
+    Lista_Registos lista_entradas;
 };
 typedef struct Parque Parque;
 
