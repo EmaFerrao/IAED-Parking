@@ -65,32 +65,24 @@ float calcula_custo(Registo* registo, Parque* parque) {
 }
 
 void comando_p(char* linha, Lista_Parques lista_parques) {
-    char comando;
     char nome[BUFSIZE];
     int capacidade;
     float valor_15;
     float valor_15_apos_1hora;
     float valor_max_diario;
     int argumentos_recebidos;
-    int argumentos_esperados = 6;
+    int argumentos_so_p = 1;
     Parque* parque;
 
-    argumentos_recebidos = sscanf(linha, "%c \"%[^\"]\" %d %f %f %f", &comando, 
-        nome, &capacidade, &valor_15, &valor_15_apos_1hora, &valor_max_diario);
-    if (argumentos_recebidos != argumentos_esperados) {
-
-        argumentos_recebidos = sscanf(linha, "%c %s %d %f %f %f", &comando, 
-            nome, &capacidade, &valor_15, &valor_15_apos_1hora, &valor_max_diario);
-        if (argumentos_recebidos != argumentos_esperados) {
-
-            if (argumentos_recebidos==1) {
-                imprime_lista_parques(lista_parques);
-                return;
-            }
-            printf("Erro a ler argumentos do parque.\n");
-            return;
-        }
+    argumentos_recebidos = le_p(linha, nome, &capacidade, &valor_15, &valor_15_apos_1hora, &valor_max_diario);
+    if (!argumentos_recebidos) {
+        return;
     }
+    if (argumentos_recebidos == argumentos_so_p) {
+        imprime_lista_parques(lista_parques);
+        return;
+    }
+
     if (procura_parque(lista_parques, nome) != NULL) {
         printf("%s: parking already exists.\n", nome);
         return;
@@ -118,7 +110,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     Data* data_entrada;
     Registo* registo;
 
-    if (!le_entrada_ou_saida(linha, nome_parque, matricula, &dia, &mes, &ano, &hora, &minutos)) {
+    if (!le_e_s(linha, nome_parque, matricula, &dia, &mes, &ano, &hora, &minutos)) {
         return;
     }
     parque = procura_parque(lista_parques, nome_parque);
@@ -173,7 +165,7 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     Data* data_saida;
     Registo* registo;
 
-    if (!le_entrada_ou_saida(linha, nome_parque, matricula, &dia, &mes, &ano, &hora, &minutos)) {
+    if (!le_e_s(linha, nome_parque, matricula, &dia, &mes, &ano, &hora, &minutos)) {
         return;
     }
     parque = procura_parque(lista_parques, nome_parque);
@@ -227,10 +219,12 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
 
 void comando_v(char* linha, HashTable_Carros hashtable_carros) {
     char matricula[TAMANHO_MATRICULA];
-    char comando;
     Carro* carro;
 
-    sscanf(linha, "%c %s", &comando, matricula);
+    if(!le_v(linha, matricula)) {
+        return;
+    }
+
     if (!matricula_valida(matricula)) {
         printf("%s: invalid licence plate.\n", matricula);
         return;
@@ -280,7 +274,9 @@ void comando_r(char* linha, Lista_Parques lista_parques) {
     char nome_parque[BUFSIZE];
     Parque* parque;
 
-    le_r(linha, nome_parque);
+    if(!le_r(linha, nome_parque)) {
+        return;
+    }
     parque = procura_parque(lista_parques, nome_parque);
     if (parque == NULL) {
         printf("%s: no such parking.\n", nome_parque);

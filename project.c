@@ -38,6 +38,7 @@ int main(){
                 break;
             case 't':
                 comando_t(lista_parques, hashtable_carros);
+                break;
         }
     } while (linha[0] != 'q');
 
