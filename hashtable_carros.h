@@ -13,6 +13,7 @@ unsigned int hash(char *texto, int tamanho);
 HashTable_Carros criar_hashtable_carros(int tamanho);
 void inserir_hashtable_carros(HashTable_Carros hashtable, Carro* carro);
 Carro* procurar_hashtable_carros(HashTable_Carros hashtable, char* matricula);
+void imprime_hashtable_carros(HashTable_Carros hashtable);
 void libertar_hashtable_carros(HashTable_Carros hashtable, int libertar_carros);
 
 #endif

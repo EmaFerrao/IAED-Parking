@@ -34,6 +34,12 @@ Carro* procurar_hashtable_carros(HashTable_Carros hashtable, char* matricula) {
     return procura_carro(hashtable->array_de_listas[index], matricula);
 }
 
+void imprime_hashtable_carros(HashTable_Carros hashtable) {
+    for (int i=0; i < hashtable->tamanho; i++) {
+        itera_lista_carros(hashtable->array_de_listas[i], imprime_carro_tudo);
+    }
+}
+
 void libertar_hashtable_carros(HashTable_Carros hashtable, int libertar_carros) {
     for (int i=0; i < hashtable->tamanho; i++) {
         libertar_lista_carros(hashtable->array_de_listas[i], libertar_carros);

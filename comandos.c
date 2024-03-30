@@ -277,7 +277,6 @@ void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
 }   
 
 void comando_r(char* linha, Lista_Parques lista_parques) {
-    printf("ÚLTIMA LINHA: %s\n", linha);
     char nome_parque[BUFSIZE];
     Parque* parque;
 
@@ -291,5 +290,8 @@ void comando_r(char* linha, Lista_Parques lista_parques) {
     imprime_lista_parques_por_nome(lista_parques);
 }
 
-
+void comando_t(Lista_Parques lista_parques, HashTable_Carros hashtable_carros) {
+    itera_lista_parques(lista_parques, imprime_parque_tudo);
+    imprime_hashtable_carros(hashtable_carros);
+}
 

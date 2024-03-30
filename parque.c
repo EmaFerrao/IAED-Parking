@@ -46,6 +46,13 @@ void imprime_parque(Parque* parque) {
     printf("%s %d %d\n", parque->nome, parque->capacidade, parque->lugares_disponiveis);
 }
 
+void imprime_parque_tudo(Parque* parque) {
+    printf("%s %d %d\n", parque->nome, parque->capacidade, parque->lugares_disponiveis);
+    printf("SAÍDAS:\n");
+    itera_lista_registos(parque->lista_saidas, imprime_registo);
+    printf("\n");
+}
+
 void libertar_parque(Parque* parque) {
     free(parque->nome);
     libertar_lista_registos(parque->lista_saidas, FALSE);

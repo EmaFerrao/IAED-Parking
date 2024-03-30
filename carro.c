@@ -22,6 +22,18 @@ void altera_carro_dentro_de_parque(Carro* carro, int dentro_de_parque) {
     carro->dentro_de_parque = dentro_de_parque;
 }
 
+void imprime_carro_tudo(Carro* carro) {
+    printf("%s\n", carro->matricula);
+    if (carro_dentro_de_parque(carro)) {
+        printf("Dentro de parque\n");
+    } else {
+        printf("Fora de parque\n");
+    }
+    printf("REGISTOS:\n");
+    itera_lista_registos(carro->lista_registos, imprime_registo);
+    printf("\n");
+}
+
 void libertar_carro(Carro* carro) {
     libertar_lista_registos(carro->lista_registos, /*libertar_registos*/TRUE);
     free(carro->matricula);

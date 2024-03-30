@@ -26,7 +26,7 @@ Registo* procura_registo_por_parque(Lista_Registos lista_registos, Parque* parqu
     Registo_Node* aux = lista_registos->head;
     while (aux != NULL) {
         if (aux->registo->parque == parque) {
-            if (aux->registo->custo == 0) {
+            if (aux->registo->saida == NULL) {
                 return aux->registo;
             }
         }
@@ -147,15 +147,17 @@ void apaga_registos_parque(Parque* parque) {
 void filtra_registos_carro(Lista_Registos lista_registos, Parque* parque) {
     Registo_Node* current = lista_registos->head;
     Registo_Node* prev = NULL;
+    Registo_Node* toDelete;
 
     while (current != NULL) {
-        if (strcmp(current->registo->parque->nome, parque->nome) == 0) {
-            Registo_Node* toDelete = current;
+        if (current->registo->parque == parque) {
+            toDelete = current;
             if (prev) {
                 prev->next = current->next;
             } else {
                 lista_registos->head = current->next;
             }
+            
             if (current == lista_registos->tail) {
                 lista_registos->tail = prev;
             }
@@ -169,9 +171,6 @@ void filtra_registos_carro(Lista_Registos lista_registos, Parque* parque) {
 }
 
 void libertar_lista_registos(Lista_Registos lista_registos, int libertar_registos) {
-    if (lista_registos == NULL) {
-        return;
-    }
     Registo_Node* aux = lista_registos->head;
     Registo_Node* next;
     while (aux != NULL) {

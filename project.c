@@ -36,12 +36,12 @@ int main(){
             case 'r':
                 comando_r(linha, lista_parques);
                 break;
+            case 't':
+                comando_t(lista_parques, hashtable_carros);
         }
     } while (linha[0] != 'q');
-    
-    if (lista_parques != NULL) {
-        libertar_lista_parques(lista_parques, TRUE);
-    }
+
+    libertar_lista_parques(lista_parques, TRUE);
     libertar_hashtable_carros(hashtable_carros, TRUE);
     free(data_sistema);
     return 0;

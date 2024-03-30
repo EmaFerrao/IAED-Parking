@@ -91,21 +91,21 @@ void append_Lista_Parques(Lista_Parques lista_parques, Parque* parque) {
 void remove_parque(Lista_Parques lista_parques, Parque* parque) {
     Parque_Node* current = lista_parques->head;
     Parque_Node* prev = NULL;
+    Parque_Node* toDelete = NULL;
 
     while (current != NULL) {
-        if (strcmp(current->parque->nome, parque->nome) == 0) {
-            Parque_Node* toDelete = current;
+        if (current->parque == parque) {
+            toDelete = current;
             if (prev) {
                 prev->next = current->next;
             } else {
                 lista_parques->head = current->next;
             }
+
             if (current == lista_parques->tail) {
                 lista_parques->tail = prev;
             }
             apaga_registos_parque(parque);
-            free(toDelete);
-            lista_parques->numero_parques -= 1;
             break;
         } else {
             prev = current;
@@ -114,6 +114,8 @@ void remove_parque(Lista_Parques lista_parques, Parque* parque) {
     }
     free(parque->nome);
     free(parque);
+    free(toDelete);
+    lista_parques->numero_parques -= 1;
 }
 
 void libertar_lista_parques(Lista_Parques lista_parques, int libertar_parques) {

@@ -46,6 +46,20 @@ void imprime_entrada_saida(Registo* registo) {
     }
 }
 
+void imprime_registo(Registo* registo) {
+    if (registo->saida == NULL) {
+        printf("%s %s %02d-%02d-%02d %02d:%02d\n",
+        registo->parque->nome, registo->carro->matricula, registo->entrada->dia, registo->entrada->mes,
+        registo->entrada->ano, registo->entrada->hora, registo->entrada->minutos);
+    } else {
+        printf("%s %s %02d-%02d-%02d %02d:%02d %02d-%02d-%02d %02d:%02d\n",
+        registo->parque->nome, registo->carro->matricula, registo->entrada->dia, registo->entrada->mes,
+        registo->entrada->ano, registo->entrada->hora, registo->entrada->minutos, 
+        registo->saida->dia, registo->saida->mes, registo->saida->ano,
+        registo->saida->hora, registo->saida->minutos);
+    }
+}
+
 void libertar_registo(Registo* registo) {
     // o parque e o carro não pertencem ao registo, logo não são libertados com o registo
     free(registo->entrada);
