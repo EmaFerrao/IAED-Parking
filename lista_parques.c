@@ -35,39 +35,39 @@ void imprime_lista_parques(Lista_Parques lista_parques) {
     itera_lista_parques(lista_parques, imprime_parque);
 }
 
-void cria_vetor_nomes_parques(Lista_Parques lista_parques, char** nomes_parques, int numero_parques) {
+void cria_vetor_nomes_parques(Lista_Parques lista_parques, char*** nomes_parques, int numero_parques) {
     Parque_Node* aux = lista_parques->head;
 
     for (int i = 0; i < numero_parques; i++) {
-        nomes_parques[i] = aux->parque->nome;
+        nomes_parques[i] = &aux->parque->nome;
         aux = aux -> next;
     }
 }
 
-void ordena_vetor_por_nome(char** vetor, int tamanho) {
+void ordena_vetor_por_nome(char*** vetor, int tamanho) {
     int i, j;
-    char temporario[100];
+    char** temporario;
 
     for (i = 0; i < tamanho - 1; i++) {
         for (j = 0; j < tamanho - i - 1; j++) {
-            if (strcmp(vetor[j], vetor[j + 1]) > 0) {
-                strcpy(temporario, vetor[j]);
-                strcpy(vetor[j], vetor[j + 1]);
-                strcpy(vetor[j + 1], temporario);
+            if (strcmp(*vetor[j], *vetor[j + 1]) > 0) {
+                temporario = vetor[j];
+                vetor[j] = vetor[j + 1];
+                vetor[j + 1] = temporario;
             }
         }
     }
 }
 
-void imprime_vetor(char** vetor, int tamanho) {
+void imprime_vetor(char*** vetor, int tamanho) {
     for (int i = 0; i < tamanho; i++) {
-        printf("%s\n", vetor[i]);
+        printf("%s\n", *vetor[i]);
     }
 }
 
 void imprime_lista_parques_por_nome(Lista_Parques lista_parques) {
     int numero_parques = lista_parques->numero_parques;
-    char* nomes_parques[numero_parques];
+    char** nomes_parques[numero_parques];
     cria_vetor_nomes_parques(lista_parques, nomes_parques, numero_parques);
     ordena_vetor_por_nome(nomes_parques, numero_parques);
     imprime_vetor(nomes_parques, numero_parques);
