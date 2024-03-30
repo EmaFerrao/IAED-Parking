@@ -134,7 +134,9 @@ void apaga_registos_parque(Parque* parque) {
             carro = aux->registo->carro;
             if (procurar_hashtable_carros(carros_visitados, carro->matricula) == NULL) {
                 filtra_registos_carro(carro->lista_registos, parque);
-                altera_carro_dentro_de_parque(carro, FALSE);
+                if (aux->registo == procura_registo_por_parque(carro->lista_registos, parque)) {
+                    altera_carro_dentro_de_parque(carro, FALSE);
+                }
                 inserir_hashtable_carros(carros_visitados, carro);
             }
         }
