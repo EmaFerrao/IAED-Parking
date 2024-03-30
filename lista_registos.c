@@ -124,7 +124,8 @@ void imprime_faturacao_num_dia(Registo_Node* registo_node, Data* data) {
     }
 }
 
-void apaga_registos_parque(Lista_Registos lista_registos, Parque* parque) {
+void apaga_registos_parque(Parque* parque) {
+    Lista_Registos lista_registos = parque->lista_saidas;
     Registo_Node* aux = lista_registos->head;
     HashTable_Carros carros_visitados = criar_hashtable_carros(500);
     Carro* carro;

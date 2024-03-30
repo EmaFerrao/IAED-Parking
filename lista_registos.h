@@ -23,7 +23,7 @@ void append_lista_registos(Lista_Registos lista_registos, Registo* registo);
 void insere_lista_registos_por_nome(Lista_Registos lista_registos, Registo* registo);
 void imprime_faturacao(Lista_Registos lista_registos);
 void imprime_faturacao_num_dia(Registo_Node* registo, Data* data);
-void apaga_registos_parque(Lista_Registos lista_registos, Parque* parque);
+void apaga_registos_parque(Parque* parque);
 void filtra_registos_carro(Lista_Registos lista_registos, Parque* parque);
 void libertar_lista_registos(Lista_Registos lista_registos, int libertar_registos);
 

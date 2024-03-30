@@ -103,8 +103,7 @@ void remove_parque(Lista_Parques lista_parques, Parque* parque) {
             if (current == lista_parques->tail) {
                 lista_parques->tail = prev;
             }
-            current = current->next;
-            apaga_registos_parque(parque->lista_saidas, parque);
+            apaga_registos_parque(parque);
             free(toDelete);
             lista_parques->numero_parques -= 1;
             break;
