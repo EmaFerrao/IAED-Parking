@@ -66,15 +66,12 @@ float calcula_custo(Registo* registo, Parque* parque) {
 
 void comando_p(char* linha, Lista_Parques lista_parques) {
     char nome[BUFSIZE];
-    int capacidade;
-    float valor_15;
-    float valor_15_apos_1hora;
-    float valor_max_diario;
-    int argumentos_recebidos;
-    int argumentos_so_p = 1;
+    int capacidade, argumentos_recebidos, argumentos_so_p = 1;
+    float valor_15, valor_15_apos_1hora, valor_max_diario;
     Parque* parque;
 
-    argumentos_recebidos = le_p(linha, nome, &capacidade, &valor_15, &valor_15_apos_1hora, &valor_max_diario);
+    argumentos_recebidos = le_p(linha, nome, &capacidade, &valor_15, 
+        &valor_15_apos_1hora, &valor_max_diario);
     if (!argumentos_recebidos) {
         return;
     }
@@ -98,17 +95,26 @@ void comando_p(char* linha, Lista_Parques lista_parques) {
         return;
     }
     parque = cria_parque(nome, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
-    append_Lista_Parques(lista_parques, parque);
+    append_lista_parques(lista_parques, parque);
+}
+
+void executa_entrada(Parque* parque, Carro* carro, Data* data_entrada, Data* data_sistema) {
+    Registo* registo;
+
+    *data_sistema = *data_entrada;
+    registo = criar_registo(parque, carro, data_entrada);
+    insere_lista_registos_por_nome(carro->lista_registos, registo);
+    append_lista_registos(parque->lista_entradas, registo);
+    parque->lugares_disponiveis -= 1;
+    carro->dentro_de_parque = TRUE;
 }
 
 void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema) {
-    char nome_parque[BUFSIZE];
-    char matricula[TAMANHO_MATRICULA];
+    char nome_parque[BUFSIZE], matricula[TAMANHO_MATRICULA];
     int dia, mes, ano, hora, minutos;
     Parque* parque;
     Carro* carro;
     Data* data_entrada;
-    Registo* registo;
 
     if (!le_e_s(linha, nome_parque, matricula, &dia, &mes, &ano, &hora, &minutos)) {
         return;
@@ -136,7 +142,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     if (carro == NULL) {
         carro = cria_carro(matricula);
         inserir_hashtable_carros(hashtable_carros, carro);
-    } else if (carro_dentro_de_parque(carro)) {
+    } else if (carro->dentro_de_parque) {
         printf("%s: invalid vehicle entry.\n", matricula);
         free(data_entrada);
         return;
@@ -147,20 +153,25 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
         return;
     }
     
-    *data_sistema = *data_entrada;
-    registo = criar_registo(parque, carro, data_entrada);
-    insere_lista_registos_por_nome(carro->lista_registos, registo);
-    append_lista_registos(parque->lista_entradas, registo);
-    parque->lugares_disponiveis -= 1;
-    altera_carro_dentro_de_parque(carro, TRUE);
+    executa_entrada(parque, carro, data_entrada, data_sistema);
     printf("%s %d\n", parque->nome, parque->lugares_disponiveis);
 }
 
-void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema) {
-    char nome_parque[BUFSIZE];
-    char matricula[TAMANHO_MATRICULA];
-    int dia, mes, ano, hora, minutos;
+void executa_saida(Parque* parque, Carro* carro, Registo* registo, Data* data_saida, Data* data_sistema) {
     float custo;
+
+    *data_sistema = *data_saida;
+    guarda_saida_no_registo(registo, data_saida);
+    custo = calcula_custo(registo, parque);
+    guarda_custo_no_registo(registo, custo);
+    append_lista_registos(parque->lista_saidas, registo);
+    parque->lugares_disponiveis += 1;
+    carro->dentro_de_parque = FALSE;
+}
+
+void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema) {
+    char nome_parque[BUFSIZE], matricula[TAMANHO_MATRICULA];
+    int dia, mes, ano, hora, minutos;
     Parque* parque;
     Carro* carro;
     Data* data_saida;
@@ -189,18 +200,18 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
         printf("%s: invalid vehicle exit.\n", matricula);
         free(data_saida);
         return;
-    } else {
-        if (!carro_dentro_de_parque(carro)) {
-            printf("%s: invalid vehicle exit.\n", matricula);
-            free(data_saida);
-            return;
-        }
-        registo = procura_registo_por_parque(carro->lista_registos,parque);
-        if (registo == NULL) {
-            printf("%s: invalid vehicle exit.\n", matricula);
-            free(data_saida);
-            return;
-        }
+    } 
+    if (!carro->dentro_de_parque) {
+        printf("%s: invalid vehicle exit.\n", matricula);
+        free(data_saida);
+        return;
+    }
+    
+    registo = procura_registo_por_parque(carro->lista_registos,parque);
+    if (registo == NULL) {
+        printf("%s: invalid vehicle exit.\n", matricula);
+        free(data_saida);
+        return;
     }
     if (!data_mais_recente(data_sistema, data_saida)) {
         printf("invalid date.\n");
@@ -208,13 +219,7 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
         return;
     }
     
-    *data_sistema = *data_saida;
-    guarda_saida_no_registo(registo, data_saida);
-    custo = calcula_custo(registo, parque);
-    guarda_custo_no_registo(registo, custo);
-    append_lista_registos(parque->lista_saidas, registo);
-    parque->lugares_disponiveis += 1;
-    altera_carro_dentro_de_parque(carro, FALSE);
+    executa_saida(parque, carro, registo, data_saida, data_sistema);
     imprime_saida(registo);
 }
 
@@ -240,7 +245,7 @@ void comando_v(char* linha, HashTable_Carros hashtable_carros) {
 
 void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
     char nome_parque[BUFSIZE];
-    int ano=0, mes=0, dia=0;
+    int ano = 0, mes = 0, dia = 0;
     int argumentos_recebidos;
     Parque* parque;
     Data* data;

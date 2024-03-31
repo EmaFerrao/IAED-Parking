@@ -14,17 +14,9 @@ Carro* cria_carro(char* matricula) {
     return carro;
 }
 
-int carro_dentro_de_parque(Carro* carro) {
-    return carro->dentro_de_parque;
-}
-
-void altera_carro_dentro_de_parque(Carro* carro, int dentro_de_parque) {
-    carro->dentro_de_parque = dentro_de_parque;
-}
-
 void imprime_carro_tudo(Carro* carro) {
     printf("%s\n", carro->matricula);
-    if (carro_dentro_de_parque(carro)) {
+    if (carro->dentro_de_parque) {
         printf("Dentro de parque\n");
     } else {
         printf("Fora de parque\n");

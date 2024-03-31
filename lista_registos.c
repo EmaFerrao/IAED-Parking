@@ -87,7 +87,6 @@ void insere_lista_registos_por_nome(Lista_Registos lista_registos, Registo* regi
                 anterior = anterior -> next;
             }
             aux = aux -> next;
-            
         }
     }
     anterior->next = registo_node;

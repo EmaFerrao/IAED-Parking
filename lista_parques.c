@@ -32,7 +32,7 @@ Parque* procura_parque(Lista_Parques lista_parques, char* nome) {
 }
 
 void imprime_lista_parques(Lista_Parques lista_parques) {
-    itera_lista_parques(lista_parques, imprime_parque);
+    itera_lista_parques(lista_parques, imprime_parque_capacidade_lugares);
 }
 
 void cria_vetor_nomes_parques(Lista_Parques lista_parques, char*** nomes_parques, int numero_parques) {
@@ -73,7 +73,7 @@ void imprime_lista_parques_por_nome(Lista_Parques lista_parques) {
     imprime_vetor(nomes_parques, numero_parques);
 }
 
-void append_Lista_Parques(Lista_Parques lista_parques, Parque* parque) {
+void append_lista_parques(Lista_Parques lista_parques, Parque* parque) {
     Parque_Node* parque_node = (Parque_Node*) malloc(sizeof(Parque_Node));
     parque_node -> parque = parque;
     parque_node -> next = NULL;

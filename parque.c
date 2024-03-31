@@ -30,21 +30,21 @@ int verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_ap
 }
 
 Parque* cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario) {
-        Parque* parque;
-        parque = (Parque*) malloc(sizeof(Parque));
-        parque -> nome = strdup(nome);
-        parque -> capacidade = capacidade;
-        parque -> lugares_disponiveis = capacidade;
-        parque -> valor_15 = valor_15;
-        parque -> valor_15_apos_1hora = valor_15_apos_1hora;
-        parque -> valor_max_diario = valor_max_diario;
-        parque -> lista_entradas = cria_lista_registos();
-        parque -> lista_saidas = cria_lista_registos();
+    Parque* parque;
+    parque = (Parque*) malloc(sizeof(Parque));
+    parque -> nome = strdup(nome);
+    parque -> capacidade = capacidade;
+    parque -> lugares_disponiveis = capacidade;
+    parque -> valor_15 = valor_15;
+    parque -> valor_15_apos_1hora = valor_15_apos_1hora;
+    parque -> valor_max_diario = valor_max_diario;
+    parque -> lista_entradas = cria_lista_registos();
+    parque -> lista_saidas = cria_lista_registos();
 
-        return parque;
+    return parque;
 }
 
-void imprime_parque(Parque* parque) {
+void imprime_parque_capacidade_lugares(Parque* parque) {
     printf("%s %d %d\n", parque->nome, parque->capacidade, parque->lugares_disponiveis);
 }
 
@@ -64,7 +64,7 @@ void apaga_registos_carros_do_parque(Parque* parque) {
             carro = aux->registo->carro;
             if (procurar_hashtable_carros(carros_visitados, carro->matricula) == NULL) {
                 if (aux->registo == procura_registo_por_parque(carro->lista_registos, parque)) {
-                    altera_carro_dentro_de_parque(carro, FALSE);
+                    carro->dentro_de_parque = FALSE;
                 }
                 filtra_registos_carro(carro->lista_registos, parque);
                 inserir_hashtable_carros(carros_visitados, carro);
