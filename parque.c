@@ -8,6 +8,7 @@
 #include <string.h>
 #include "parque.h"
 #include "hashtable_carros.h"
+#include "data.h"
 #include "bool.h"
 
 int verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario) {
@@ -45,13 +46,13 @@ Parque* cria_parque(char* nome, int capacidade, float valor_15, float valor_15_a
 }
 
 float calcula_custo(Registo* registo, Parque* parque) {
-    int minutos, dias, minutos_por_dia = 24*60;
+    int minutos, dias;
     float custo_dias = 0, custo = 0;
 
     minutos = diferenca_em_minutos(registo->entrada, registo->saida);
-    dias = minutos / minutos_por_dia;
+    dias = minutos / MINUTOS_NUM_DIA;
     custo_dias += dias * parque->valor_max_diario;
-    minutos = minutos % minutos_por_dia;
+    minutos = minutos % MINUTOS_NUM_DIA;
     if (minutos <= 60) {
         custo += (minutos / 15) * parque->valor_15;
         if (minutos % 15 != 0) custo += parque->valor_15;

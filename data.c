@@ -3,8 +3,6 @@
 #include "data.h"
 #include "bool.h"
 
-int diasMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
 Data* cria_data(int ano, int mes, int dia, int hora, int minutos) {
     Data* data = (Data*) malloc(sizeof(Data));
     data->ano = ano;
@@ -15,10 +13,15 @@ Data* cria_data(int ano, int mes, int dia, int hora, int minutos) {
     return data;
 }
 
+int dias_no_mes(int mes) {
+    int diasMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    return diasMes[mes];
+}
+
 int data_valida(Data* data) {
     if (data->ano < 2000) return FALSE;
     if (data->mes < 1 || data->mes > 12) return FALSE;
-    if (data->dia < 0 || data->dia > diasMes[data->mes]) return FALSE;
+    if (data->dia < 0 || data->dia > dias_no_mes(data->mes)) return FALSE;
     if (data->hora < 0 || data->hora > 23) return FALSE;
     if (data->minutos < 0 || data->minutos > 59) return FALSE;
     return TRUE;
@@ -44,15 +47,14 @@ int total_dias_ano(int ano) {
 int data_para_minutos(Data* data) {
     int minutos = 0;
 
-    minutos += total_dias_ano(data->ano - 1) * 24 * 60;
+    minutos += total_dias_ano(data->ano - 1) * MINUTOS_NUM_DIA;
     
     for (int mes = 1; mes < data->mes; mes++) {
-        minutos += diasMes[mes] * 24 * 60;
+        minutos += dias_no_mes(mes) * MINUTOS_NUM_DIA;
     }
-    minutos += (data->dia - 1) * 24 * 60;
+    minutos += (data->dia - 1) * MINUTOS_NUM_DIA;
     minutos += data->hora * 60;
     minutos += data->minutos;
-
     return minutos;
 }
 

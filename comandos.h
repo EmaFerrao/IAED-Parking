@@ -4,6 +4,9 @@
 #include "lista_parques.h"
 #include "hashtable_carros.h"
 
+#define MAX_PARQUES 20
+#define BUFSIZE 8192
+
 void recebe_input_identifica_comando(Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema);
 void comando_p(char* linha, Lista_Parques lista_parques);
 void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema);

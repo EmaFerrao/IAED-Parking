@@ -1,13 +1,9 @@
 #include <stdio.h> 
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+
 #include "comandos.h"
 #include "ler_input.h"
 #include "bool.h"
-
-#define MAX_PARQUES 20
-#define BUFSIZE 8192
 
 void recebe_input_identifica_comando(Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema) {
     char linha[BUFSIZE];
@@ -234,7 +230,8 @@ void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
     Registo_Node* registo_node_data;
 
     argumentos_recebidos = le_f(linha, nome_parque, &dia, &mes, &ano);
-    if (argumentos_recebidos != 5 && argumentos_recebidos != 2) {
+    if (argumentos_recebidos != ARGS_F_COM_DATA && 
+        argumentos_recebidos != ARGS_F_SEM_DATA) {
         return;
     }
 
@@ -244,7 +241,7 @@ void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
         return;
     }
 
-    if (argumentos_recebidos == 2) {
+    if (argumentos_recebidos == ARGS_F_SEM_DATA) {
         imprime_faturacao(parque->lista_saidas);
         return;
     }

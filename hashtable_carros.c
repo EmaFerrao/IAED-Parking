@@ -7,7 +7,7 @@
 unsigned int hash(char *texto, int tamanho) {
     unsigned int hash = 7;
     for (int i = 0; texto[i] != '\0'; i++) {
-        hash = hash*31 + texto[i];
+        hash = hash * 31 + texto[i];
     }
     return hash % tamanho;
 }

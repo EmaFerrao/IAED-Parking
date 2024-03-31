@@ -98,7 +98,8 @@ void imprime_faturacao(Lista_Registos lista_registos) {
 
     while (aux != NULL) {
         faturacao_do_dia += aux->registo->custo;
-        if (aux->next == NULL || !mesmo_dia(aux->registo->saida, aux->next->registo->saida)) {
+        if (aux->next == NULL || 
+            !mesmo_dia(aux->registo->saida, aux->next->registo->saida)) {
             printf("%02d-%02d-%02d %.2f\n", 
                 aux->registo->saida->dia, 
                 aux->registo->saida->mes, 
@@ -112,7 +113,8 @@ void imprime_faturacao(Lista_Registos lista_registos) {
 }
 
 void imprime_faturacao_num_dia(Registo_Node* registo_node, Data* data) {
-    while (registo_node != NULL && mesmo_dia(registo_node->registo->saida, data)) {
+    while (registo_node != NULL && 
+        mesmo_dia(registo_node->registo->saida, data)) {
         printf("%s %02d:%02d %.2f\n", 
             registo_node->registo->carro->matricula, 
             registo_node->registo->saida->hora, 
@@ -124,27 +126,27 @@ void imprime_faturacao_num_dia(Registo_Node* registo_node, Data* data) {
 }
 
 void filtra_registos_carro(Lista_Registos lista_registos, Parque* parque) {
-    Registo_Node* current = lista_registos->head;
-    Registo_Node* prev = NULL;
-    Registo_Node* toDelete;
+    Registo_Node* aux = lista_registos->head;
+    Registo_Node* anterior = NULL;
+    Registo_Node* apagar;
 
-    while (current != NULL) {
-        if (current->registo->parque == parque) {
-            toDelete = current;
-            if (prev) {
-                prev->next = current->next;
+    while (aux != NULL) {
+        if (aux->registo->parque == parque) {
+            apagar = aux;
+            if (anterior) {
+                anterior->next = aux->next;
             } else {
-                lista_registos->head = current->next;
+                lista_registos->head = aux->next;
             }
             
-            if (current == lista_registos->tail) {
-                lista_registos->tail = prev;
+            if (aux == lista_registos->tail) {
+                lista_registos->tail = anterior;
             }
-            current = current->next;
-            free(toDelete);
+            aux = aux->next;
+            free(apagar);
         } else {
-            prev = current;
-            current = current->next;
+            anterior = aux;
+            aux = aux->next;
         }
     }
 }

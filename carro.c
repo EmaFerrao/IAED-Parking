@@ -21,7 +21,8 @@ int par_valido(char c1, char c2) {
 int matricula_valida(char* matricula) {
     int pares_letras=0, pares_num=0;
     if (strlen(matricula) != TAMANHO_MATRICULA-1) return FALSE;
-    if (matricula[2] != '-' || matricula[5] != '-') return FALSE;
+    if (matricula[INDICE_PRIMEIRO_HIFEN] != '-' || 
+        matricula[INDICE_SEGUNDO_HIFEN] != '-') return FALSE;
 
     for (int i = 0; i < TAMANHO_MATRICULA; i += 3) {
         if (!par_valido(matricula[i], matricula[i+1])) return FALSE;

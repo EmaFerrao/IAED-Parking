@@ -89,29 +89,29 @@ void imprime_lista_parques_por_nome(Lista_Parques lista_parques) {
 }
 
 void remove_parque(Lista_Parques lista_parques, Parque* parque) {
-    Parque_Node* current = lista_parques->head;
-    Parque_Node* prev = NULL;
-    Parque_Node* toDelete = NULL;
+    Parque_Node* aux = lista_parques->head;
+    Parque_Node* anterior = NULL;
+    Parque_Node* apagar = NULL;
 
-    while (current != NULL) {
-        if (current->parque == parque) {
-            toDelete = current;
-            if (prev) {
-                prev->next = current->next;
+    while (aux != NULL) {
+        if (aux->parque == parque) {
+            apagar = aux;
+            if (anterior) {
+                anterior->next = aux->next;
             } else {
-                lista_parques->head = current->next;
+                lista_parques->head = aux->next;
             }
 
-            if (current == lista_parques->tail) {
-                lista_parques->tail = prev;
+            if (aux == lista_parques->tail) {
+                lista_parques->tail = anterior;
             }
             libertar_parque(parque);
-            free(toDelete);
+            free(apagar);
             lista_parques->numero_parques -= 1;
             return;
         } else {
-            prev = current;
-            current = current->next;
+            anterior = aux;
+            aux = aux->next;
         }
     }
 }

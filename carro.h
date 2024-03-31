@@ -2,7 +2,10 @@
 #define CARRO_H
 
 #include "lista_registos.h"
+
 #define TAMANHO_MATRICULA 9
+#define INDICE_PRIMEIRO_HIFEN 2
+#define INDICE_SEGUNDO_HIFEN 5
 
 struct Carro {
     char* matricula;

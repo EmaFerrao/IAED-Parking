@@ -1,6 +1,8 @@
 #ifndef DATA_H
 #define DATA_H
 
+#define MINUTOS_NUM_DIA 1440
+
 typedef struct {
     int ano;
     int mes;
