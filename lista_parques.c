@@ -12,6 +12,21 @@ Lista_Parques cria_lista_parques() {
     return lista_parques;
 }
 
+void insere_parque_no_fim(Lista_Parques lista_parques, Parque* parque) {
+    Parque_Node* parque_node = (Parque_Node*) malloc(sizeof(Parque_Node));
+    parque_node -> parque = parque;
+    parque_node -> next = NULL;
+
+    if (lista_parques->head == NULL) {
+        lista_parques->head = parque_node;
+    } else {
+        lista_parques->tail->next = parque_node;
+    }
+    lista_parques->tail = parque_node;
+
+    lista_parques->numero_parques += 1;
+}
+
 void itera_lista_parques(Lista_Parques lista_parques, Operacao_Parque operacao) {
     Parque_Node* aux = lista_parques->head;
     while (aux != NULL) {
@@ -71,21 +86,6 @@ void imprime_lista_parques_por_nome(Lista_Parques lista_parques) {
     cria_vetor_nomes_parques(lista_parques, nomes_parques, numero_parques);
     ordena_vetor_por_nome(nomes_parques, numero_parques);
     imprime_vetor(nomes_parques, numero_parques);
-}
-
-void append_lista_parques(Lista_Parques lista_parques, Parque* parque) {
-    Parque_Node* parque_node = (Parque_Node*) malloc(sizeof(Parque_Node));
-    parque_node -> parque = parque;
-    parque_node -> next = NULL;
-
-    if (lista_parques->head == NULL) {
-        lista_parques->head = parque_node;
-    } else {
-        lista_parques->tail->next = parque_node;
-    }
-    lista_parques->tail = parque_node;
-
-    lista_parques->numero_parques += 1;
 }
 
 void remove_parque(Lista_Parques lista_parques, Parque* parque) {

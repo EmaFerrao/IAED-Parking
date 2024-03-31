@@ -19,6 +19,7 @@ typedef void (*Operacao_Parque)(Parque*);
 
 int verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario);
 Parque* cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario); 
+float calcula_custo(Registo* registo, Parque* parque);
 void imprime_parque_capacidade_lugares(Parque* parque);
 void imprime_parque_tudo(Parque* parque);
 void libertar_parque(Parque* parque);

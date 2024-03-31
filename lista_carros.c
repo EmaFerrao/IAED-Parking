@@ -11,6 +11,19 @@ Lista_Carros cria_lista_carros() {
     return lista_carros;
 }
 
+void insere_carro_no_fim(Lista_Carros lista_carros, Carro* carro) {
+    Carro_Node* carro_node = (Carro_Node*) malloc(sizeof(Carro_Node));
+    carro_node -> carro = carro;
+    carro_node -> next = NULL;
+
+    if (lista_carros->head == NULL) {
+        lista_carros->head = carro_node;
+    } else {
+        lista_carros->tail->next = carro_node;
+    }
+    lista_carros->tail = carro_node;
+}
+
 void itera_lista_carros(Lista_Carros lista_carros, Operacao_Carro operacao) {
     Carro_Node* aux = lista_carros->head;
     while (aux != NULL) {
@@ -28,19 +41,6 @@ Carro* procura_carro(Lista_Carros lista_carros, char* matricula) {
         aux = aux -> next;
     }
     return NULL;
-}
-
-void append_lista_carros(Lista_Carros lista_carros, Carro* carro) {
-    Carro_Node* carro_node = (Carro_Node*) malloc(sizeof(Carro_Node));
-    carro_node -> carro = carro;
-    carro_node -> next = NULL;
-
-    if (lista_carros->head == NULL) {
-        lista_carros->head = carro_node;
-    } else {
-        lista_carros->tail->next = carro_node;
-    }
-    lista_carros->tail = carro_node;
 }
 
 void libertar_lista_carros(Lista_Carros lista_carros, int libertar_carros) {

@@ -26,7 +26,7 @@ HashTable_Carros criar_hashtable_carros(int tamanho) {
 
 void inserir_hashtable_carros(HashTable_Carros hashtable, Carro* carro) {
     unsigned int index = hash(carro->matricula, hashtable->tamanho);
-    append_lista_carros(hashtable->array_de_listas[index], carro);
+    insere_carro_no_fim(hashtable->array_de_listas[index], carro);
 }
 
 Carro* procurar_hashtable_carros(HashTable_Carros hashtable, char* matricula) {
@@ -41,7 +41,7 @@ void imprime_hashtable_carros(HashTable_Carros hashtable) {
 }
 
 void libertar_hashtable_carros(HashTable_Carros hashtable, int libertar_carros) {
-    for (int i=0; i < hashtable->tamanho; i++) {
+    for (int i = 0; i < hashtable->tamanho; i++) {
         libertar_lista_carros(hashtable->array_de_listas[i], libertar_carros);
     }
     free(hashtable->array_de_listas);

@@ -14,39 +14,7 @@ Lista_Registos cria_lista_registos() {
     return lista_registos;
 }
 
-void itera_lista_registos(Lista_Registos lista_registos, Operacao_Registo operacao) {
-    Registo_Node* aux = lista_registos->head;
-    while (aux != NULL) {
-        operacao(aux->registo);
-        aux = aux -> next;
-    }
-}
-
-Registo* procura_registo_por_parque(Lista_Registos lista_registos, Parque* parque) {
-    Registo_Node* aux = lista_registos->head;
-    while (aux != NULL) {
-        if (aux->registo->parque == parque) {
-            if (aux->registo->saida == NULL) {
-                return aux->registo;
-            }
-        }
-        aux = aux -> next;
-    }
-    return NULL;
-} 
-
-Registo_Node* procura_registo_por_dia(Lista_Registos lista_registos, Data* data) {
-    Registo_Node* aux = lista_registos->head;
-    while (aux != NULL) {
-        if (mesmo_dia(aux->registo->saida, data)) {
-            return aux;
-        }
-        aux = aux -> next;
-    }
-    return NULL;
-} 
-
-void append_lista_registos(Lista_Registos lista_registos, Registo* registo) {
+void insere_registo_no_fim(Lista_Registos lista_registos, Registo* registo) {
     Registo_Node* registo_node = (Registo_Node*) malloc(sizeof(Registo_Node));
     registo_node -> registo = registo;
     registo_node -> next = NULL;
@@ -59,7 +27,7 @@ void append_lista_registos(Lista_Registos lista_registos, Registo* registo) {
     lista_registos->tail = registo_node;
 }
 
-void insere_lista_registos_por_nome(Lista_Registos lista_registos, Registo* registo) {
+void insere_registo_por_nome_parque(Lista_Registos lista_registos, Registo* registo) {
     Registo_Node* aux = lista_registos->head;
     Registo_Node* anterior = NULL;
     Registo_Node* registo_node = (Registo_Node*) malloc(sizeof(Registo_Node));
@@ -91,6 +59,38 @@ void insere_lista_registos_por_nome(Lista_Registos lista_registos, Registo* regi
     }
     anterior->next = registo_node;
 }
+
+void itera_lista_registos(Lista_Registos lista_registos, Operacao_Registo operacao) {
+    Registo_Node* aux = lista_registos->head;
+    while (aux != NULL) {
+        operacao(aux->registo);
+        aux = aux -> next;
+    }
+}
+
+Registo* procura_registo_sem_saida_no_parque(Lista_Registos lista_registos, Parque* parque) {
+    Registo_Node* aux = lista_registos->head;
+    while (aux != NULL) {
+        if (aux->registo->parque == parque) {
+            if (aux->registo->saida == NULL) {
+                return aux->registo;
+            }
+        }
+        aux = aux -> next;
+    }
+    return NULL;
+} 
+
+Registo_Node* procura_primeiro_registo_node_do_dia(Lista_Registos lista_registos, Data* data) {
+    Registo_Node* aux = lista_registos->head;
+    while (aux != NULL) {
+        if (mesmo_dia(aux->registo->saida, data)) {
+            return aux;
+        }
+        aux = aux -> next;
+    }
+    return NULL;
+} 
 
 void imprime_faturacao(Lista_Registos lista_registos) {
     Registo_Node* aux = lista_registos->head;

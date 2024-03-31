@@ -2,17 +2,17 @@
 #include "ler_input.h"
 #include "bool.h"
 
-int le_p(char* linha, char* nome, int* capacidade, float* valor_15, float* valor_15_apos_1hora, float* valor_max_diario) {
+int le_p(char* linha, char* nome_parque, int* capacidade, float* valor_15, float* valor_15_apos_1hora, float* valor_max_diario) {
     char comando;
     int argumentos_so_p = 1, argumentos_esperados = 6;
     int argumentos_recebidos;
 
     argumentos_recebidos = sscanf(linha, "%c \"%[^\"]\" %d %f %f %f", &comando, 
-        nome, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
+        nome_parque, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
 
     if (argumentos_recebidos != argumentos_esperados) {
         argumentos_recebidos = sscanf(linha, "%c %s %d %f %f %f", &comando, 
-            nome, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
+            nome_parque, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
 
         if (argumentos_recebidos != argumentos_esperados && argumentos_recebidos != argumentos_so_p) {
             return FALSE;

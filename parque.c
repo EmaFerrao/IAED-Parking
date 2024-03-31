@@ -44,6 +44,28 @@ Parque* cria_parque(char* nome, int capacidade, float valor_15, float valor_15_a
     return parque;
 }
 
+float calcula_custo(Registo* registo, Parque* parque) {
+    int minutos, dias, minutos_por_dia = 24*60;
+    float custo_dias = 0, custo = 0;
+
+    minutos = diferenca_em_minutos(registo->entrada, registo->saida);
+    dias = minutos / minutos_por_dia;
+    custo_dias += dias * parque->valor_max_diario;
+    minutos = minutos % minutos_por_dia;
+    if (minutos <= 60) {
+        custo += (minutos / 15) * parque->valor_15;
+        if (minutos % 15 != 0) custo += parque->valor_15;
+    } else {
+        custo += 4 * parque->valor_15;
+        minutos -= 60;
+        custo += (minutos / 15) * parque->valor_15_apos_1hora;
+        if (minutos % 15 != 0) custo += parque->valor_15_apos_1hora;
+    }
+    if (custo > parque->valor_max_diario) custo = parque->valor_max_diario;
+    
+    return custo_dias + custo;
+}
+
 void imprime_parque_capacidade_lugares(Parque* parque) {
     printf("%s %d %d\n", parque->nome, parque->capacidade, parque->lugares_disponiveis);
 }
@@ -63,7 +85,7 @@ void apaga_registos_carros_do_parque(Parque* parque) {
         if (aux->registo != NULL) {
             carro = aux->registo->carro;
             if (procurar_hashtable_carros(carros_visitados, carro->matricula) == NULL) {
-                if (aux->registo == procura_registo_por_parque(carro->lista_registos, parque)) {
+                if (aux->registo == procura_registo_sem_saida_no_parque(carro->lista_registos, parque)) {
                     carro->dentro_de_parque = FALSE;
                 }
                 filtra_registos_carro(carro->lista_registos, parque);
