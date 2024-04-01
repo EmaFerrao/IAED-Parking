@@ -86,17 +86,6 @@ int parque_existe_matricula_valida_data_valida(Parque* parque, char* nome_parque
     return TRUE;
 }
 
-/* int cria_carro_se_inexistente_verifica_dentro_parque(HashTable_Carros hashtable_carros, Carro** carro, char* matricula) {
-    if (*carro == NULL) {
-        *carro = cria_carro(matricula);
-        inserir_hashtable_carros(hashtable_carros, *carro);
-    } else if ((*carro)->dentro_de_parque) {
-        printf("%s: invalid vehicle entry.\n", matricula);
-        return FALSE;
-    }
-    return TRUE;
-} */
-
 int data_mais_recente_que_sistema(Data* data, Data* data_sistema) {
     if (!data_mais_recente(data_sistema, data)) {
         printf("invalid date.\n");
