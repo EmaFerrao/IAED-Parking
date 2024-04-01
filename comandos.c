@@ -70,6 +70,22 @@ void comando_p(char* linha, Lista_Parques lista_parques) {
     insere_parque_no_fim(lista_parques, parque);
 }
 
+int verifica_argumentos_e_s(Parque* parque, char* nome_parque, char* matricula, Data* data) {
+    if (parque == NULL) {
+        printf("%s: no such parking.\n", nome_parque);
+        return FALSE;
+    } 
+    if (!matricula_valida(matricula)) {
+        printf("%s: invalid licence plate.\n", matricula);
+        return FALSE;
+    }
+    if (!data_valida(data)) {
+        printf("invalid date.\n");
+        return FALSE;
+    }
+    return TRUE;
+}
+
 void executa_entrada(Parque* parque, Carro* carro, Data* data_entrada, Data* data_sistema) {
     Registo* registo;
 
@@ -91,25 +107,20 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     if (!le_e_s(linha, nome_parque, matricula, &dia, &mes, &ano, &hora, &minutos)) {
         return;
     }
+
     parque = procura_parque(lista_parques, nome_parque);
-    if (parque == NULL) {
-        printf("%s: no such parking.\n", nome_parque);
-        return;
-    } 
-    if (parque->lugares_disponiveis == 0) {
-        printf("%s: parking is full.\n", nome_parque);
-        return;
-    }
-    if (!matricula_valida(matricula)) {
-        printf("%s: invalid licence plate.\n", matricula);
-        return;
-    }
     data_entrada = cria_data(ano, mes, dia, hora, minutos);
-    if (!data_valida(data_entrada)) {
-        printf("invalid date.\n");
+
+    if(!verifica_argumentos_e_s(parque, nome_parque, matricula, data_entrada)) {
         free(data_entrada);
         return;
     }
+    if (parque->lugares_disponiveis == 0) {
+        printf("%s: parking is full.\n", nome_parque);
+        free(data_entrada);
+        return;
+    }
+
     carro = procurar_hashtable_carros(hashtable_carros, matricula);
     if (carro == NULL) {
         carro = cria_carro(matricula);
@@ -154,19 +165,9 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     }
 
     parque = procura_parque(lista_parques, nome_parque);
-    if (parque == NULL) {
-        printf("%s: no such parking.\n", nome_parque);
-        return;
-    } 
-
-    if (!matricula_valida(matricula)) {
-        printf("%s: invalid licence plate.\n", matricula);
-        return;
-    }
-
     data_saida = cria_data(ano, mes, dia, hora, minutos);
-    if (!data_valida(data_saida)) {
-        printf("invalid date.\n");
+
+    if(!verifica_argumentos_e_s(parque, nome_parque, matricula, data_saida)) {
         free(data_saida);
         return;
     }

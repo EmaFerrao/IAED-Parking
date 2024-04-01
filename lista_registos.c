@@ -28,8 +28,7 @@ void insere_registo_no_fim(Lista_Registos lista_registos, Registo* registo) {
 }
 
 void insere_registo_por_nome_parque(Lista_Registos lista_registos, Registo* registo) {
-    Registo_Node* aux = lista_registos->head;
-    Registo_Node* anterior = NULL;
+    Registo_Node* aux = lista_registos->head, *anterior = NULL;
     Registo_Node* registo_node = (Registo_Node*) malloc(sizeof(Registo_Node));
     registo_node -> registo = registo;
     registo_node -> next = NULL;
