@@ -4,15 +4,15 @@
 int verifica_capacidade_valores(int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario) {
 
     if (capacidade <= 0) {
-        printf("%d: invalid capacity.\n", capacidade);
+        printf("%d%s", capacidade, CAPACIDADE_INVALIDA);
         return FALSE;
     }
     if (valor_15 <= 0 || valor_15_apos_1hora <= 0 || valor_max_diario <= 0) {
-        printf("invalid cost.\n");
+        printf(CUSTO_INVALIDO);
         return FALSE;
     }
     if (!(valor_15 < valor_15_apos_1hora && valor_15_apos_1hora < valor_max_diario)) {
-        printf("invalid cost.\n");
+        printf(CUSTO_INVALIDO);
         return FALSE;
     }
 
@@ -22,7 +22,7 @@ int verifica_capacidade_valores(int capacidade, float valor_15, float valor_15_a
 int verifica_argumentos_p(Lista_Parques lista_parques, char* nome_parque, int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario) {
 
     if (procura_parque(lista_parques, nome_parque) != NULL) {
-        printf("%s: parking already exists.\n", nome_parque);
+        printf("%s%s", nome_parque, PARQUE_JA_EXISTE);
         return FALSE;
     } 
     if (!verifica_capacidade_valores(capacidade, valor_15, 
@@ -30,7 +30,7 @@ int verifica_argumentos_p(Lista_Parques lista_parques, char* nome_parque, int ca
         return FALSE;
     } 
     if (lista_parques->numero_parques == MAX_PARQUES) {
-        printf("too many parks.\n");
+        printf(DEMASIADOS_PARQUES);
         return FALSE;
     }
 
@@ -39,7 +39,7 @@ int verifica_argumentos_p(Lista_Parques lista_parques, char* nome_parque, int ca
 
 int verifica_parque_existe(Parque* parque, char* nome_parque) {
     if (parque == NULL) {
-        printf("%s: no such parking.\n", nome_parque);
+        printf("%s%s", nome_parque, PARQUE_INEXISTENTE);
         return FALSE;
     } 
 
@@ -53,11 +53,11 @@ char* nome_parque, char* matricula, Data* data) {
         return FALSE;
     }
     if (!matricula_valida(matricula)) {
-        printf("%s: invalid licence plate.\n", matricula);
+        printf("%s%s", matricula, MATRICULA_INVALIDA);
         return FALSE;
     }
     if (!data_valida(data)) {
-        printf("invalid date.\n");
+        printf(DATA_INVALIDA);
         return FALSE;
     }
     return TRUE;
@@ -71,18 +71,18 @@ Data* data_entrada, Data* data_sistema) {
         return FALSE;
     }
     if (parque->lugares_disponiveis == 0) {
-        printf("%s: parking is full.\n", nome_parque);
+        printf("%s%s", nome_parque, PARQUE_CHEIO);
         return FALSE;
     }
     if (*carro == NULL) {
         *carro = cria_carro(matricula);
         inserir_hashtable_carros(hashtable_carros, *carro);
     } else if ((*carro)->dentro_de_parque) {
-        printf("%s: invalid vehicle entry.\n", matricula);
+        printf("%s%s", matricula, ENTRADA_INVALIDA);
         return FALSE;
     }
     if (!data_mais_recente(data_sistema, data_entrada)) {
-        printf("invalid date.\n");
+        printf(DATA_INVALIDA);
         return FALSE;
     }
 
@@ -96,20 +96,20 @@ char* matricula, Registo** registo, Data* data_saida, Data* data_sistema) {
         return FALSE;
     }
     if (*carro == NULL) {
-        printf("%s: invalid vehicle exit.\n", matricula);
+        printf("%s%s", matricula, SAIDA_INVALIDA);
         return FALSE;
     } 
     if (!(*carro)->dentro_de_parque) {
-        printf("%s: invalid vehicle exit.\n", matricula);
+        printf("%s%s", matricula, SAIDA_INVALIDA);
         return FALSE;
     }
     (*registo) = procura_registo_sem_saida_no_parque((*carro)->lista_registos,parque);
     if (registo == NULL) {
-        printf("%s: invalid vehicle exit.\n", matricula);
+        printf("%s%s", matricula, SAIDA_INVALIDA);
         return FALSE;
     }
     if (!data_mais_recente(data_sistema, data_saida)) {
-        printf("invalid date.\n");
+        printf(DATA_INVALIDA);
         return FALSE;
     }
 
@@ -118,11 +118,11 @@ char* matricula, Registo** registo, Data* data_saida, Data* data_sistema) {
 
 int verifica_argumentos_v(Carro* carro, char* matricula) {
     if (!matricula_valida(matricula)) {
-        printf("%s: invalid licence plate.\n", matricula);
+        printf("%s%s", matricula, MATRICULA_INVALIDA);
         return FALSE;
     }
     if (carro == NULL || carro->lista_registos->head == NULL) {
-        printf("%s: no entries found in any parking.\n", matricula);
+        printf("%s%s", matricula, NAO_TEM_ENTRADAS);
         return FALSE;
     }
 
@@ -131,7 +131,7 @@ int verifica_argumentos_v(Carro* carro, char* matricula) {
 
 int verifica_argumentos_f(Data* data, Data* data_sistema) {
     if (!data_valida(data) || data_mais_recente(data_sistema, data)) {
-        printf("invalid date.\n");
+        printf(DATA_INVALIDA);
         return FALSE;
     }
 
