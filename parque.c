@@ -93,11 +93,13 @@ void apaga_registos_carros_do_parque(Parque* parque) {
     Registo_Node* aux = parque->lista_entradas->head;
     HashTable_Carros carros_visitados = criar_hashtable_carros(500);
     Carro* carro;
+    Registo* registo_sem_saida;
     while (aux != NULL) {
         if (aux->registo != NULL) {
             carro = aux->registo->carro;
             if (procurar_hashtable_carros(carros_visitados, carro->matricula) == NULL) {
-                if (aux->registo == procura_registo_sem_saida_no_parque(carro->lista_registos, parque)) {
+                registo_sem_saida = procura_registo_sem_saida_no_parque(carro->lista_registos, parque);
+                if (registo_sem_saida != NULL && registo_sem_saida->parque == parque) {
                     carro->dentro_de_parque = FALSE;
                 }
                 filtra_registos_carro(carro->lista_registos, parque);
