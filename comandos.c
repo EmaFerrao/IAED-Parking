@@ -70,10 +70,7 @@ void comando_p(char* linha, Lista_Parques lista_parques) {
     insere_parque_no_fim(lista_parques, parque);
 }
 
-int verifica_argumentos_entrada(Parque* parque, char* nome_parque, 
-    HashTable_Carros hashtable_carros, Carro** carro, char* matricula, 
-    Data* data_entrada, Data* data_sistema) {
-
+int parque_existe_matricula_valida_data_valida(Parque* parque, char* nome_parque, char* matricula, Data* data) {
     if (parque == NULL) {
         printf("%s: no such parking.\n", nome_parque);
         return FALSE;
@@ -82,8 +79,37 @@ int verifica_argumentos_entrada(Parque* parque, char* nome_parque,
         printf("%s: invalid licence plate.\n", matricula);
         return FALSE;
     }
-    if (!data_valida(data_entrada)) {
+    if (!data_valida(data)) {
         printf("invalid date.\n");
+        return FALSE;
+    }
+    return TRUE;
+}
+
+/* int cria_carro_se_inexistente_verifica_dentro_parque(HashTable_Carros hashtable_carros, Carro** carro, char* matricula) {
+    if (*carro == NULL) {
+        *carro = cria_carro(matricula);
+        inserir_hashtable_carros(hashtable_carros, *carro);
+    } else if ((*carro)->dentro_de_parque) {
+        printf("%s: invalid vehicle entry.\n", matricula);
+        return FALSE;
+    }
+    return TRUE;
+} */
+
+int data_mais_recente_que_sistema(Data* data, Data* data_sistema) {
+    if (!data_mais_recente(data_sistema, data)) {
+        printf("invalid date.\n");
+        return FALSE;
+    }
+    return TRUE;
+}
+
+int verifica_argumentos_entrada(Parque* parque, char* nome_parque, 
+    HashTable_Carros hashtable_carros, Carro** carro, char* matricula, 
+    Data* data_entrada, Data* data_sistema) {
+
+    if (!parque_existe_matricula_valida_data_valida(parque, nome_parque, matricula, data_entrada)) {
         return FALSE;
     }
     if (parque->lugares_disponiveis == 0) {
@@ -97,8 +123,7 @@ int verifica_argumentos_entrada(Parque* parque, char* nome_parque,
         printf("%s: invalid vehicle entry.\n", matricula);
         return FALSE;
     }
-    if (!data_mais_recente(data_sistema, data_entrada)) {
-        printf("invalid date.\n");
+    if (!data_mais_recente_que_sistema(data_entrada, data_sistema)) {
         return FALSE;
     }
 
@@ -130,7 +155,8 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     parque = procura_parque(lista_parques, nome_parque);
     data_entrada = cria_data(ano, mes, dia, hora, minutos);
     carro = procurar_hashtable_carros(hashtable_carros, matricula);
-    if(!verifica_argumentos_entrada(parque, nome_parque, hashtable_carros, 
+
+    if (!verifica_argumentos_entrada(parque, nome_parque, hashtable_carros, 
         &carro, matricula, data_entrada, data_sistema)) {
         free(data_entrada);
         return;
@@ -143,16 +169,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
 int verifica_argumentos_saida(Parque* parque, char* nome_parque, Carro** carro,
     char* matricula, Registo** registo, Data* data_saida, Data* data_sistema) {
 
-    if (parque == NULL) {
-        printf("%s: no such parking.\n", nome_parque);
-        return FALSE;
-    } 
-    if (!matricula_valida(matricula)) {
-        printf("%s: invalid licence plate.\n", matricula);
-        return FALSE;
-    }
-    if (!data_valida(data_saida)) {
-        printf("invalid date.\n");
+    if (!parque_existe_matricula_valida_data_valida(parque, nome_parque, matricula, data_saida)) {
         return FALSE;
     }
     if (*carro == NULL) {
@@ -168,8 +185,7 @@ int verifica_argumentos_saida(Parque* parque, char* nome_parque, Carro** carro,
         printf("%s: invalid vehicle exit.\n", matricula);
         return FALSE;
     }
-    if (!data_mais_recente(data_sistema, data_saida)) {
-        printf("invalid date.\n");
+    if (!data_mais_recente_que_sistema(data_saida, data_sistema)) {
         return FALSE;
     }
 
@@ -203,7 +219,7 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     parque = procura_parque(lista_parques, nome_parque);
     data_saida = cria_data(ano, mes, dia, hora, minutos);
     carro = procurar_hashtable_carros(hashtable_carros, matricula);
-    if(!verifica_argumentos_saida(parque, nome_parque, &carro, 
+    if (!verifica_argumentos_saida(parque, nome_parque, &carro, 
         matricula, &registo, data_saida, data_sistema)) {
         free(data_saida);
         return;
