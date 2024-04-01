@@ -6,7 +6,10 @@
 #include "bool.h"
 #include "comandos.h"
 
-#define TAMANHO_HASHTABLE 1000
+/* numero maximo de carros (10000) / 10
+Assim, cada elemento da hashtable tem no maximo 10 carros 
+*/
+#define TAMANHO_HASHTABLE 1000  
 
 int main(){
     Lista_Parques lista_parques = cria_lista_parques();
@@ -18,6 +21,6 @@ int main(){
     libertar_lista_parques(lista_parques, TRUE);
     libertar_hashtable_carros(hashtable_carros, TRUE);
     free(data_sistema);
-    
+
     return 0;
 }

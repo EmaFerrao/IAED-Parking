@@ -1,3 +1,8 @@
+/**
+ * Define os métodos de um carro.
+ * @file carro.c
+ * @author ist1109247
+*/
 #include <stdio.h> 
 #include <stdlib.h>
 #include <ctype.h> 
@@ -57,7 +62,8 @@ void imprime_carro_tudo(Carro* carro) {
 }
 
 void libertar_carro(Carro* carro) {
-    libertar_lista_registos(carro->lista_registos, FALSE /*registos são libertados no parque*/);
+    // registos são libertados no parque
+    libertar_lista_registos(carro->lista_registos, FALSE);
     free(carro->matricula);
     free(carro);
 }

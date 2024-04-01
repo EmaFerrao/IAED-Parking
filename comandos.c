@@ -4,6 +4,7 @@
 #include "comandos.h"
 #include "ler_input.h"
 #include "bool.h"
+#include "verifica_argumentos.h"
 
 void recebe_input_identifica_comando(Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema) {
     char linha[BUFSIZE];
@@ -52,71 +53,12 @@ void comando_p(char* linha, Lista_Parques lista_parques) {
         return;
     }
 
-    if (procura_parque(lista_parques, nome_parque) != NULL) {
-        printf("%s: parking already exists.\n", nome_parque);
-        return;
-    } 
-
-    if (!verifica_argumentos_parque(capacidade, valor_15, 
-        valor_15_apos_1hora, valor_max_diario)) {
-        return;
-    } 
-
-    if (lista_parques->numero_parques == MAX_PARQUES) {
-        printf("too many parks.\n");
+    if (!verifica_argumentos_p(lista_parques, nome_parque, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario)) {
         return;
     }
+    
     parque = cria_parque(nome_parque, capacidade, valor_15, valor_15_apos_1hora, valor_max_diario);
     insere_parque_no_fim(lista_parques, parque);
-}
-
-int parque_existe_matricula_valida_data_valida(Parque* parque, char* nome_parque, char* matricula, Data* data) {
-    if (parque == NULL) {
-        printf("%s: no such parking.\n", nome_parque);
-        return FALSE;
-    } 
-    if (!matricula_valida(matricula)) {
-        printf("%s: invalid licence plate.\n", matricula);
-        return FALSE;
-    }
-    if (!data_valida(data)) {
-        printf("invalid date.\n");
-        return FALSE;
-    }
-    return TRUE;
-}
-
-int data_mais_recente_que_sistema(Data* data, Data* data_sistema) {
-    if (!data_mais_recente(data_sistema, data)) {
-        printf("invalid date.\n");
-        return FALSE;
-    }
-    return TRUE;
-}
-
-int verifica_argumentos_entrada(Parque* parque, char* nome_parque, 
-    HashTable_Carros hashtable_carros, Carro** carro, char* matricula, 
-    Data* data_entrada, Data* data_sistema) {
-
-    if (!parque_existe_matricula_valida_data_valida(parque, nome_parque, matricula, data_entrada)) {
-        return FALSE;
-    }
-    if (parque->lugares_disponiveis == 0) {
-        printf("%s: parking is full.\n", nome_parque);
-        return FALSE;
-    }
-    if (*carro == NULL) {
-        *carro = cria_carro(matricula);
-        inserir_hashtable_carros(hashtable_carros, *carro);
-    } else if ((*carro)->dentro_de_parque) {
-        printf("%s: invalid vehicle entry.\n", matricula);
-        return FALSE;
-    }
-    if (!data_mais_recente_que_sistema(data_entrada, data_sistema)) {
-        return FALSE;
-    }
-
-    return TRUE;
 }
 
 void executa_entrada(Parque* parque, Carro* carro, Data* data_entrada, Data* data_sistema) {
@@ -145,7 +87,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     data_entrada = cria_data(ano, mes, dia, hora, minutos);
     carro = procurar_hashtable_carros(hashtable_carros, matricula);
 
-    if (!verifica_argumentos_entrada(parque, nome_parque, hashtable_carros, 
+    if (!verifica_argumentos_e(parque, nome_parque, hashtable_carros, 
         &carro, matricula, data_entrada, data_sistema)) {
         free(data_entrada);
         return;
@@ -153,32 +95,6 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
 
     executa_entrada(parque, carro, data_entrada, data_sistema);
     printf("%s %d\n", parque->nome, parque->lugares_disponiveis);
-}
-
-int verifica_argumentos_saida(Parque* parque, char* nome_parque, Carro** carro,
-    char* matricula, Registo** registo, Data* data_saida, Data* data_sistema) {
-
-    if (!parque_existe_matricula_valida_data_valida(parque, nome_parque, matricula, data_saida)) {
-        return FALSE;
-    }
-    if (*carro == NULL) {
-        printf("%s: invalid vehicle exit.\n", matricula);
-        return FALSE;
-    } 
-    if (!(*carro)->dentro_de_parque) {
-        printf("%s: invalid vehicle exit.\n", matricula);
-        return FALSE;
-    }
-    (*registo) = procura_registo_sem_saida_no_parque((*carro)->lista_registos,parque);
-    if (registo == NULL) {
-        printf("%s: invalid vehicle exit.\n", matricula);
-        return FALSE;
-    }
-    if (!data_mais_recente_que_sistema(data_saida, data_sistema)) {
-        return FALSE;
-    }
-
-    return TRUE;
 }
 
 void executa_saida(Parque* parque, Carro* carro, Registo* registo, Data* data_saida, Data* data_sistema) {
@@ -208,7 +124,7 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
     parque = procura_parque(lista_parques, nome_parque);
     data_saida = cria_data(ano, mes, dia, hora, minutos);
     carro = procurar_hashtable_carros(hashtable_carros, matricula);
-    if (!verifica_argumentos_saida(parque, nome_parque, &carro, 
+    if (!verifica_argumentos_s(parque, nome_parque, &carro, 
         matricula, &registo, data_saida, data_sistema)) {
         free(data_saida);
         return;
@@ -226,16 +142,11 @@ void comando_v(char* linha, HashTable_Carros hashtable_carros) {
         return;
     }
 
-    if (!matricula_valida(matricula)) {
-        printf("%s: invalid licence plate.\n", matricula);
+    carro = procurar_hashtable_carros(hashtable_carros, matricula);
+    if (!verifica_argumentos_v(carro, matricula)) {
         return;
     }
 
-    carro = procurar_hashtable_carros(hashtable_carros, matricula);
-    if (carro == NULL || carro->lista_registos->head == NULL) {
-        printf("%s: no entries found in any parking.\n", matricula);
-        return;
-    }
     itera_lista_registos(carro->lista_registos, imprime_entrada_saida);
 }
 
@@ -254,8 +165,7 @@ void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
     }
 
     parque = procura_parque(lista_parques, nome_parque);
-    if (parque == NULL) {
-        printf("%s: no such parking.\n", nome_parque);
+    if (!verifica_parque_existe(parque, nome_parque)) {
         return;
     }
 
@@ -265,14 +175,15 @@ void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
     }
 
     data = cria_data(ano, mes, dia, 0, 0);
-    if (!data_valida(data) || data_mais_recente(data_sistema, data)) {
-        printf("invalid date.\n");
-    } else {
-        registo_node_data = procura_primeiro_registo_node_do_dia(parque->lista_saidas, data);
-        imprime_faturacao_num_dia(registo_node_data, data);
+    if (!verifica_argumentos_f(data, data_sistema)) {
+        free(data);
+        return;
     }
-    
+
+    registo_node_data = procura_primeiro_registo_node_do_dia(parque->lista_saidas, data);
+    imprime_faturacao_num_dia(registo_node_data, data);
     free(data);
+    
 }   
 
 void comando_r(char* linha, Lista_Parques lista_parques) {
@@ -283,10 +194,9 @@ void comando_r(char* linha, Lista_Parques lista_parques) {
         return;
     }
     parque = procura_parque(lista_parques, nome_parque);
-    if (parque == NULL) {
-        printf("%s: no such parking.\n", nome_parque);
+    if (!verifica_parque_existe(parque, nome_parque)) {
         return;
-    } 
+    }
     remove_parque(lista_parques, parque);
     imprime_lista_parques_por_nome(lista_parques);
 }

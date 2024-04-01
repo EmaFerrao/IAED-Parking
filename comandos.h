@@ -4,8 +4,7 @@
 #include "lista_parques.h"
 #include "hashtable_carros.h"
 
-#define MAX_PARQUES 20   // numero maximo de parques
-#define BUFSIZE 8192     // numero usado para receber input de tamanho desconhecido
+#define BUFSIZE 8192 // numero usado para receber input de tamanho desconhecido
 
 void recebe_input_identifica_comando(Lista_Parques lista_parques, HashTable_Carros hashtable_carros, Data* data_sistema);
 void comando_p(char* linha, Lista_Parques lista_parques);

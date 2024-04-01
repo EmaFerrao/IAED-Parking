@@ -15,25 +15,6 @@
 #define MINUTOS_NUMA_FRACAO 15  // uma fracao sao 15 minutos
 #define FRACOES_NUMA_HORA 4     // uma hora tem 4 x 15 minutos -> 4 fracoes
 
-int verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario) {
-    if (capacidade <= 0) {
-        printf("%d: invalid capacity.\n", capacidade);
-        return FALSE;
-    }
-
-    if (valor_15 <= 0 || valor_15_apos_1hora <= 0 || valor_max_diario <= 0) {
-        printf("invalid cost.\n");
-        return FALSE;
-    }
-
-    if (!(valor_15 < valor_15_apos_1hora && valor_15_apos_1hora < valor_max_diario)) {
-        printf("invalid cost.\n");
-        return FALSE;
-    }
-
-    return TRUE;
-}
-
 Parque* cria_parque(char* nome, int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario) {
     Parque* parque;
     parque = (Parque*) malloc(sizeof(Parque));
@@ -91,7 +72,7 @@ void imprime_parque_tudo(Parque* parque) {
 
 void apaga_registos_carros_do_parque(Parque* parque) {
     Registo_Node* aux = parque->lista_entradas->head;
-    HashTable_Carros carros_visitados = criar_hashtable_carros(500);
+    HashTable_Carros carros_visitados = criar_hashtable_carros(TAMANHO_HASHTABLE_CARROS_VISITADOS); 
     Carro* carro;
     Registo* registo_sem_saida;
     while (aux != NULL) {
