@@ -3,9 +3,9 @@
 
 #include "lista_registos.h"
 
-#define TAMANHO_MATRICULA 9
-#define INDICE_PRIMEIRO_HIFEN 2
-#define INDICE_SEGUNDO_HIFEN 5
+#define TAMANHO_MATRICULA 9         // numero de caracteres necessario para guardar uma matricula
+#define INDICE_PRIMEIRO_HIFEN 2     // indice do 1º hifen numa string com a matricula
+#define INDICE_SEGUNDO_HIFEN 5      // indice do 2º hifen numa string com a matricula
 
 struct Carro {
     char* matricula;

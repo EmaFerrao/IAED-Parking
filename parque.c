@@ -11,6 +11,10 @@
 #include "data.h"
 #include "bool.h"
 
+#define MINUTOS_NUMA_HORA 60    // uma hora tem 60 minutos
+#define MINUTOS_NUMA_FRACAO 15  // uma fracao sao 15 minutos
+#define FRACOES_NUMA_HORA 4     // uma hora tem 4 x 15 minutos -> 4 fracoes
+
 int verifica_argumentos_parque(int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario) {
     if (capacidade <= 0) {
         printf("%d: invalid capacity.\n", capacidade);
@@ -53,16 +57,23 @@ float calcula_custo(Registo* registo, Parque* parque) {
     dias = minutos / MINUTOS_NUM_DIA;
     custo_dias += dias * parque->valor_max_diario;
     minutos = minutos % MINUTOS_NUM_DIA;
-    if (minutos <= 60) {
-        custo += (minutos / 15) * parque->valor_15;
-        if (minutos % 15 != 0) custo += parque->valor_15;
+
+    if (minutos <= MINUTOS_NUMA_HORA) {
+        custo += (minutos / MINUTOS_NUMA_FRACAO) * parque->valor_15;
+        if (minutos % MINUTOS_NUMA_FRACAO != 0) {
+            custo += parque->valor_15;
+        }
     } else {
-        custo += 4 * parque->valor_15;
-        minutos -= 60;
-        custo += (minutos / 15) * parque->valor_15_apos_1hora;
-        if (minutos % 15 != 0) custo += parque->valor_15_apos_1hora;
+        custo += FRACOES_NUMA_HORA * parque->valor_15;
+        minutos -= MINUTOS_NUMA_HORA;
+        custo += (minutos / MINUTOS_NUMA_FRACAO) * parque->valor_15_apos_1hora;
+        if (minutos % MINUTOS_NUMA_FRACAO != 0) {
+            custo += parque->valor_15_apos_1hora;
+        }
     }
-    if (custo > parque->valor_max_diario) custo = parque->valor_max_diario;
+    if (custo > parque->valor_max_diario) {
+        custo = parque->valor_max_diario;
+    }
     
     return custo_dias + custo;
 }

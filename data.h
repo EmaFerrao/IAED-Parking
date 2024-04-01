@@ -1,7 +1,7 @@
 #ifndef DATA_H
 #define DATA_H
 
-#define MINUTOS_NUM_DIA 1440
+#define MINUTOS_NUM_DIA 1440    // numero de minutos num dia
 
 typedef struct {
     int ano;
