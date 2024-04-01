@@ -25,6 +25,6 @@ Parque* cria_parque(char* nome, int capacidade, float valor_15,
 float calcula_custo(Registo* registo, Parque* parque);
 void imprime_parque_capacidade_lugares(Parque* parque);
 void imprime_parque_tudo(Parque* parque);
-void libertar_parque(Parque* parque);
+void liberta_parque(Parque* parque);
 
 #endif

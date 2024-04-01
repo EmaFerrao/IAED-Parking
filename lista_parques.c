@@ -105,7 +105,7 @@ void remove_parque(Lista_Parques lista_parques, Parque* parque) {
             if (aux == lista_parques->tail) {
                 lista_parques->tail = anterior;
             }
-            libertar_parque(parque);
+            liberta_parque(parque);
             free(apagar);
             lista_parques->numero_parques -= 1;
             return;
@@ -116,12 +116,12 @@ void remove_parque(Lista_Parques lista_parques, Parque* parque) {
     }
 }
 
-void libertar_lista_parques(Lista_Parques lista_parques, int libertar_parques) {
+void liberta_lista_parques(Lista_Parques lista_parques, int libertar_parques) {
     Parque_Node* aux = lista_parques->head;
     Parque_Node* next;
     while (aux != NULL) {
         if (libertar_parques) {
-            libertar_parque(aux->parque);
+            liberta_parque(aux->parque);
         }
         next = aux->next;
         free(aux);

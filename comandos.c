@@ -65,7 +65,7 @@ void executa_entrada(Parque* parque, Carro* carro, Data* data_entrada, Data* dat
     Registo* registo;
 
     *data_sistema = *data_entrada;
-    registo = criar_registo(parque, carro, data_entrada);
+    registo = cria_registo(parque, carro, data_entrada);
     insere_registo_por_nome_parque(carro->lista_registos, registo);
     insere_registo_no_fim(parque->lista_entradas, registo);
     parque->lugares_disponiveis -= 1;
@@ -85,7 +85,7 @@ void comando_e(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
 
     parque = procura_parque(lista_parques, nome_parque);
     data_entrada = cria_data(ano, mes, dia, hora, minutos);
-    carro = procurar_hashtable_carros(hashtable_carros, matricula);
+    carro = procura_carro_na_hashtable(hashtable_carros, matricula);
 
     if (!verifica_argumentos_e(parque, nome_parque, hashtable_carros, 
         &carro, matricula, data_entrada, data_sistema)) {
@@ -123,7 +123,7 @@ void comando_s(char* linha, Lista_Parques lista_parques, HashTable_Carros hashta
 
     parque = procura_parque(lista_parques, nome_parque);
     data_saida = cria_data(ano, mes, dia, hora, minutos);
-    carro = procurar_hashtable_carros(hashtable_carros, matricula);
+    carro = procura_carro_na_hashtable(hashtable_carros, matricula);
     if (!verifica_argumentos_s(parque, nome_parque, &carro, 
         matricula, &registo, data_saida, data_sistema)) {
         free(data_saida);
@@ -142,7 +142,7 @@ void comando_v(char* linha, HashTable_Carros hashtable_carros) {
         return;
     }
 
-    carro = procurar_hashtable_carros(hashtable_carros, matricula);
+    carro = procura_carro_na_hashtable(hashtable_carros, matricula);
     if (!verifica_argumentos_v(carro, matricula)) {
         return;
     }
@@ -175,7 +175,7 @@ void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
     }
 
     data = cria_data(ano, mes, dia, 0, 0);
-    if (!verifica_argumentos_f(data, data_sistema)) {
+    if (!verifica_data_f(data, data_sistema)) {
         free(data);
         return;
     }

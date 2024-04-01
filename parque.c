@@ -72,30 +72,30 @@ void imprime_parque_tudo(Parque* parque) {
 
 void apaga_registos_carros_do_parque(Parque* parque) {
     Registo_Node* aux = parque->lista_entradas->head;
-    HashTable_Carros carros_visitados = criar_hashtable_carros(TAMANHO_HASHTABLE_CARROS_VISITADOS); 
+    HashTable_Carros carros_visitados = cria_hashtable_carros(TAMANHO_HASHTABLE_CARROS_VISITADOS); 
     Carro* carro;
     Registo* registo_sem_saida;
     while (aux != NULL) {
         if (aux->registo != NULL) {
             carro = aux->registo->carro;
-            if (procurar_hashtable_carros(carros_visitados, carro->matricula) == NULL) {
+            if (procura_carro_na_hashtable(carros_visitados, carro->matricula) == NULL) {
                 registo_sem_saida = procura_registo_sem_saida_no_parque(carro->lista_registos, parque);
                 if (registo_sem_saida != NULL && registo_sem_saida->parque == parque) {
                     carro->dentro_de_parque = FALSE;
                 }
                 filtra_registos_carro(carro->lista_registos, parque);
-                inserir_hashtable_carros(carros_visitados, carro);
+                insere_carro_na_hashtable(carros_visitados, carro);
             }
         }
         aux = aux -> next;
     }
-    libertar_hashtable_carros(carros_visitados, FALSE /*não quero libertar os carros*/);
+    liberta_hashtable_carros(carros_visitados, FALSE); 
 }
 
-void libertar_parque(Parque* parque) {
+void liberta_parque(Parque* parque) {
     apaga_registos_carros_do_parque(parque);
-    libertar_lista_registos(parque->lista_saidas, FALSE);
-    libertar_lista_registos(parque->lista_entradas, TRUE);
+    liberta_lista_registos(parque->lista_saidas, FALSE);
+    liberta_lista_registos(parque->lista_entradas, TRUE);
     free(parque->nome);
     free(parque);
 }

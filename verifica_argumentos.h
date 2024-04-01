@@ -28,6 +28,6 @@ int verifica_argumentos_e(Parque* parque, char* nome_parque,
 int verifica_argumentos_s(Parque* parque, char* nome_parque, Carro** carro,
     char* matricula, Registo** registo, Data* data_saida, Data* data_sistema);
 int verifica_argumentos_v(Carro* carro, char* matricula);
-int verifica_argumentos_f(Data* data, Data* data_sistema);
+int verifica_data_f(Data* data, Data* data_sistema);
 
 #endif

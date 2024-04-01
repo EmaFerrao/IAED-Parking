@@ -12,7 +12,7 @@ unsigned int hash(char *texto, int tamanho) {
     return hash % tamanho;
 }
 
-HashTable_Carros criar_hashtable_carros(int tamanho) {
+HashTable_Carros cria_hashtable_carros(int tamanho) {
     if( tamanho <= 100) tamanho = 1000; //evitar hashtables demasiado pequenas
     
     HashTable_Carros hashtable = (HashTable_Carros) malloc(sizeof(struct tablehashcarro));
@@ -24,12 +24,12 @@ HashTable_Carros criar_hashtable_carros(int tamanho) {
     return hashtable;
 } 
 
-void inserir_hashtable_carros(HashTable_Carros hashtable, Carro* carro) {
+void insere_carro_na_hashtable(HashTable_Carros hashtable, Carro* carro) {
     unsigned int index = hash(carro->matricula, hashtable->tamanho);
     insere_carro_no_fim(hashtable->array_de_listas[index], carro);
 }
 
-Carro* procurar_hashtable_carros(HashTable_Carros hashtable, char* matricula) {
+Carro* procura_carro_na_hashtable(HashTable_Carros hashtable, char* matricula) {
     unsigned int index = hash(matricula, hashtable->tamanho);
     return procura_carro(hashtable->array_de_listas[index], matricula);
 }
@@ -40,9 +40,9 @@ void imprime_hashtable_carros(HashTable_Carros hashtable) {
     }
 }
 
-void libertar_hashtable_carros(HashTable_Carros hashtable, int libertar_carros) {
+void liberta_hashtable_carros(HashTable_Carros hashtable, int libertar_carros) {
     for (int i = 0; i < hashtable->tamanho; i++) {
-        libertar_lista_carros(hashtable->array_de_listas[i], libertar_carros);
+        liberta_lista_carros(hashtable->array_de_listas[i], libertar_carros);
     }
     free(hashtable->array_de_listas);
     free(hashtable);

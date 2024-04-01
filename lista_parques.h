@@ -22,6 +22,6 @@ Parque* procura_parque(Lista_Parques lista_parques, char* nome) ;
 void imprime_lista_parques(Lista_Parques lista_parques);
 void imprime_lista_parques_por_nome(Lista_Parques lista_parques);
 void remove_parque(Lista_Parques lista_parques, Parque* parque);
-void libertar_lista_parques(Lista_Parques lista_parques, int libertar_parques);
+void liberta_lista_parques(Lista_Parques lista_parques, int libertar_parques);
 
 #endif

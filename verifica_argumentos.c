@@ -76,7 +76,7 @@ Data* data_entrada, Data* data_sistema) {
     }
     if (*carro == NULL) {
         *carro = cria_carro(matricula);
-        inserir_hashtable_carros(hashtable_carros, *carro);
+        insere_carro_na_hashtable(hashtable_carros, *carro);
     } else if ((*carro)->dentro_de_parque) {
         printf("%s%s", matricula, ENTRADA_INVALIDA);
         return FALSE;
@@ -129,7 +129,7 @@ int verifica_argumentos_v(Carro* carro, char* matricula) {
     return TRUE;
 }
 
-int verifica_argumentos_f(Data* data, Data* data_sistema) {
+int verifica_data_f(Data* data, Data* data_sistema) {
     if (!data_valida(data) || data_mais_recente(data_sistema, data)) {
         printf(DATA_INVALIDA);
         return FALSE;

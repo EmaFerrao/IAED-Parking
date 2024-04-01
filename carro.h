@@ -24,6 +24,6 @@ typedef void (*Operacao_Carro)(Carro*);
 int matricula_valida(char* matricula);
 Carro* cria_carro(char* matricula);
 void imprime_carro_tudo(Carro* carro);
-void libertar_carro(Carro* carro);
+void liberta_carro(Carro* carro);
 
 #endif

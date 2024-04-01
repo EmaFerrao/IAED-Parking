@@ -18,6 +18,6 @@ Lista_Carros cria_lista_carros();
 void insere_carro_no_fim(Lista_Carros lista_carros, Carro* carro);
 void itera_lista_carros(Lista_Carros lista_carros, Operacao_Carro operacao);
 Carro* procura_carro(Lista_Carros lista_carros, char* matricula);
-void libertar_lista_carros(Lista_Carros lista_carros, int libertar_carros);
+void liberta_lista_carros(Lista_Carros lista_carros, int libertar_carros);
 
 #endif

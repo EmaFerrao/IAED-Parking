@@ -6,7 +6,7 @@
 #include "carro.h"
 #include "parque.h"
 
-Registo* criar_registo(Parque* parque, Carro* carro, Data* entrada) {
+Registo* cria_registo(Parque* parque, Carro* carro, Data* entrada) {
     Registo* registo = (Registo*) malloc(sizeof(Registo));
     registo->parque = parque;
     registo->carro = carro;
@@ -60,8 +60,8 @@ void imprime_registo(Registo* registo) {
     }
 }
 
-void libertar_registo(Registo* registo) {
-    // o parque e o carro não pertencem ao registo, logo não são libertados com o registo
+void liberta_registo(Registo* registo) {
+// parque e carro nao pertencem a registo, logo nao sao libertados com registo
     free(registo->entrada);
     if (registo->saida!=NULL) free(registo->saida);
     free(registo);

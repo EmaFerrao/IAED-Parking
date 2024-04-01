@@ -61,9 +61,9 @@ void imprime_carro_tudo(Carro* carro) {
     printf("\n");
 }
 
-void libertar_carro(Carro* carro) {
-    // registos são libertados no parque
-    libertar_lista_registos(carro->lista_registos, FALSE);
+void liberta_carro(Carro* carro) {
+    // registos sao libertados no parque
+    liberta_lista_registos(carro->lista_registos, FALSE);
     free(carro->matricula);
     free(carro);
 }

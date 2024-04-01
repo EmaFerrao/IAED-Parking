@@ -15,12 +15,12 @@ typedef struct {
 
 typedef void (*Operacao_Registo)(Registo*);
 
-Registo* criar_registo(Parque* parque, Carro* carro, Data* entrada);
+Registo* cria_registo(Parque* parque, Carro* carro, Data* entrada);
 void guarda_saida_no_registo(Registo* registo, Data* data_saida);
 void guarda_custo_no_registo(Registo* registo, float custo);
 void imprime_saida(Registo* registo);
 void imprime_entrada_saida(Registo* registo);
 void imprime_registo(Registo* registo);
-void libertar_registo(Registo* registo);
+void liberta_registo(Registo* registo);
 
 #endif

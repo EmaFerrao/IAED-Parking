@@ -43,12 +43,12 @@ Carro* procura_carro(Lista_Carros lista_carros, char* matricula) {
     return NULL;
 }
 
-void libertar_lista_carros(Lista_Carros lista_carros, int libertar_carros) {
+void liberta_lista_carros(Lista_Carros lista_carros, int libertar_carros) {
     Carro_Node* aux = lista_carros->head;
     Carro_Node* next;
     while (aux != NULL) {
         if (libertar_carros) {
-            libertar_carro(aux->carro);
+            liberta_carro(aux->carro);
         }
         next = aux->next;
         free(aux);

@@ -150,12 +150,12 @@ void filtra_registos_carro(Lista_Registos lista_registos, Parque* parque) {
     }
 }
 
-void libertar_lista_registos(Lista_Registos lista_registos, int libertar_registos) {
+void liberta_lista_registos(Lista_Registos lista_registos, int libertar_registos) {
     Registo_Node* aux = lista_registos->head;
     Registo_Node* next;
     while (aux != NULL) {
         if (libertar_registos) {
-            libertar_registo(aux->registo);
+            liberta_registo(aux->registo);
         }
         next = aux->next;
         free(aux);

@@ -24,6 +24,6 @@ Registo_Node* procura_primeiro_registo_node_do_dia(Lista_Registos lista_registos
 void imprime_faturacao(Lista_Registos lista_registos);
 void imprime_faturacao_num_dia(Registo_Node* registo, Data* data);
 void filtra_registos_carro(Lista_Registos lista_registos, Parque* parque);
-void libertar_lista_registos(Lista_Registos lista_registos, int libertar_registos);
+void liberta_lista_registos(Lista_Registos lista_registos, int libertar_registos);
 
 #endif
