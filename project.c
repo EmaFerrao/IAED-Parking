@@ -9,7 +9,7 @@
 #include "comandos.h"
 
 /* número máximo de carros (10000) / 10
-Assim, cada elemento da hashtable tem no máximo 10 carros */
+Assim cada elemento da hashtable tem no máximo 10 carros */
 #define TAMANHO_HASHTABLE 1000  
 
 /**
