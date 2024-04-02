@@ -80,7 +80,8 @@ void apaga_registos_carros_do_parque(Parque* parque) {
             carro = aux->registo->carro;
             if (procura_carro_na_hashtable(carros_visitados, carro->matricula) == NULL) {
                 registo_sem_saida = procura_registo_sem_saida_no_parque(carro->lista_registos, parque);
-                if (registo_sem_saida != NULL && registo_sem_saida->parque == parque) {
+                if (registo_sem_saida != NULL && 
+                registo_sem_saida->parque == parque) {
                     carro->dentro_de_parque = FALSE;
                 }
                 filtra_registos_carro(carro->lista_registos, parque);

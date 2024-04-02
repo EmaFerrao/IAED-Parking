@@ -1,5 +1,6 @@
 /**
  * Define os valores de false e true.
+ * 
  * @file bool.h
  * @author ist1109247
 */
