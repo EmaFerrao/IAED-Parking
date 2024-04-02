@@ -15,8 +15,7 @@
  * @brief Recebe uma linha de input e redireciona para o comando certo.
  */
 void recebe_input_identifica_comando(Lista_Parques lista_parques, 
-                                     HashTable_Carros hashtable_carros, 
-                                     Data* data_sistema) {
+                       HashTable_Carros hashtable_carros, Data* data_sistema) {
     char linha[BUFSIZE];
 
     do {

@@ -42,8 +42,8 @@ void insere_registo_no_fim(Lista_Registos lista_registos, Registo* registo) {
 }
 
 /**
- * @brief Insere o registo recebido na lista 
- * de registos recebida, por ordem ASCII.
+ * @brief Insere o registo recebido na lista de registos 
+ * recebida, por nome de parque na ordem ASCII.
  */
 void insere_registo_por_nome_parque(Lista_Registos lista_registos, 
                                     Registo* registo) {
@@ -59,19 +59,13 @@ void insere_registo_por_nome_parque(Lista_Registos lista_registos,
     }
     while (aux != NULL) {
         if (strcmp(aux->registo->parque->nome, registo->parque->nome) > 0) {
-            if (anterior == NULL) {
-                lista_registos->head = registo_node;
-            } else {
-                anterior->next = registo_node;
-            }
+            if (anterior == NULL) lista_registos->head = registo_node; 
+            else anterior->next = registo_node;
             registo_node->next = aux;
             return;
         } else {
-            if (anterior == NULL) {
-                anterior = aux;
-            } else {
-                anterior = anterior->next;
-            }
+            if (anterior == NULL) anterior = aux;
+            else anterior = anterior->next;
             aux = aux->next;
         }
     }
