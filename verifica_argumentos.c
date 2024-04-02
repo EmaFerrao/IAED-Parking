@@ -1,8 +1,20 @@
+/**
+ * Define as funções que verificam os argumentos do input 
+ * de cada comando e imprimem as mensagens de erro.
+ * 
+ * @file verifica_argumentos.c
+ * @author ist1109248
+*/
 #include <stdio.h>
 #include "verifica_argumentos.h"
 
-int verifica_capacidade_valores(int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario) {
-
+/**
+ * @brief Verifica se a capacidade e os valores de faturação de um parque 
+ * são válidos. Se não forem, imprime as respetivas mensagens de erro.
+ */
+int verifica_capacidade_valores(int capacidade, float valor_15, 
+                                float valor_15_apos_1hora, 
+                                float valor_max_diario) {
     if (capacidade <= 0) {
         printf("%d%s", capacidade, CAPACIDADE_INVALIDA);
         return FALSE;
@@ -11,16 +23,21 @@ int verifica_capacidade_valores(int capacidade, float valor_15, float valor_15_a
         printf(CUSTO_INVALIDO);
         return FALSE;
     }
-    if (!(valor_15 < valor_15_apos_1hora && valor_15_apos_1hora < valor_max_diario)) {
+    if (!(valor_15 < valor_15_apos_1hora && 
+          valor_15_apos_1hora < valor_max_diario)) {
         printf(CUSTO_INVALIDO);
         return FALSE;
     }
-
     return TRUE;
 }
 
-int verifica_argumentos_p(Lista_Parques lista_parques, char* nome_parque, int capacidade, float valor_15, float valor_15_apos_1hora, float valor_max_diario) {
-
+/**
+ * @brief Verifica se os argumentos do comando "p" são válidos. 
+ * Se não forem, imprime as respetivas mensagens de erro.
+ */
+int verifica_argumentos_p(Lista_Parques lista_parques, char* nome_parque, 
+                          int capacidade, float valor_15, 
+                          float valor_15_apos_1hora, float valor_max_diario) {
     if (procura_parque(lista_parques, nome_parque) != NULL) {
         printf("%s%s", nome_parque, PARQUE_JA_EXISTE);
         return FALSE;
@@ -33,22 +50,29 @@ int verifica_argumentos_p(Lista_Parques lista_parques, char* nome_parque, int ca
         printf(DEMASIADOS_PARQUES);
         return FALSE;
     }
-
     return TRUE;
 }
 
+/**
+ * @brief Verifica se o parque recebido existe. 
+ * Se não existir, imprime uma mensagem de erro.
+ */
 int verifica_parque_existe(Parque* parque, char* nome_parque) {
     if (parque == NULL) {
         printf("%s%s", nome_parque, PARQUE_INEXISTENTE);
         return FALSE;
     } 
-
     return TRUE;
 }
 
+/**
+ * @brief Verifica se o parque recebido existe e se 
+ * a matrícula e data recebidas são válidas. Se não 
+ * forem, imprime as respetivas mensagens de erro.
+ */
 int parque_existe_matricula_valida_data_valida(Parque* parque, 
-char* nome_parque, char* matricula, Data* data) {
-
+                                               char* nome_parque, 
+                                               char* matricula, Data* data) {
     if (!verifica_parque_existe(parque, nome_parque)) {
         return FALSE;
     }
@@ -63,11 +87,16 @@ char* nome_parque, char* matricula, Data* data) {
     return TRUE;
 }
 
+/**
+ * @brief Verifica se os argumentos do comando "e" são válidos. 
+ * Se não forem, imprime as respetivas mensagens de erro.
+ */
 int verifica_argumentos_e(Parque* parque, char* nome_parque, 
 HashTable_Carros hashtable_carros, Carro** carro, char* matricula, 
 Data* data_entrada, Data* data_sistema) {
 
-    if (!parque_existe_matricula_valida_data_valida(parque, nome_parque, matricula, data_entrada)) {
+    if (!parque_existe_matricula_valida_data_valida(parque, nome_parque,
+                                                    matricula, data_entrada)) {
         return FALSE;
     }
     if (parque->lugares_disponiveis == 0) {
@@ -85,14 +114,18 @@ Data* data_entrada, Data* data_sistema) {
         printf(DATA_INVALIDA);
         return FALSE;
     }
-
     return TRUE;
 }
 
+/**
+ * @brief Verifica se os argumentos do comando "s" são válidos. 
+ * Se não forem, imprime as respetivas mensagens de erro.
+ */
 int verifica_argumentos_s(Parque* parque, char* nome_parque, Carro** carro,
 char* matricula, Registo** registo, Data* data_saida, Data* data_sistema) {
 
-    if (!parque_existe_matricula_valida_data_valida(parque, nome_parque, matricula, data_saida)) {
+    if (!parque_existe_matricula_valida_data_valida(parque, nome_parque, 
+                                                    matricula, data_saida)) {
         return FALSE;
     }
     if (*carro == NULL) {
@@ -103,7 +136,8 @@ char* matricula, Registo** registo, Data* data_saida, Data* data_sistema) {
         printf("%s%s", matricula, SAIDA_INVALIDA);
         return FALSE;
     }
-    (*registo) = procura_registo_sem_saida_no_parque((*carro)->lista_registos,parque);
+    (*registo) = procura_registo_sem_saida_no_parque((*carro)->lista_registos,
+                                                      parque);
     if (registo == NULL) {
         printf("%s%s", matricula, SAIDA_INVALIDA);
         return FALSE;
@@ -112,10 +146,13 @@ char* matricula, Registo** registo, Data* data_saida, Data* data_sistema) {
         printf(DATA_INVALIDA);
         return FALSE;
     }
-
     return TRUE;
 }
 
+/**
+ * @brief Verifica se o argumento do comando "v" é válido. 
+ * Se não for, imprime as respetivas mensagens de erro.
+ */
 int verifica_argumentos_v(Carro* carro, char* matricula) {
     if (!matricula_valida(matricula)) {
         printf("%s%s", matricula, MATRICULA_INVALIDA);
@@ -125,16 +162,18 @@ int verifica_argumentos_v(Carro* carro, char* matricula) {
         printf("%s%s", matricula, NAO_TEM_ENTRADAS);
         return FALSE;
     }
-
     return TRUE;
 }
 
+/**
+ * @brief Verifica se data fornecida no comando "f" 
+ * é válida. Se não for, imprime uma mensagem de erro.
+ */
 int verifica_data_f(Data* data, Data* data_sistema) {
     if (!data_valida(data) || data_mais_recente(data_sistema, data)) {
         printf(DATA_INVALIDA);
         return FALSE;
     }
-
     return TRUE;
 }
 

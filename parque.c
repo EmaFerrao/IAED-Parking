@@ -13,8 +13,8 @@
 #include "bool.h"
 
 #define MINUTOS_NUMA_HORA 60    // uma hora tem 60 minutos
-#define MINUTOS_NUMA_FRACAO 15  // uma fracao sao 15 minutos
-#define FRACOES_NUMA_HORA 4     // uma hora tem 4 x 15 minutos -> 4 fracoes
+#define MINUTOS_NUMA_FRACAO 15  // uma fração são 15 minutos
+#define FRACOES_NUMA_HORA 4     // uma hora tem 4 x 15 minutos -> 4 frações
 
 /**
  * @brief Cria e devolve um novo parque, que tem 
@@ -24,20 +24,20 @@ Parque* cria_parque(char* nome, int capacidade, float valor_15,
                     float valor_15_apos_1hora, float valor_max_diario) {
     Parque* parque;
     parque = (Parque*) malloc(sizeof(Parque));
-    parque -> nome = strdup(nome);
-    parque -> capacidade = capacidade;
-    parque -> lugares_disponiveis = capacidade;
-    parque -> valor_15 = valor_15;
-    parque -> valor_15_apos_1hora = valor_15_apos_1hora;
-    parque -> valor_max_diario = valor_max_diario;
-    parque -> lista_entradas = cria_lista_registos();
-    parque -> lista_saidas = cria_lista_registos();
+    parque->nome = strdup(nome);
+    parque->capacidade = capacidade;
+    parque->lugares_disponiveis = capacidade;
+    parque->valor_15 = valor_15;
+    parque->valor_15_apos_1hora = valor_15_apos_1hora;
+    parque->valor_max_diario = valor_max_diario;
+    parque->lista_entradas = cria_lista_registos();
+    parque->lista_saidas = cria_lista_registos();
     return parque;
 }
 
 /**
- * @brief Devolve o custo do estacionamento que 
- * o registo recebido representa no parque recebido.
+ * @brief Devolve o custo do estacionamento 
+ * do registo recebido no parque recebido.
  */
 float calcula_custo(Registo* registo, Parque* parque) {
     int minutos, dias;
@@ -84,10 +84,14 @@ void imprime_parque_tudo(Parque* parque) {
     printf("%s %d %d\n", parque->nome, parque->capacidade, 
             parque->lugares_disponiveis);
     printf("ENTRADAS:\n");
-    itera_lista_registos(parque->lista_entradas, imprime_registo);
+    itera_lista_registos(parque->lista_entradas, imprime_registo_tudo);
     printf("\n");
 }
 
+/**
+ * @brief Apaga os registos no parque recebido nas 
+ * listas de registos dos carros que lá estiveram.
+ */
 void apaga_registos_carros_do_parque(Parque* parque) {
     Registo_Node* aux = parque->lista_entradas->head;
     HashTable_Carros carros_visitados = cria_hashtable_carros
@@ -109,11 +113,16 @@ void apaga_registos_carros_do_parque(Parque* parque) {
                 insere_carro_na_hashtable(carros_visitados, carro);
             }
         }
-        aux = aux -> next;
+        aux = aux->next;
     }
     liberta_hashtable_carros(carros_visitados, FALSE); 
 }
 
+/**
+ * @brief Liberta o parque recebido, o seu nome, os registos 
+ * nas listas de registos dos carros que estiveram 
+ * no parque e as listas de registos do parque.
+ */
 void liberta_parque(Parque* parque) {
     apaga_registos_carros_do_parque(parque);
     liberta_lista_registos(parque->lista_saidas, FALSE);

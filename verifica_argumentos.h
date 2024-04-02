@@ -1,3 +1,11 @@
+/**
+ * Declara as funções que verificam os argumentos do 
+ * input de cada comando e imprimem as mensagens 
+ * de erro e define as mensagens de erro.
+ * 
+ * @file verifica_argumentos.h
+ * @author ist1109248
+*/
 #ifndef VERIFICA_ARGUMENTOS_H
 #define VERIFICA_ARGUMENTOS_H
 
@@ -5,7 +13,8 @@
 #include "lista_parques.h"
 #include "hashtable_carros.h"
 
-#define MAX_PARQUES 20 // numero maximo de parques
+#define MAX_PARQUES 20 // número máximo de parques
+
 // Mensagens de erro
 #define PARQUE_JA_EXISTE ": parking already exists.\n"
 #define CAPACIDADE_INVALIDA ": invalid capacity.\n"
@@ -19,6 +28,7 @@
 #define SAIDA_INVALIDA ": invalid vehicle exit.\n"
 #define NAO_TEM_ENTRADAS ": no entries found in any parking.\n" 
 
+
 int verifica_argumentos_p(Lista_Parques lista_parques, char* nome_parque,
                           int capacidade, float valor_15, 
                           float valor_15_apos_1hora, float valor_max_diario);
@@ -26,15 +36,16 @@ int verifica_argumentos_p(Lista_Parques lista_parques, char* nome_parque,
 int verifica_parque_existe(Parque* parque, char* nome_parque);
 
 int verifica_argumentos_e(Parque* parque, char* nome_parque, 
-    HashTable_Carros hashtable_carros, Carro** carro, char* matricula, 
-    Data* data_entrada, Data* data_sistema);
+                          HashTable_Carros hashtable_carros, Carro** carro, 
+                          char* matricula, Data* data_entrada, 
+                          Data* data_sistema);
 
 int verifica_argumentos_s(Parque* parque, char* nome_parque, Carro** carro,
-    char* matricula, Registo** registo, Data* data_saida, Data* data_sistema);
+                          char* matricula, Registo** registo, Data* data_saida, 
+                          Data* data_sistema);
 
 int verifica_argumentos_v(Carro* carro, char* matricula);
 
 int verifica_data_f(Data* data, Data* data_sistema);
-
 
 #endif

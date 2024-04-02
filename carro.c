@@ -72,7 +72,7 @@ void imprime_carro_tudo(Carro* carro) {
         printf("Fora de parque\n");
     }
     printf("REGISTOS:\n");
-    itera_lista_registos(carro->lista_registos, imprime_registo);
+    itera_lista_registos(carro->lista_registos, imprime_registo_tudo);
     printf("\n");
 }
 

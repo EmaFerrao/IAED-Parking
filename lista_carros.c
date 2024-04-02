@@ -27,8 +27,8 @@ Lista_Carros cria_lista_carros() {
  */
 void insere_carro_no_fim(Lista_Carros lista_carros, Carro* carro) {
     Carro_Node* carro_node = (Carro_Node*) malloc(sizeof(Carro_Node));
-    carro_node -> carro = carro;
-    carro_node -> next = NULL;
+    carro_node->carro = carro;
+    carro_node->next = NULL;
 
     if (lista_carros->head == NULL) {
         lista_carros->head = carro_node;
@@ -49,7 +49,7 @@ void itera_lista_carros(Lista_Carros lista_carros, Operacao_Carro operacao) {
     Carro_Node* aux = lista_carros->head;
     while (aux != NULL) {
         operacao(aux->carro);
-        aux = aux -> next;
+        aux = aux->next;
     }
 }
 
@@ -64,7 +64,7 @@ Carro* procura_carro(Lista_Carros lista_carros, char* matricula) {
         if (strcmp(aux->carro->matricula, matricula) == 0){
             return aux->carro;
         }
-        aux = aux -> next;
+        aux = aux->next;
     }
     return NULL;
 }

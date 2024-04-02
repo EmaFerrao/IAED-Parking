@@ -28,8 +28,8 @@ Lista_Parques cria_lista_parques() {
  */
 void insere_parque_no_fim(Lista_Parques lista_parques, Parque* parque) {
     Parque_Node* parque_node = (Parque_Node*) malloc(sizeof(Parque_Node));
-    parque_node -> parque = parque;
-    parque_node -> next = NULL;
+    parque_node->parque = parque;
+    parque_node->next = NULL;
 
     if (lista_parques->head == NULL) {
         lista_parques->head = parque_node;
@@ -52,7 +52,7 @@ void itera_lista_parques(Lista_Parques lista_parques, Operacao_Parque operacao) 
     Parque_Node* aux = lista_parques->head;
     while (aux != NULL) {
         operacao(aux->parque);
-        aux = aux -> next;
+        aux = aux->next;
     }
 }
 
@@ -68,7 +68,7 @@ Parque* procura_parque(Lista_Parques lista_parques, char* nome) {
         if (strcmp(aux->parque->nome, nome) == 0){
             return aux->parque;
         }
-        aux = aux -> next;
+        aux = aux->next;
     }
     return NULL;
 }
@@ -91,7 +91,7 @@ void cria_vetor_nomes_parques(Lista_Parques lista_parques,
 
     for (int i = 0; i < numero_parques; i++) {
         nomes_parques[i] = aux->parque->nome;
-        aux = aux -> next;
+        aux = aux->next;
     }
 }
 

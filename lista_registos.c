@@ -30,8 +30,8 @@ Lista_Registos cria_lista_registos() {
  */
 void insere_registo_no_fim(Lista_Registos lista_registos, Registo* registo) {
     Registo_Node* registo_node = (Registo_Node*) malloc(sizeof(Registo_Node));
-    registo_node -> registo = registo;
-    registo_node -> next = NULL;
+    registo_node->registo = registo;
+    registo_node->next = NULL;
 
     if (lista_registos->head == NULL) {
         lista_registos->head = registo_node;
@@ -49,8 +49,8 @@ void insere_registo_por_nome_parque(Lista_Registos lista_registos,
                                     Registo* registo) {
     Registo_Node* aux = lista_registos->head, *anterior = NULL;
     Registo_Node* registo_node = (Registo_Node*) malloc(sizeof(Registo_Node));
-    registo_node -> registo = registo;
-    registo_node -> next = NULL;
+    registo_node->registo = registo;
+    registo_node->next = NULL;
 
     if (lista_registos->head == NULL) {
         lista_registos->head = registo_node;
@@ -70,9 +70,9 @@ void insere_registo_por_nome_parque(Lista_Registos lista_registos,
             if (anterior == NULL) {
                 anterior = aux;
             } else {
-                anterior = anterior -> next;
+                anterior = anterior->next;
             }
-            aux = aux -> next;
+            aux = aux->next;
         }
     }
     anterior->next = registo_node;
@@ -90,7 +90,7 @@ void itera_lista_registos(Lista_Registos lista_registos,
     Registo_Node* aux = lista_registos->head;
     while (aux != NULL) {
         operacao(aux->registo);
-        aux = aux -> next;
+        aux = aux->next;
     }
 }
 
@@ -107,7 +107,7 @@ Registo* procura_registo_sem_saida_no_parque(Lista_Registos lista_registos,
                 return aux->registo;
             }
         }
-        aux = aux -> next;
+        aux = aux->next;
     }
     return NULL;
 } 
@@ -124,7 +124,7 @@ Registo_Node* procura_primeiro_registo_node_do_dia(Lista_Registos lista_registos
         if (mesmo_dia(aux->registo->saida, data)) {
             return aux;
         }
-        aux = aux -> next;
+        aux = aux->next;
     }
     return NULL;
 } 
@@ -150,7 +150,7 @@ void imprime_faturacao_todos_dias(Lista_Registos lista_registos) {
 
             faturacao_do_dia = 0;
         }
-        aux = aux -> next;
+        aux = aux->next;
     }
 }
 
