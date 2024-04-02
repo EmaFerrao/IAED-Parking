@@ -1,17 +1,36 @@
+/**
+ * Declara a estrutura de uma lista de parques e os seus métodos.
+ * 
+ * @file lista_parques.c
+ * @author ist1109247
+*/
 #include <stdio.h> 
 #include <stdlib.h>
 #include <ctype.h> 
 #include <string.h>
 #include "lista_parques.h"
 
+/**
+ * @brief Cria uma nova lista de parques, que tem 
+ * de ser libertada quando deixar de ser utilizada.
+ * 
+ * @return lista de parques
+ */
 Lista_Parques cria_lista_parques() {
-    Lista_Parques lista_parques = (Lista_Parques) malloc(sizeof(struct parques_lista));
+    Lista_Parques lista_parques = (Lista_Parques) 
+                                   malloc(sizeof(struct parques_lista));
     lista_parques->head = NULL;
     lista_parques->tail = NULL;
     lista_parques->numero_parques = 0;
     return lista_parques;
 }
 
+/**
+ * @brief Insere um parque no fim da lista de parques.
+ * 
+ * @param lista_parques 
+ * @param parque 
+ */
 void insere_parque_no_fim(Lista_Parques lista_parques, Parque* parque) {
     Parque_Node* parque_node = (Parque_Node*) malloc(sizeof(Parque_Node));
     parque_node -> parque = parque;
@@ -27,6 +46,12 @@ void insere_parque_no_fim(Lista_Parques lista_parques, Parque* parque) {
     lista_parques->numero_parques += 1;
 }
 
+/**
+ * @brief Percorre a lista de parques, executando uma operação em cada parque.
+ * 
+ * @param lista_parques 
+ * @param operacao função que recebe um parque e não devolve nada.
+ */
 void itera_lista_parques(Lista_Parques lista_parques, Operacao_Parque operacao) {
     Parque_Node* aux = lista_parques->head;
     while (aux != NULL) {
@@ -35,6 +60,15 @@ void itera_lista_parques(Lista_Parques lista_parques, Operacao_Parque operacao) 
     }
 }
 
+
+/**
+ * @brief Recebendo o nome de um parque, devolve o parque correspondente. 
+ * Se não houver um parque com esse nome, devolve NULL.
+ * 
+ * @param lista_parques 
+ * @param nome 
+ * @return parque 
+ */
 Parque* procura_parque(Lista_Parques lista_parques, char* nome) {
     Parque_Node* aux = lista_parques->head;
     while (aux != NULL) {
@@ -46,11 +80,19 @@ Parque* procura_parque(Lista_Parques lista_parques, char* nome) {
     return NULL;
 }
 
+/**
+ * @brief Percorre a lista de parques e, para cada parque, 
+ * imprime o seu nome, a capacidade e o número de lugares disponíveis.
+ * 
+ * @param lista_parques 
+ */
 void imprime_lista_parques(Lista_Parques lista_parques) {
     itera_lista_parques(lista_parques, imprime_parque_capacidade_lugares);
 }
 
-void cria_vetor_nomes_parques(Lista_Parques lista_parques, char*** nomes_parques, int numero_parques) {
+
+void cria_vetor_nomes_parques(Lista_Parques lista_parques, 
+                              char*** nomes_parques, int numero_parques) {
     Parque_Node* aux = lista_parques->head;
 
     for (int i = 0; i < numero_parques; i++) {

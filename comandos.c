@@ -309,4 +309,3 @@ void comando_t(Lista_Parques lista_parques, HashTable_Carros hashtable_carros) {
     itera_lista_parques(lista_parques, imprime_parque_tudo);
     imprime_hashtable_carros(hashtable_carros);
 }
-

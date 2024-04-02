@@ -35,9 +35,11 @@ unsigned int hash(char* texto, int tamanho) {
 HashTable_Carros cria_hashtable_carros(int tamanho) {
     if( tamanho <= 100) tamanho = 1000; //evitar hashtables demasiado pequenas
     
-    HashTable_Carros hashtable = (HashTable_Carros) malloc(sizeof(struct tablehashcarro));
+    HashTable_Carros hashtable = (HashTable_Carros) 
+                                  malloc(sizeof(struct tablehashcarro));
     hashtable->tamanho = tamanho;
-    hashtable->array_de_listas = (Lista_Carros*) malloc(sizeof(Lista_Carros)*(hashtable->tamanho));
+    hashtable->array_de_listas = (Lista_Carros*) malloc(sizeof(Lista_Carros)
+                                                        *(hashtable->tamanho));
     for (int i = 0; i < hashtable->tamanho; i++) {
         hashtable->array_de_listas[i] = cria_lista_carros();
     }
@@ -93,4 +95,3 @@ void liberta_hashtable_carros(HashTable_Carros hashtable, int libertar_carros) {
     free(hashtable->array_de_listas);
     free(hashtable);
 }
-
