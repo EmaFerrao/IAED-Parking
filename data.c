@@ -37,8 +37,8 @@ Data* cria_data(int ano, int mes, int dia, int hora, int minutos) {
  * @return número de dias
  */
 int dias_no_mes(int mes) {
-    int diasMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    return diasMes[mes];
+    int dias_mes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    return dias_mes[mes];
 }
 
 /**
