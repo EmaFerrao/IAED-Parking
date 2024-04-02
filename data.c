@@ -48,17 +48,17 @@ int data_valida(Data* data) {
  * é mais recente do que a data do primeiro.
  */
 int data_mais_recente(Data* data1, Data* data2) {
-    if (data2->ano < data1->ano) return FALSE;
-    if (data2->ano > data1->ano) return TRUE;
-    if (data2->mes < data1->mes) return FALSE;
-    if (data2->mes > data1->mes) return TRUE;
-    if (data2->dia < data1->dia) return FALSE;
-    if (data2->dia > data1->dia) return TRUE;
-    if (data2->hora < data1->hora) return FALSE;
-    if (data2->hora > data1->hora) return TRUE;
-    if (data2->minutos < data1->minutos) return FALSE;
-    return TRUE;
+    if (data2->ano != data1->ano)
+        return data2->ano > data1->ano;
+    if (data2->mes != data1->mes)
+        return data2->mes > data1->mes;
+    if (data2->dia != data1->dia)
+        return data2->dia > data1->dia;
+    if (data2->hora != data1->hora)
+        return data2->hora > data1->hora;
+    return data2->minutos >= data1->minutos;
 }
+
 
 /**
  * @brief Devolve o número de dias desde o ano 0 até ao ano recebido.

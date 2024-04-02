@@ -1,5 +1,6 @@
 /**
- * Declara a estrutura de uma data e os seus métodos.
+ * Declara a estrutura de uma data e os seus métodos. 
+ * Define constantes relacionadas com datas.
  * 
  * @file data.h
  * @author ist1109247
@@ -8,6 +9,12 @@
 #define DATA_H
 
 #define MINUTOS_NUM_DIA 1440 // número de minutos num dia
+
+#define ANO_DEFAULT 2000 // ano da data default do sistema
+#define MES_DEFAULT 1 // mês da data default do sistema
+#define DIA_DEFAULT 1 // dia da data default do sistema
+#define HORA_DEFAULT 0 // hora da data default do sistema
+#define MINUTO_DEFAULT 0 // minuto da data default do sistema
 
 typedef struct {
     int ano;

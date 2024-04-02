@@ -108,7 +108,7 @@ Registo* procura_registo_sem_saida_no_parque(Lista_Registos lista_registos,
 
 /**
  * @brief Devolve o primeiro nó da lista de registos 
- * recebida, cujo registo tem data de saída igual à 
+ * recebida cujo registo tenha data de saída igual à 
  * data recebida. Se não houver, devolve NULL.
  */
 Registo_Node* procura_primeiro_registo_node_do_dia(Lista_Registos lista_registos,

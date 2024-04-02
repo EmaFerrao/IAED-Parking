@@ -9,14 +9,20 @@
 #ifndef LER_INPUT_H
 #define LER_INPUT_H
 
-// NÚMERO DE ARGUMENTOS ESPERADOS:
-#define ARGS_SO_P 1 // no comando "p", para listar parques
-#define ARGS_P_CRIAR_PARQUE 6 // no comando "p", para criar um parque
-#define ARGS_E_S 8 // nos comandos "e" e "s"
-#define ARGS_V 2 // no comando "v"
-#define ARGS_F_COM_DATA 5 // no comando "f", para a faturação de um dia
-#define ARGS_F_SEM_DATA 2 // no comando "f", para a faturação de todos os dias
-#define ARGS_R 2 // no comando "r"
+// número de argumentos esperados no comando "p", para listar parques
+#define ARGS_SO_P 1 
+// número de argumentos esperados no comando "p", para criar um parque
+#define ARGS_P_CRIAR_PARQUE 6 
+// número de argumentos esperados nos comandos "e" e "s"
+#define ARGS_E_S 8 
+// número de argumentos esperados no comando "v"
+#define ARGS_V 2 
+// número de argumentos esperados no comando "f", para faturação de um dia
+#define ARGS_F_COM_DATA 5 
+// número de argumentos esperados no comando "f", para faturação de todos os dias
+#define ARGS_F_SEM_DATA 2 
+// número de argumentos esperados no comando "r"
+#define ARGS_R 2  
 
 
 int le_p(char* linha, char* nome, int* capacidade, float* valor_15, 

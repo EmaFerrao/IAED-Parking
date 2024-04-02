@@ -53,7 +53,7 @@ void recebe_input_identifica_comando(Lista_Parques lista_parques,
  */
 void comando_p(char* linha, Lista_Parques lista_parques) {
     char nome_parque[BUFSIZE];
-    int capacidade, argumentos_recebidos, argumentos_so_p = 1;
+    int capacidade, argumentos_recebidos;
     float valor_15, valor_15_apos_1hora, valor_max_diario;
     Parque* parque;
 
@@ -62,11 +62,10 @@ void comando_p(char* linha, Lista_Parques lista_parques) {
     if (!argumentos_recebidos) {
         return;
     }
-    if (argumentos_recebidos == argumentos_so_p) {
+    if (argumentos_recebidos == ARGS_SO_P) {
         imprime_lista_parques(lista_parques);
         return;
     }
-
     if (!verifica_argumentos_p(lista_parques, nome_parque, capacidade, valor_15,
                                valor_15_apos_1hora, valor_max_diario)) {
         return;
@@ -116,7 +115,7 @@ void comando_e(char* linha, Lista_Parques lista_parques,
     data_entrada = cria_data(ano, mes, dia, hora, minutos);
     carro = procura_carro_na_hashtable(hashtable_carros, matricula);
     if (!verifica_argumentos_e(parque, nome_parque, hashtable_carros, 
-        &carro, matricula, data_entrada, data_sistema)) {
+                              &carro, matricula, data_entrada, data_sistema)) {
         free(data_entrada);
         return;
     }
@@ -127,8 +126,8 @@ void comando_e(char* linha, Lista_Parques lista_parques,
 
 /**
  * @brief Executa a saída de um carro de um parque. Guarda a data de saída e 
- * custo no registo correspondente ao estacionamento do carro. Adiciona o 
- * registo à lista de saídas do parque e muda o número de lugares disponíveis.
+ * custo no registo do carro. Adiciona o registo à lista de saídas do parque 
+ * e muda o número de lugares disponíveis.
  */
 void executa_saida(Parque* parque, Carro* carro, Registo* registo, 
                    Data* data_saida, Data* data_sistema) {
@@ -222,7 +221,7 @@ void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
         return;
     }
 
-    data = cria_data(ano, mes, dia, 0, 0);
+    data = cria_data(ano, mes, dia, HORA_DEFAULT, MINUTO_DEFAULT);
     if (!verifica_data_f(data, data_sistema)) {
         free(data);
         return;
@@ -232,7 +231,6 @@ void comando_f(char* linha, Lista_Parques lista_parques, Data* data_sistema) {
                         (parque->lista_saidas, data);
     imprime_faturacao_num_dia(registo_node_data, data);
     free(data);
-    
 }   
 
 /**

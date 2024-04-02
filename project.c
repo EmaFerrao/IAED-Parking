@@ -20,7 +20,8 @@ Assim, cada elemento da hashtable tem no máximo 10 carros */
 int main(){
     Lista_Parques lista_parques = cria_lista_parques();
     HashTable_Carros hashtable_carros = cria_hashtable_carros(TAMANHO_HASHTABLE);
-    Data* data_sistema = cria_data(2000,1,1,0,0);
+    Data* data_sistema = cria_data(ANO_DEFAULT, MES_DEFAULT, DIA_DEFAULT, 
+                                   HORA_DEFAULT, MINUTO_DEFAULT);
     
     recebe_input_identifica_comando(lista_parques, hashtable_carros, 
                                     data_sistema);
