@@ -1,3 +1,9 @@
+/**
+ * Define os métodos de uma lista de registos.
+ * 
+ * @file lista_registos.c
+ * @author ist1109247
+*/
 #include <stdio.h> 
 #include <stdlib.h>
 #include <ctype.h> 
@@ -7,13 +13,21 @@
 #include "parque.h"
 #include "hashtable_carros.h"
 
+/**
+ * @brief Cria e devolve uma nova lista de registos, que tem 
+ * de ser libertada quando deixar de ser utilizada.
+ */
 Lista_Registos cria_lista_registos() {
-    Lista_Registos lista_registos = (Lista_Registos) malloc(sizeof(struct registos_lista));
+    Lista_Registos lista_registos = (Lista_Registos) 
+                                     malloc(sizeof(struct registos_lista));
     lista_registos->head = NULL;
     lista_registos->tail = NULL;
     return lista_registos;
 }
 
+/**
+ * @brief Insere o registo recebido no fim da lista de registos recebida.
+ */
 void insere_registo_no_fim(Lista_Registos lista_registos, Registo* registo) {
     Registo_Node* registo_node = (Registo_Node*) malloc(sizeof(Registo_Node));
     registo_node -> registo = registo;
@@ -27,7 +41,12 @@ void insere_registo_no_fim(Lista_Registos lista_registos, Registo* registo) {
     lista_registos->tail = registo_node;
 }
 
-void insere_registo_por_nome_parque(Lista_Registos lista_registos, Registo* registo) {
+/**
+ * @brief Insere o registo recebido na lista 
+ * de registos recebida, por ordem ASCII.
+ */
+void insere_registo_por_nome_parque(Lista_Registos lista_registos, 
+                                    Registo* registo) {
     Registo_Node* aux = lista_registos->head, *anterior = NULL;
     Registo_Node* registo_node = (Registo_Node*) malloc(sizeof(Registo_Node));
     registo_node -> registo = registo;
@@ -59,7 +78,15 @@ void insere_registo_por_nome_parque(Lista_Registos lista_registos, Registo* regi
     anterior->next = registo_node;
 }
 
-void itera_lista_registos(Lista_Registos lista_registos, Operacao_Registo operacao) {
+/**
+ * @brief Percorre a lista de registos recebida, 
+ * executando uma operação em cada registo.
+ * 
+ * @param lista_registos 
+ * @param operacao função que recebe um registo e não devolve nada.
+ */
+void itera_lista_registos(Lista_Registos lista_registos, 
+                          Operacao_Registo operacao) {
     Registo_Node* aux = lista_registos->head;
     while (aux != NULL) {
         operacao(aux->registo);
@@ -67,7 +94,12 @@ void itera_lista_registos(Lista_Registos lista_registos, Operacao_Registo operac
     }
 }
 
-Registo* procura_registo_sem_saida_no_parque(Lista_Registos lista_registos, Parque* parque) {
+/**
+ * @brief Devolve o registo sem saída do parque recebido na 
+ * lista de registos recebida. Se não houver, devolve NULL.
+ */
+Registo* procura_registo_sem_saida_no_parque(Lista_Registos lista_registos, 
+                                             Parque* parque) {
     Registo_Node* aux = lista_registos->head;
     while (aux != NULL) {
         if (aux->registo->parque == parque) {
@@ -80,7 +112,13 @@ Registo* procura_registo_sem_saida_no_parque(Lista_Registos lista_registos, Parq
     return NULL;
 } 
 
-Registo_Node* procura_primeiro_registo_node_do_dia(Lista_Registos lista_registos, Data* data) {
+/**
+ * @brief Devolve o primeiro nó da lista de registos 
+ * recebida, cujo registo tem data de saída igual à 
+ * data recebida. Se não houver, devolve NULL.
+ */
+Registo_Node* procura_primeiro_registo_node_do_dia(Lista_Registos lista_registos,
+                                                   Data* data) {
     Registo_Node* aux = lista_registos->head;
     while (aux != NULL) {
         if (mesmo_dia(aux->registo->saida, data)) {
@@ -91,7 +129,12 @@ Registo_Node* procura_primeiro_registo_node_do_dia(Lista_Registos lista_registos
     return NULL;
 } 
 
-void imprime_faturacao(Lista_Registos lista_registos) {
+/**
+ * @brief Percorre a lista de registos recebida 
+ * e imprime a faturação de cada dia.
+ * (ex: 01-01-2024 5.00)
+ */
+void imprime_faturacao_todos_dias(Lista_Registos lista_registos) {
     Registo_Node* aux = lista_registos->head;
     float faturacao_do_dia = 0;
 
@@ -111,6 +154,10 @@ void imprime_faturacao(Lista_Registos lista_registos) {
     }
 }
 
+/**
+ * @brief Imprime a faturação na data recebida da lista de registos recebida. 
+ * (ex: AA-00-AA 17:00 5.00)
+ */
 void imprime_faturacao_num_dia(Registo_Node* registo_node, Data* data) {
     while (registo_node != NULL && 
         mesmo_dia(registo_node->registo->saida, data)) {
@@ -124,7 +171,11 @@ void imprime_faturacao_num_dia(Registo_Node* registo_node, Data* data) {
     }
 }
 
-void filtra_registos_carro(Lista_Registos lista_registos, Parque* parque) {
+/**
+ * @brief Apaga os registos do parque 
+ * recebido na lista de registos recebida.
+ */
+void filtra_registos_parque(Lista_Registos lista_registos, Parque* parque) {
     Registo_Node* aux = lista_registos->head;
     Registo_Node* anterior = NULL;
     Registo_Node* apagar;
@@ -150,7 +201,13 @@ void filtra_registos_carro(Lista_Registos lista_registos, Parque* parque) {
     }
 }
 
-void liberta_lista_registos(Lista_Registos lista_registos, int libertar_registos) {
+/**
+ * @brief Liberta a lista de registos recebida e os 
+ * seus nós, podendo ou não libertar os registos,
+ * (depende do parâmetro libertar_registos).
+ */
+void liberta_lista_registos(Lista_Registos lista_registos, 
+                            int libertar_registos) {
     Registo_Node* aux = lista_registos->head;
     Registo_Node* next;
     while (aux != NULL) {

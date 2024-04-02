@@ -14,10 +14,6 @@
 /**
  * @brief Verifica se dois caracteres são do mesmo tipo (letra ou dígito). 
  * Se forem letras, verifica se são maiúsculas.
- * 
- * @param c1 
- * @param c2 
- * @return TRUE ou FALSE
  */
 int par_valido(char c1, char c2) {
     if (isalpha(c1)) {
@@ -33,9 +29,6 @@ int par_valido(char c1, char c2) {
 
 /**
  * @brief Verifica se matrícula é válida
- * 
- * @param matricula 
- * @return TRUE ou FALSE
  */
 int matricula_valida(char* matricula) {
     int pares_letras=0, pares_num=0;
@@ -56,11 +49,8 @@ int matricula_valida(char* matricula) {
 }
 
 /**
- * @brief Cria um novo carro, com dentro de parque TRUE. Quando carro deixar 
- * de ser utilizado, tem de ser libertado.
- * 
- * @param matricula 
- * @return Carro* 
+ * @brief Cria e devolve um novo carro, com dentro de parque TRUE. 
+ * Quando carro deixar de ser utilizado, tem de ser libertado.
  */
 Carro* cria_carro(char* matricula) {
     Carro* carro = (Carro*) malloc(sizeof(Carro));
@@ -72,9 +62,7 @@ Carro* cria_carro(char* matricula) {
 
 /**
  * @brief Imprime matrícula do carro, se está dentro ou fora de um parque e
- * todos os seus registos.
- * 
- * @param carro 
+ * todos os seus registos. 
  */
 void imprime_carro_tudo(Carro* carro) {
     printf("%s\n", carro->matricula);
@@ -89,9 +77,8 @@ void imprime_carro_tudo(Carro* carro) {
 }
 
 /**
- * @brief Liberta a memória do carro.
- * 
- * @param carro 
+ * @brief Liberta o carro, a matrícula e a sua 
+ * lista de registos, sem libertar os registos.
  */
 void liberta_carro(Carro* carro) {
     // registos são libertados no parque

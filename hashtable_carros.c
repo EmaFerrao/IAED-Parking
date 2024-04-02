@@ -11,11 +11,7 @@
 #include "hashtable_carros.h"
 
 /**
- * @brief Converte uma string num hash.
- * 
- * @param texto 
- * @param tamanho 
- * @return hash 
+ * @brief Converte uma string num hash e devolve o hash.
  */
 unsigned int hash(char* texto, int tamanho) {
     unsigned int hash = 7;
@@ -26,11 +22,8 @@ unsigned int hash(char* texto, int tamanho) {
 }
 
 /**
- * @brief Cria uma nova hashtable de carros, que tem 
+ * @brief Cria e devolve uma nova hashtable de carros, que tem 
  * de ser libertada quando deixar de ser utilizada.
- * 
- * @param tamanho 
- * @return hashtable de carros
  */
 HashTable_Carros cria_hashtable_carros(int tamanho) {
     if( tamanho <= 100) tamanho = 1000; //evitar hashtables demasiado pequenas
@@ -47,10 +40,7 @@ HashTable_Carros cria_hashtable_carros(int tamanho) {
 } 
 
 /**
- * @brief Insere um carro na hashtable.
- * 
- * @param hashtable 
- * @param carro 
+ * @brief Insere o carro recebido na hashtable de carros recebida.
  */
 void insere_carro_na_hashtable(HashTable_Carros hashtable, Carro* carro) {
     unsigned int index = hash(carro->matricula, hashtable->tamanho);
@@ -58,12 +48,9 @@ void insere_carro_na_hashtable(HashTable_Carros hashtable, Carro* carro) {
 }
 
 /**
- * @brief Recebendo uma matrícula, devolve o carro correspondente. 
- * Se não houver um carro com essa matrícula, devolve NULL.
- * 
- * @param hashtable 
- * @param matricula 
- * @return carro 
+ * @brief Recebe uma matrícula e devolve o carro com 
+ * essa matrícula na hashtable de carros recebida. Se a 
+ * hashtable não tiver um carro com essa matrícula, devolve NULL.
  */
 Carro* procura_carro_na_hashtable(HashTable_Carros hashtable, char* matricula) {
     unsigned int index = hash(matricula, hashtable->tamanho);
@@ -71,10 +58,9 @@ Carro* procura_carro_na_hashtable(HashTable_Carros hashtable, char* matricula) {
 }
 
 /**
- * @brief Percorre todos os carros na hashtable e imprime a sua matrícula, 
- * se estão dentro ou fora de um parque e os seus registos.
- * 
- * @param hashtable
+ * @brief Percorre os carros da hashtable de carros recebida 
+ * e, para cada carro, imprime a sua matrícula, se estão 
+ * dentro ou fora de um parque e os seus registos.
  */
 void imprime_hashtable_carros(HashTable_Carros hashtable) {
     for (int i=0; i < hashtable->tamanho; i++) {
@@ -83,10 +69,9 @@ void imprime_hashtable_carros(HashTable_Carros hashtable) {
 }
 
 /**
- * @brief Liberta a memória da hashtable, podendo ou não libertar os carros.
- * 
- * @param hashtable 
- * @param libertar_carros TRUE ou FALSE
+ * @brief Liberta a hashtable de carros recebida, as listas de 
+ * carros que a hashtable contém e os seus nós, podendo ou não 
+ * libertar os carros (depende do parâmetro libertar_carros).
  */
 void liberta_hashtable_carros(HashTable_Carros hashtable, int libertar_carros) {
     for (int i = 0; i < hashtable->tamanho; i++) {

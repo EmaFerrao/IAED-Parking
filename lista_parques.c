@@ -1,5 +1,5 @@
 /**
- * Declara a estrutura de uma lista de parques e os seus métodos.
+ * Define os métodos de uma lista de parques.
  * 
  * @file lista_parques.c
  * @author ist1109247
@@ -11,10 +11,8 @@
 #include "lista_parques.h"
 
 /**
- * @brief Cria uma nova lista de parques, que tem 
+ * @brief Cria e devolve uma nova lista de parques, que tem 
  * de ser libertada quando deixar de ser utilizada.
- * 
- * @return lista de parques
  */
 Lista_Parques cria_lista_parques() {
     Lista_Parques lista_parques = (Lista_Parques) 
@@ -26,10 +24,7 @@ Lista_Parques cria_lista_parques() {
 }
 
 /**
- * @brief Insere um parque no fim da lista de parques.
- * 
- * @param lista_parques 
- * @param parque 
+ * @brief Insere o parque recebido no fim da lista de parques recebida.
  */
 void insere_parque_no_fim(Lista_Parques lista_parques, Parque* parque) {
     Parque_Node* parque_node = (Parque_Node*) malloc(sizeof(Parque_Node));
@@ -47,7 +42,8 @@ void insere_parque_no_fim(Lista_Parques lista_parques, Parque* parque) {
 }
 
 /**
- * @brief Percorre a lista de parques, executando uma operação em cada parque.
+ * @brief Percorre a lista de parques recebida, 
+ * executando uma operação em cada parque.
  * 
  * @param lista_parques 
  * @param operacao função que recebe um parque e não devolve nada.
@@ -62,12 +58,9 @@ void itera_lista_parques(Lista_Parques lista_parques, Operacao_Parque operacao) 
 
 
 /**
- * @brief Recebendo o nome de um parque, devolve o parque correspondente. 
- * Se não houver um parque com esse nome, devolve NULL.
- * 
- * @param lista_parques 
- * @param nome 
- * @return parque 
+ * @brief Recebe um nome e devolve o parque com 
+ * esse nome na lista de parques recebida. Se a 
+ * lista não tiver um parque com esse nome, devolve NULL.
  */
 Parque* procura_parque(Lista_Parques lista_parques, char* nome) {
     Parque_Node* aux = lista_parques->head;
@@ -82,32 +75,36 @@ Parque* procura_parque(Lista_Parques lista_parques, char* nome) {
 
 /**
  * @brief Percorre a lista de parques e, para cada parque, 
- * imprime o seu nome, a capacidade e o número de lugares disponíveis.
- * 
- * @param lista_parques 
+ * imprime o seu nome, a capacidade e o número de lugares disponíveis. 
  */
 void imprime_lista_parques(Lista_Parques lista_parques) {
     itera_lista_parques(lista_parques, imprime_parque_capacidade_lugares);
 }
 
-
+/**
+ * @brief Cria um vetor de strings com os nomes 
+ * dos parques da lista de parques recebida.
+ */
 void cria_vetor_nomes_parques(Lista_Parques lista_parques, 
-                              char*** nomes_parques, int numero_parques) {
+                              char** nomes_parques, int numero_parques) {
     Parque_Node* aux = lista_parques->head;
 
     for (int i = 0; i < numero_parques; i++) {
-        nomes_parques[i] = &aux->parque->nome;
+        nomes_parques[i] = aux->parque->nome;
         aux = aux -> next;
     }
 }
 
-void ordena_vetor_por_nome(char*** vetor, int tamanho) {
+/**
+ * @brief Ordena um vetor de strings por ordem ASCII.
+ */
+void ordena_vetor_por_nome(char** vetor, int tamanho) {
     int i, j;
-    char** temporario;
+    char* temporario;
 
     for (i = 0; i < tamanho - 1; i++) {
         for (j = 0; j < tamanho - i - 1; j++) {
-            if (strcmp(*vetor[j], *vetor[j + 1]) > 0) {
+            if (strcmp(vetor[j], vetor[j + 1]) > 0) {
                 temporario = vetor[j];
                 vetor[j] = vetor[j + 1];
                 vetor[j + 1] = temporario;
@@ -116,20 +113,32 @@ void ordena_vetor_por_nome(char*** vetor, int tamanho) {
     }
 }
 
-void imprime_vetor(char*** vetor, int tamanho) {
+/**
+ * @brief Percorre um vetor de strings e imprime os seus elementos.
+ */
+void imprime_vetor(char** vetor, int tamanho) {
     for (int i = 0; i < tamanho; i++) {
-        printf("%s\n", *vetor[i]);
+        printf("%s\n", vetor[i]);
     }
 }
 
+/**
+ * @brief Imprime, por ordem ASCII, os nomes 
+ * dos parques da lista de parques recebida.
+ */
 void imprime_lista_parques_por_nome(Lista_Parques lista_parques) {
     int numero_parques = lista_parques->numero_parques;
-    char** nomes_parques[numero_parques];
+    char* nomes_parques[numero_parques];
     cria_vetor_nomes_parques(lista_parques, nomes_parques, numero_parques);
     ordena_vetor_por_nome(nomes_parques, numero_parques);
     imprime_vetor(nomes_parques, numero_parques);
 }
 
+/**
+ * @brief Apaga o parque recebido da lista de parques recebida. 
+ * Apaga os registos do parque, nas suas listas e nas 
+ * listas de registos dos carros. 
+ */
 void remove_parque(Lista_Parques lista_parques, Parque* parque) {
     Parque_Node* aux = lista_parques->head;
     Parque_Node* anterior = NULL;
@@ -158,6 +167,11 @@ void remove_parque(Lista_Parques lista_parques, Parque* parque) {
     }
 }
 
+/**
+ * @brief Liberta a lista de parques recebida e os 
+ * seus nós, podendo ou não libertar os parques,
+ * (depende do parâmetro libertar_parques).
+ */
 void liberta_lista_parques(Lista_Parques lista_parques, int libertar_parques) {
     Parque_Node* aux = lista_parques->head;
     Parque_Node* next;

@@ -1,6 +1,6 @@
 /**
- * Declara a função que recebe o input e identifica o comando e 
- * as funções específicas de cada comando.
+ * Declara a função que recebe o input e identifica o 
+ * comando e as funções específicas de cada comando.
  * 
  * @file comandos.h
  * @author ist1109247
@@ -11,7 +11,7 @@
 #include "lista_parques.h"
 #include "hashtable_carros.h"
 
-#define BUFSIZE 8192 // numero usado para receber input de tamanho desconhecido
+#define BUFSIZE 8192 // número usado para receber input de tamanho desconhecido
 
 
 void recebe_input_identifica_comando(Lista_Parques lista_parques, 

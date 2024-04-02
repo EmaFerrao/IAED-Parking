@@ -10,17 +10,9 @@
 #include "bool.h"
 
 /**
- * @brief Recolhe os argumentos do comando "p" da linha de input que recebe. 
+ * @brief Recolhe os argumentos do comando "p" da linha de input recebida. 
  * Devolve o número de argumentos recebidos, se forem iguais aos esperados, 
  * e FALSE caso contrário. 
- * 
- * @param linha 
- * @param nome_parque 
- * @param capacidade 
- * @param valor_15 
- * @param valor_15_apos_1hora 
- * @param valor_max_diario 
- * @return número de argumentos no input ou FALSE 
  */
 int le_p(char* linha, char* nome_parque, int* capacidade, float* valor_15, 
          float* valor_15_apos_1hora, float* valor_max_diario) {
@@ -48,16 +40,6 @@ int le_p(char* linha, char* nome_parque, int* capacidade, float* valor_15,
  * @brief Recolhe os argumentos dos comandos "e" e "s" da linha de 
  * input que recebe. Devolve TRUE se recolher todos os argumentos 
  * esperados e FALSE caso contrário. 
- * 
- * @param linha 
- * @param nome_parque 
- * @param matricula 
- * @param dia 
- * @param mes 
- * @param ano 
- * @param hora 
- * @param minutos 
- * @return TRUE ou FALSE 
  */
 int le_e_s(char* linha, char* nome_parque, char* matricula, int* dia, 
            int* mes, int* ano, int* hora, int* minutos) {
@@ -81,12 +63,8 @@ int le_e_s(char* linha, char* nome_parque, char* matricula, int* dia,
 
 /**
  * @brief Recolhe os argumentos do comando "v" da linha de 
- * input que recebe. Devolve o número de argumentos recebidos, 
+ * input recebida. Devolve o número de argumentos recebidos, 
  * se forem iguais aos esperados, e FALSE caso contrário.
- * 
- * @param linha 
- * @param matricula 
- * @return número de argumentos no input ou FALSE 
  */
 int le_v(char* linha, char* matricula) {
     char comando;
@@ -101,12 +79,8 @@ int le_v(char* linha, char* matricula) {
 
 /**
  * @brief Recolhe os argumentos do comando "f" da linha de 
- * input que recebe. Devolve o número de argumentos recebidos, 
+ * input recebida. Devolve o número de argumentos recebidos, 
  * se forem iguais aos esperados, e FALSE caso contrário.
- * 
- * @param linha 
- * @param matricula 
- * @return número de argumentos no input ou FALSE 
  */
 int le_f(char* linha, char* nome_parque, int* dia, int* mes, int* ano) {
     char comando;
@@ -129,12 +103,8 @@ int le_f(char* linha, char* nome_parque, int* dia, int* mes, int* ano) {
 
 /**
  * @brief Recolhe os argumentos do comando "r" da linha de 
- * input que recebe. Devolve TRUE se recolher todos os 
+ * input recebida. Devolve TRUE se recolher todos os 
  * argumentos esperados e FALSE caso contrário. 
- * 
- * @param linha 
- * @param matricula 
- * @return TRUE ou FALSE 
  */
 int le_r(char* linha, char* nome_parque) {
     char comando;

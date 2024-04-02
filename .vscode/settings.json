@@ -4,6 +4,8 @@
         "carro.h": "c",
         "registo.h": "c",
         "ler_input.h": "c",
-        "lista_parques.h": "c"
+        "lista_parques.h": "c",
+        "lista_carros.h": "c",
+        "stdio.h": "c"
     }
 }

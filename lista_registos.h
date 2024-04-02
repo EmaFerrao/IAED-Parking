@@ -1,3 +1,9 @@
+/**
+ * Declara a estrutura de uma lista de registos e os seus métodos.
+ * 
+ * @file lista_registos.h
+ * @author ist1109247
+*/
 #ifndef LISTA_REGISTOS_H
 #define LISTA_REGISTOS_H
 
@@ -14,16 +20,30 @@ struct registos_lista{
 };
 typedef struct registos_lista* Lista_Registos;
 
-//Lista de Registos
+
 Lista_Registos cria_lista_registos();
+
 void insere_registo_no_fim(Lista_Registos lista_registos, Registo* registo);
-void insere_registo_por_nome_parque(Lista_Registos lista_registos, Registo* registo);
-void itera_lista_registos(Lista_Registos lista_registos, Operacao_Registo operacao);
-Registo* procura_registo_sem_saida_no_parque(Lista_Registos lista_registos, Parque* parque);
-Registo_Node* procura_primeiro_registo_node_do_dia(Lista_Registos lista_registos, Data* data);
-void imprime_faturacao(Lista_Registos lista_registos);
+
+void insere_registo_por_nome_parque(Lista_Registos lista_registos, 
+                                    Registo* registo);
+
+void itera_lista_registos(Lista_Registos lista_registos, 
+                          Operacao_Registo operacao);
+
+Registo* procura_registo_sem_saida_no_parque(Lista_Registos lista_registos, 
+                                             Parque* parque);
+
+Registo_Node* procura_primeiro_registo_node_do_dia(Lista_Registos lista_registos, 
+                                                   Data* data);
+
+void imprime_faturacao_todos_dias(Lista_Registos lista_registos);
+
 void imprime_faturacao_num_dia(Registo_Node* registo, Data* data);
-void filtra_registos_carro(Lista_Registos lista_registos, Parque* parque);
-void liberta_lista_registos(Lista_Registos lista_registos, int libertar_registos);
+
+void filtra_registos_parque(Lista_Registos lista_registos, Parque* parque);
+
+void liberta_lista_registos(Lista_Registos lista_registos, 
+                            int libertar_registos);
 
 #endif

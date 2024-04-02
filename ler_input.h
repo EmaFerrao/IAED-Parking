@@ -1,7 +1,7 @@
 /**
  * Declara as funções que recolhem os argumentos 
- * de linhas de input com diferentes comandos, e o número 
- * de argumentos esperados em cada comando.
+ * de linhas de input com diferentes comandos, e o 
+ * número de argumentos esperados em cada comando.
  * 
  * @file ler_input.h
  * @author ist1109247

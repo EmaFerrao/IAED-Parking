@@ -10,15 +10,8 @@
 #include "bool.h"
 
 /**
- * @brief Cria uma nova data, que tem de ser 
+ * @brief Cria e devolve uma nova data, que tem de ser 
  * libertada quando deixar de ser utilizada.
- * 
- * @param ano 
- * @param mes 
- * @param dia 
- * @param hora 
- * @param minutos 
- * @return Data* 
  */
 Data* cria_data(int ano, int mes, int dia, int hora, int minutos) {
     Data* data = (Data*) malloc(sizeof(Data));
@@ -31,10 +24,7 @@ Data* cria_data(int ano, int mes, int dia, int hora, int minutos) {
 }
 
 /**
- * @brief Devolve o número de dias num dado mês.
- * 
- * @param mes 
- * @return número de dias
+ * @brief Devolve o número de dias no mês recebido.
  */
 int dias_no_mes(int mes) {
     int dias_mes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -42,10 +32,7 @@ int dias_no_mes(int mes) {
 }
 
 /**
- * @brief Devolve TRUE se receber uma data válida e FALSE caso contrário.
- * 
- * @param data 
- * @return TRUE ou FALSE
+ * @brief Verifica se a data é válida..
  */
 int data_valida(Data* data) {
     if (data->ano < 2000) return FALSE;
@@ -57,13 +44,8 @@ int data_valida(Data* data) {
 }
 
 /**
- * @brief Devolve TRUE se a data do segundo argumento 
- * for mais recente do que a data do primeiro e FALSE
- * caso contrário.
- * 
- * @param data1 
- * @param data2 
- * @return TRUE ou FALSE
+ * @brief Verifica se a data do segundo argumento 
+ * é mais recente do que a data do primeiro.
  */
 int data_mais_recente(Data* data1, Data* data2) {
     if (data2->ano < data1->ano) return FALSE;
@@ -80,9 +62,6 @@ int data_mais_recente(Data* data1, Data* data2) {
 
 /**
  * @brief Devolve o número de dias desde o ano 0 até ao ano recebido.
- * 
- * @param ano 
- * @return número de dias
  */
 int total_dias_ano(int ano) {
     return 365 * ano - ano / 100 + ano / 400;
@@ -91,9 +70,6 @@ int total_dias_ano(int ano) {
 /**
  * @brief Devolve o número de minutos desde 00-00-0000 00:00 
  * até à data recebida.
- * 
- * @param data 
- * @return número de minutos
  */
 int data_para_minutos(Data* data) {
     int minutos = 0;
@@ -111,22 +87,14 @@ int data_para_minutos(Data* data) {
 
 /**
  * @brief Devolve o número de minutos entre as datas recebidas.
- * 
- * @param data1 
- * @param data2 
- * @return número de minutos
  */
 int diferenca_em_minutos(Data* data1, Data* data2) {
     return data_para_minutos(data2) - data_para_minutos(data1);
 }
 
 /**
- * @brief Devolve TRUE se as datas forem no mesmo dia, 
- * do mesmo mês, do mesmo ano e FALSE caso contrário.
- * 
- * @param data1 
- * @param data2 
- * @return TRUE ou FALSE 
+ * @brief Verifica se as datas são no mesmo 
+ * dia, do mesmo mês e do mesmo ano.
  */
 int mesmo_dia(Data* data1, Data* data2) {
     if (data1->ano != data2->ano) return FALSE;
