@@ -6,10 +6,9 @@
 */
 #include <stdio.h> 
 #include <stdlib.h>
-#include <ctype.h> 
 #include <string.h>
-#include "bool.h"
 #include "lista_registos.h"
+#include "bool.h"
 #include "parque.h"
 #include "hashtable_carros.h"
 

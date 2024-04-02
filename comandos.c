@@ -245,10 +245,12 @@ void comando_r(char* linha, Lista_Parques lista_parques) {
     if(!le_r(linha, nome_parque)) {
         return;
     }
+
     parque = procura_parque(lista_parques, nome_parque);
     if (!verifica_parque_existe(parque, nome_parque)) {
         return;
     }
+    
     remove_parque(lista_parques, parque);
     imprime_lista_parques_por_nome(lista_parques);
 }
