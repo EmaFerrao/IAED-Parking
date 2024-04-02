@@ -158,9 +158,9 @@ void comando_e(char* linha, Lista_Parques lista_parques,
 void executa_saida(Parque* parque, Carro* carro, Registo* registo, 
                    Data* data_saida, Data* data_sistema) {
     float custo;
-    custo = calcula_custo(registo, parque);
     *data_sistema = *data_saida;
     guarda_saida_no_registo(registo, data_saida);
+    custo = calcula_custo(registo, parque);
     guarda_custo_no_registo(registo, custo);
     insere_registo_no_fim(parque->lista_saidas, registo);
     parque->lugares_disponiveis += 1;
